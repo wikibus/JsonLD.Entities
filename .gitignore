@@ -17,6 +17,7 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+**/VersionAssemblyInfo.cs
 
 # Roslyn cache directories
 *.ide/
