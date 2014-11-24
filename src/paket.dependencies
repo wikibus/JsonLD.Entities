@@ -1,0 +1,6 @@
+source https://nuget.org/api/v2
+
+nuget json-ld.net
+nuget GitLink
+nuget StyleCopPlus.MSBuild
+nuget Zoltu.Versioning
