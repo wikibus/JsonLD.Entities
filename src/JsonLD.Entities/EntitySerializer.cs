@@ -1,4 +1,7 @@
-﻿namespace JsonLD.Entities
+﻿using JsonLD.Core;
+using Newtonsoft.Json;
+
+namespace JsonLD.Entities
 {
     /// <summary>
     /// Entity serializer
@@ -23,7 +26,12 @@
         /// <param name="nQuads">RDF data in NQuads.</param>
         public T Deserialize<T>(string nQuads)
         {
-            throw new System.NotImplementedException();
+            var jsonLdObject = JsonLdProcessor.FromRDF(nQuads);
+            var jsonLdContext = _contextProvider.GetExpandedContext(typeof(T));
+            return JsonLdProcessor.Compact(jsonLdObject, jsonLdContext, new JsonLdOptions()).ToObject<T>(new JsonSerializer
+                {
+                    DateFormatHandling = DateFormatHandling.IsoDateFormat
+                });
         }
     }
 }
