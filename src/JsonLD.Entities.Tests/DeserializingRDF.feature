@@ -1,5 +1,6 @@
 ﻿Feature: Deserializing RDF data into objects
 
+@NQuads
 Scenario: Deserialize simple resource entity
 	Given NQuads:
 		"""

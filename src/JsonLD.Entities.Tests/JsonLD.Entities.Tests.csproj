@@ -975,20 +975,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bindings\DeserializationContext.cs" />
     <Compile Include="Bindings\DeserializingObjectsSteps.cs" />
-    <Compile Include="Deserializing.feature.cs">
+    <Compile Include="Bindings\DeserializingRDFSteps.cs" />
+    <Compile Include="Bindings\EntityVerificationSteps.cs" />
+    <Compile Include="DeserializingJsonLD.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Deserializing.feature</DependentUpon>
+      <DependentUpon>DeserializingJsonLD.feature</DependentUpon>
+    </Compile>
+    <Compile Include="DeserializingRDF.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeserializingRDF.feature</DependentUpon>
     </Compile>
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Deserializing.feature">
+    <None Include="DeserializingJsonLD.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Deserializing.feature.cs</LastGenOutput>
+      <LastGenOutput>DeserializingJsonLD.feature.cs</LastGenOutput>
+    </None>
+    <None Include="DeserializingRDF.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>DeserializingRDF.feature.cs</LastGenOutput>
     </None>
     <None Include="paket.references" />
   </ItemGroup>

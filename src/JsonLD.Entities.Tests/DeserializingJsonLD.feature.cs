@@ -19,20 +19,21 @@ namespace JsonLD.Entities.Tests
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Deserializing RDF data into objects")]
-    public partial class DeserializingRDFDataIntoObjectsFeature
+    [NUnit.Framework.DescriptionAttribute("DeserializingJsonLD")]
+    public partial class DeserializingJsonLDFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "DeserializingRDF.feature"
+#line 1 "DeserializingJsonLD.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Deserializing RDF data into objects", "", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeserializingJsonLD", "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
+                    "wo numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -65,31 +66,35 @@ namespace JsonLD.Entities.Tests
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Deserialize simple resource entity")]
-        [NUnit.Framework.CategoryAttribute("NQuads")]
-        public virtual void DeserializeSimpleResourceEntity()
+        [NUnit.Framework.DescriptionAttribute("Deserialize compacted JSON-LD object")]
+        [NUnit.Framework.CategoryAttribute("mytag")]
+        public virtual void DeserializeCompactedJSON_LDObject()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize simple resource entity", new string[] {
-                        "NQuads"});
-#line 4
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize compacted JSON-LD object", new string[] {
+                        "mytag"});
+#line 7
 this.ScenarioSetup(scenarioInfo);
 #line hidden
-#line 5
- testRunner.Given("NQuads:", @"<http://example.com/Person> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/ontology#Person> .
-<http://example.com/Person> <http://xmlns.com/foaf/0.1/givenName> ""Tomasz"" .
-<http://example.com/Person> <http://xmlns.com/foaf/0.1/familyName> ""Pluskiewicz"" .
-<http://example.com/Person> <http://example.com/ontology#dateOfBirth> ""1975-08-15"" .", ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 12
- testRunner.And("@context is:", "{\r\n\tfoaf: \"http://xmlns.com/foaf/0.1/\",\r\n\tname: \"foaf:givenName\",\r\n\tsurname: \"foa" +
-                    "f:familyName\",\r\n\tbirthDate: \"http://example.com/ontology#dateOfBirth\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 21
- testRunner.When("I deserialize into \'JsonLD.Entities.Tests.Entities.Person\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 22
- testRunner.Then("object should have property \'Name\' equal to \'Tomasz\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 8
+ testRunner.Given("JSON-LD:", @"{
+	""@context"": {
+		foaf: ""http://xmlns.com/foaf/0.1/"",
+		name: ""foaf:givenName"",
+		surname: ""foaf:familyName"",
+		birthDate: ""http://example.com/ontology#dateOfBirth""
+	},
+	""@id"": ""http://example.com/Person"",
+	name: ""Tomasz"",
+	surname: ""Pluskiewicz"",
+	birthDate: ""1975-08-15""
+}", ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 23
- testRunner.And("object should have property \'Surname\' equal to \'Pluskiewicz\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I deserialize into \'JsonLD.Entities.Tests.Entities.Person\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 24
+ testRunner.Then("object should have property \'Name\' equal to \'Tomasz\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 25
+ testRunner.And("object should have property \'Surname\' equal to \'Pluskiewicz\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 26
  testRunner.And("object should have DateTime property \'BirthDate\' equal to \'15-08-1975\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

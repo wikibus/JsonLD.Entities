@@ -1,69 +1,40 @@
 ﻿using System;
-using System.Globalization;
 using System.Reflection;
 using FakeItEasy;
-using ImpromptuInterface;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
 using TechTalk.SpecFlow;
 
 namespace JsonLD.Entities.Tests.Bindings
 {
     [Binding]
-    public class DeserializingRDFDataIntoObjectsSteps
+    public class DeserializingSteps
     {
         private static readonly MethodInfo DeserializeMethod = Info.OfMethod("JsonLD.Entities", "JsonLD.Entities.IEntitySerializer", "Deserialize", "System.String");
+        private readonly DeserializationContext _context;
 
-        private IEntitySerializer _serializer;
-        private string _nquads;
-        private object _entity;
-        private IContextProvider _contextProvider;
-        private JObject _context;
-
-        public DeserializingRDFDataIntoObjectsSteps()
+        public DeserializingSteps(DeserializationContext context)
         {
-            _contextProvider = A.Fake<IContextProvider>();
-            _serializer = new EntitySerializer(_contextProvider);
+            _context = context;
         }
 
-        [Given(@"NQuads:")]
-        public void GivenRDFData(string nQuads)
-        {
-            _nquads = nQuads;
-        }
-        
         [Given(@"@context is:")]
         public void GivenContextIs(string jsonLdContext)
         {
-            _context = JObject.Parse(jsonLdContext);
+            ScenarioContext.Current.Set(JObject.Parse(jsonLdContext));
         }
-        
+
+        [Scope(Tag = "NQuads")]
         [When(@"I deserialize into '(.*)'")]
         public void WhenIDeserializeInto(string typeName)
         {
             var entityType = Type.GetType(typeName, true);
 
-            A.CallTo(() => _contextProvider.GetExpandedContext(entityType)).Returns(_context);
+            A.CallTo(() => _context.ContextProvider.GetExpandedContext(entityType)).Returns(ScenarioContext.Current.Get<JObject>());
             var typedDeserialize = DeserializeMethod.MakeGenericMethod(entityType);
 
-            _entity = typedDeserialize.Invoke(_serializer, new object[] { _nquads });
-        }
-        
-        [Then(@"object should have property '(.*)' equal to '(.*)'")]
-        public void ThenObjectShouldHavePropertyEqualTo(string propertyName, string expectedValue)
-        {
-            var actualValue = Impromptu.InvokeGet(_entity, propertyName);
-          
-            Assert.That(actualValue, Is.EqualTo(expectedValue));
-        }
+            var entity = typedDeserialize.Invoke(_context.Serializer, new object[] { _context.NQuads });
 
-        [Then(@"object should have DateTime property '(.*)' equal to '(\d\d-\d\d-\d\d\d\d)'")]
-        public void ThenObjectShouldHaveDateTimePropertyEqualTo(string propertyName, string expectedDateString)
-        {
-            var actualValue = Impromptu.InvokeGet(_entity, propertyName);
-            var expectedValue = DateTime.ParseExact(expectedDateString, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-
-            Assert.That(actualValue, Is.EqualTo(expectedValue));
+            ScenarioContext.Current.Set(entity, "Entity");
         }
     }
 }
