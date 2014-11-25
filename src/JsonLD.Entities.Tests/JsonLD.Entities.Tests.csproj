@@ -989,6 +989,7 @@
       <DependentUpon>DeserializingRDF.feature</DependentUpon>
     </Compile>
     <Compile Include="Entities\Person.cs" />
+    <Compile Include="EntitySerializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -43,6 +43,11 @@ namespace JsonLD.Entities
         public T Deserialize<T>(JObject jsonLd)
         {
             var jsonLdContext = _contextProvider.GetExpandedContext(typeof(T));
+            if (jsonLdContext == null)
+            {
+                throw new ContextNotFoundException(typeof(T));
+            }
+
             return JsonLdProcessor.Compact(jsonLd, jsonLdContext, new JsonLdOptions()).ToObject<T>(new JsonSerializer
                 {
                     DateFormatHandling = DateFormatHandling.IsoDateFormat
