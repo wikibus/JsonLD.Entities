@@ -6,6 +6,7 @@ using TechTalk.SpecFlow;
 
 namespace JsonLD.Entities.Tests.Bindings
 {
+    [Binding]
     public class EntityVerificationSteps
     {
         [Then(@"object should have property '(.*)' equal to '(.*)'")]

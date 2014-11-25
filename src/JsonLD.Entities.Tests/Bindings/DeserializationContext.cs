@@ -1,4 +1,5 @@
 ﻿using FakeItEasy;
+using Newtonsoft.Json.Linq;
 
 namespace JsonLD.Entities.Tests.Bindings
 {
@@ -24,5 +25,7 @@ namespace JsonLD.Entities.Tests.Bindings
         }
 
         public string NQuads { get; set; }
+
+        public JObject JsonLdObject { get; set; }
     }
 }

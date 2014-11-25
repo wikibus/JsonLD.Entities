@@ -67,34 +67,37 @@ namespace JsonLD.Entities.Tests
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Deserialize compacted JSON-LD object")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
+        [NUnit.Framework.CategoryAttribute("JsonLD")]
         public virtual void DeserializeCompactedJSON_LDObject()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize compacted JSON-LD object", new string[] {
-                        "mytag"});
+                        "JsonLD"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line hidden
 #line 8
  testRunner.Given("JSON-LD:", @"{
 	""@context"": {
-		foaf: ""http://xmlns.com/foaf/0.1/"",
-		name: ""foaf:givenName"",
-		surname: ""foaf:familyName"",
-		birthDate: ""http://example.com/ontology#dateOfBirth""
+		""foaf"": ""http://xmlns.com/foaf/0.1/"",
+		""firstName"": ""foaf:givenName"",
+		""lastName"": ""foaf:familyName""
 	},
 	""@id"": ""http://example.com/Person"",
-	name: ""Tomasz"",
-	surname: ""Pluskiewicz"",
-	birthDate: ""1975-08-15""
+	""firstName"": ""Tomasz"",
+	""lastName"": ""Pluskiewicz"",
+	""http://example.com/ontology#dateOfBirth"": ""1975-08-15""
 }", ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 23
+#line hidden
+#line 22
+ testRunner.And("@context is:", "{\r\n\tfoaf: \"http://xmlns.com/foaf/0.1/\",\r\n\tname: \"foaf:givenName\",\r\n\tsurname: \"foa" +
+                    "f:familyName\",\r\n\tbirthDate: \"http://example.com/ontology#dateOfBirth\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 31
  testRunner.When("I deserialize into \'JsonLD.Entities.Tests.Entities.Person\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 24
+#line 32
  testRunner.Then("object should have property \'Name\' equal to \'Tomasz\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 25
+#line 33
  testRunner.And("object should have property \'Surname\' equal to \'Pluskiewicz\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 26
+#line 34
  testRunner.And("object should have DateTime property \'BirthDate\' equal to \'15-08-1975\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

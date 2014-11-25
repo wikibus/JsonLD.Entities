@@ -976,8 +976,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bindings\DeserializationContext.cs" />
-    <Compile Include="Bindings\DeserializingObjectsSteps.cs" />
-    <Compile Include="Bindings\DeserializingRDFSteps.cs" />
+    <Compile Include="Bindings\DeserializingSteps.cs" />
     <Compile Include="Bindings\EntityVerificationSteps.cs" />
     <Compile Include="DeserializingJsonLD.feature.cs">
       <AutoGen>True</AutoGen>

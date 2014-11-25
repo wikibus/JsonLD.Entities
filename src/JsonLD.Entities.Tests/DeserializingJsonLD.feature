@@ -3,21 +3,29 @@
 	As a math idiot
 	I want to be told the sum of two numbers
 
-@mytag
+@JsonLD
 Scenario: Deserialize compacted JSON-LD object
 	Given JSON-LD:
 		"""
 		{
 			"@context": {
-				foaf: "http://xmlns.com/foaf/0.1/",
-				name: "foaf:givenName",
-				surname: "foaf:familyName",
-				birthDate: "http://example.com/ontology#dateOfBirth"
+				"foaf": "http://xmlns.com/foaf/0.1/",
+				"firstName": "foaf:givenName",
+				"lastName": "foaf:familyName"
 			},
 			"@id": "http://example.com/Person",
-			name: "Tomasz",
-			surname: "Pluskiewicz",
-			birthDate: "1975-08-15"
+			"firstName": "Tomasz",
+			"lastName": "Pluskiewicz",
+			"http://example.com/ontology#dateOfBirth": "1975-08-15"
+		}
+		"""
+	And @context is:
+		"""
+		{
+			foaf: "http://xmlns.com/foaf/0.1/",
+			name: "foaf:givenName",
+			surname: "foaf:familyName",
+			birthDate: "http://example.com/ontology#dateOfBirth"
 		}
 		"""
 	When I deserialize into 'JsonLD.Entities.Tests.Entities.Person'

@@ -1,5 +1,6 @@
 ﻿using JsonLD.Core;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace JsonLD.Entities
 {
@@ -29,6 +30,20 @@ namespace JsonLD.Entities
             var jsonLdObject = JsonLdProcessor.FromRDF(nQuads);
             var jsonLdContext = _contextProvider.GetExpandedContext(typeof(T));
             return JsonLdProcessor.Compact(jsonLdObject, jsonLdContext, new JsonLdOptions()).ToObject<T>(new JsonSerializer
+                {
+                    DateFormatHandling = DateFormatHandling.IsoDateFormat
+                });
+        }
+
+        /// <summary>
+        /// Deserializes the JSON-LD object into a typed model.
+        /// </summary>
+        /// <typeparam name="T">destination entity model</typeparam>
+        /// <param name="jsonLd">a JSON-LD object</param>
+        public T Deserialize<T>(JObject jsonLd)
+        {
+            var jsonLdContext = _contextProvider.GetExpandedContext(typeof(T));
+            return JsonLdProcessor.Compact(jsonLd, jsonLdContext, new JsonLdOptions()).ToObject<T>(new JsonSerializer
                 {
                     DateFormatHandling = DateFormatHandling.IsoDateFormat
                 });
