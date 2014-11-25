@@ -25,7 +25,7 @@ namespace JsonLD.Entities.Tests
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "Deserializing.feature"
+#line 1 "DeserializingRDF.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
