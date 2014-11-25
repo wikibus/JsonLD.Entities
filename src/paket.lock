@@ -13,6 +13,7 @@ NUGET
       VDS.Common (1.4.0) - net35
       VDS.Common (1.4.0) - net40
       VDS.Common (1.4.0) - portable-7.0
+    FakeItEasy (1.25.1)
     Fody (1.26.2)
     gitlink (2.0.0)
     HtmlAgilityPack (1.4.6)

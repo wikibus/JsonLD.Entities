@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
+using FakeItEasy;
 using ImpromptuInterface;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -16,9 +18,11 @@ namespace JsonLD.Entities.Tests.Bindings
         private string _nquads;
         private object _entity;
         private IContextProvider _contextProvider;
+        private JObject _context;
 
         public DeserializingRDFDataIntoObjectsSteps()
         {
+            _contextProvider = A.Fake<IContextProvider>();
             _serializer = new EntitySerializer(_contextProvider);
         }
 
@@ -31,12 +35,15 @@ namespace JsonLD.Entities.Tests.Bindings
         [Given(@"@context is:")]
         public void GivenContextIs(string jsonLdContext)
         {
+            _context = JObject.Parse(jsonLdContext);
         }
         
         [When(@"I deserialize into '(.*)'")]
         public void WhenIDeserializeInto(string typeName)
         {
             var entityType = Type.GetType(typeName, true);
+
+            A.CallTo(() => _contextProvider.GetExpandedContext(entityType)).Returns(_context);
             var typedDeserialize = DeserializeMethod.MakeGenericMethod(entityType);
 
             _entity = typedDeserialize.Invoke(_serializer, new object[] { _nquads });

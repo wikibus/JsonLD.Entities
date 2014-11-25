@@ -73,14 +73,14 @@ namespace JsonLD.Entities.Tests
 this.ScenarioSetup(scenarioInfo);
 #line hidden
 #line 4
- testRunner.Given("NQuads:", @"<http://example.com/Person> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/ontology#Person> ;
-<http://example.com/Person> <http://xmlns.com/foaf/0.1/givenName> ""Tomasz"" ;
+ testRunner.Given("NQuads:", @"<http://example.com/Person> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/ontology#Person> .
+<http://example.com/Person> <http://xmlns.com/foaf/0.1/givenName> ""Tomasz"" .
 <http://example.com/Person> <http://xmlns.com/foaf/0.1/familyName> ""Pluskiewicz"" .
-<http://example.com/Person> <http://example.com/ontology#dateOfBirth> ""12-08-1975"" .", ((TechTalk.SpecFlow.Table)(null)), "Given ");
+<http://example.com/Person> <http://example.com/ontology#dateOfBirth> ""1975-08-15"" .", ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 11
- testRunner.And("@context is:", "{\r\n\tfoaf: \"http://xmlns.com/foaf/0.1/\",\r\n\tname: \"foaf:givenName\"\r\n\tsurame: \"foaf:" +
-                    "familyName\",\r\n\tbirthDate: \"http://example.com/ontology#dateOfBirth\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("@context is:", "{\r\n\tfoaf: \"http://xmlns.com/foaf/0.1/\",\r\n\tname: \"foaf:givenName\",\r\n\tsurname: \"foa" +
+                    "f:familyName\",\r\n\tbirthDate: \"http://example.com/ontology#dateOfBirth\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 20
  testRunner.When("I deserialize into \'JsonLD.Entities.Tests.Entities.Person\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 21
@@ -88,7 +88,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 22
  testRunner.And("object should have property \'Surname\' equal to \'Pluskiewicz\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
- testRunner.And("object should have DateTime property \'BirthDate\' equal to \'12-08-1975\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("object should have DateTime property \'BirthDate\' equal to \'15-08-1975\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

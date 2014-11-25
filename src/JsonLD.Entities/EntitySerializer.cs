@@ -5,6 +5,17 @@
     /// </summary>
     public class EntitySerializer : IEntitySerializer
     {
+        private readonly IContextProvider _contextProvider;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntitySerializer"/> class.
+        /// </summary>
+        /// <param name="contextProvider">The JSON-LD @context provider.</param>
+        public EntitySerializer(IContextProvider contextProvider)
+        {
+            _contextProvider = contextProvider;
+        }
+
         /// <summary>
         /// Deserializes the NQuads into a typed model
         /// </summary>
