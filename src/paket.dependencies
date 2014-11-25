@@ -9,3 +9,7 @@ nuget SpecFlow
 nuget NullGuard.Fody
 nuget NUnit
 nuget MethodTimer.Fody
+nuget dotNetRDF
+nuget HtmlAgilityPack == 1.4.6
+nuget ImpromptuInterface
+nuget InfoOf.Fody

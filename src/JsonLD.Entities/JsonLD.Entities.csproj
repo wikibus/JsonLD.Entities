@@ -378,7 +378,6 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml">
       <Paket>True</Paket>
-      <SubType>Designer</SubType>
     </Content>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -390,7 +389,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassAttribute.cs" />
+    <Compile Include="EntitySerializer.cs" />
     <Compile Include="IContextProvider.cs" />
+    <Compile Include="IEntitySerializer.cs" />
     <Compile Include="JsonLdContractResolver.cs" />
     <Compile Include="JsonLdConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
