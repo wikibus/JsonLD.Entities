@@ -4,3 +4,4 @@ nuget json-ld.net
 nuget GitLink
 nuget StyleCopPlus.MSBuild
 nuget Zoltu.Versioning
+github tpluscode/FileVersionExtractor

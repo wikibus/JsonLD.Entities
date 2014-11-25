@@ -9,3 +9,7 @@ NUGET
     StyleCopPlus.MSBuild (4.7.49.5)
       StyleCop.MSBuild (>= 4.7.49.0)
     Zoltu.Versioning (1.1.29)
+GITHUB
+  remote: tpluscode/FileVersionExtractor
+  specs:
+    FULLPROJECT (b1126aa31f362d0cd1e19e7abe1acd30da35ab6a)
