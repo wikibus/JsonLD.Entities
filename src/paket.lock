@@ -1,10 +1,17 @@
 NUGET
   remote: https://nuget.org/api/v2
   specs:
+    Fody (1.26.2)
     gitlink (2.0.0)
     json-ld.net (1.0.3)
       Newtonsoft.Json (>= 4.0.1)
+    MethodTimer.Fody (1.15.2)
+      Fody (>= 0)
     Newtonsoft.Json (6.0.6)
+    NullGuard.Fody (1.2.0)
+      Fody (>= 0)
+    NUnit (2.6.3)
+    SpecFlow (1.9.0)
     StyleCop.MSBuild (4.7.49)
     StyleCopPlus.MSBuild (4.7.49.5)
       StyleCop.MSBuild (>= 4.7.49.0)

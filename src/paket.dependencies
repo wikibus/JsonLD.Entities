@@ -5,3 +5,7 @@ nuget GitLink
 nuget StyleCopPlus.MSBuild
 nuget Zoltu.Versioning
 github tpluscode/FileVersionExtractor
+nuget SpecFlow
+nuget NullGuard.Fody
+nuget NUnit
+nuget MethodTimer.Fody

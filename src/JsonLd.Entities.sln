@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileVersionExtractor", "paket-files\tpluscode\FileVersionExtractor\FileVersionExtractor.csproj", "{893216AC-D571-401F-8A5A-726448693552}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonLD.Entities.Tests", "JsonLD.Entities.Tests\JsonLD.Entities.Tests.csproj", "{AE56D865-7892-4A1B-B09D-D697E7F6F894}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{893216AC-D571-401F-8A5A-726448693552}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{893216AC-D571-401F-8A5A-726448693552}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{893216AC-D571-401F-8A5A-726448693552}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE56D865-7892-4A1B-B09D-D697E7F6F894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE56D865-7892-4A1B-B09D-D697E7F6F894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE56D865-7892-4A1B-B09D-D697E7F6F894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE56D865-7892-4A1B-B09D-D697E7F6F894}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
