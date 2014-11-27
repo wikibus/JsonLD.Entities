@@ -58,5 +58,17 @@ namespace JsonLD.Entities
 
             return JsonLdProcessor.Compact(jsonLd, jsonLdContext, new JsonLdOptions()).ToObject<T>(_jsonSerializer);
         }
+
+        /// <summary>
+        /// Serializes the specified entity as JSON-LD.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns>
+        /// A compacted JSON-LD object
+        /// </returns>
+        public JObject Serialize(object entity)
+        {
+            return JObject.FromObject(entity, _jsonSerializer);
+        }
     }
 }

@@ -59,6 +59,7 @@ first test, the IContextProvider object won't be set up in any way.
 Note how the JSON-LD `@id` is by convention deserialized to the `Person#Id` property.
 **/
 
+[TestFixture]
 public class Deserialization
 {
 
@@ -133,7 +134,39 @@ public void Can_deserialize_with_changed_context()
     Assert.That(person.LastName, Is.EqualTo("Pluskiewicz"));
     Assert.That(person.Id, Is.EqualTo(new Uri("http://t-code.pl/#tomasz")));
 }
+}
 
+/**
+### Serialization
+
+Of course it also possible to serialize POCO objects to JSON-LD objects. This time it is necessary to set up a `@context`, which will be
+added to the result.
+**/
+
+[TestFixture]
+public class Serialization
+{
+
+[Test]
+public void Can_serialize_object_to_JSON_LD()
+{
+    // given
+    var person = new Person
+        {
+            Id = new Uri("http://t-code.pl/#tomasz"),
+            Name = "Tomasz",
+            LastName = "Pluskiewicz"
+        };
+
+    // when
+    IEntitySerializer serializer = new EntitySerializer(new StaticContextProvider());
+    dynamic json = serializer.Serialize(person);
+
+    // then
+    Assert.That(json.name, Is.EqualTo("Tomasz"));
+    Assert.That(json.lastName, Is.EqualTo("Pluskiewicz"));
+    Assert.That(json["@id"], Is.EqualTo("http://t-code.pl/#tomasz"));
+}
 }
 
 /**
