@@ -27,7 +27,7 @@ when you open the solution. Each example below and on the wiki is a compiled and
 First let's import the required namespaces.
  
 
-```
+``` c#
 using System;
 using JsonLD.Entities;
 using Newtonsoft.Json.Linq;
@@ -37,7 +37,7 @@ using NUnit.Framework;
 ### Deserialization
  
 
-```
+``` c#
 public class Deserialization
 {
 ```
@@ -48,7 +48,7 @@ The easiest operation possible is to deserialize a JSON-LD object without any ch
 instances of a Person class.
  
 
-```
+``` c#
 public class Person
 {
     public Uri Id { get; set; }
@@ -65,7 +65,7 @@ first test, the IContextProvider object won't be set up in any way.
 
 Note how the JSON-LD `@id` is by convention deserialized to the `Person#Id` property.
 
-```
+``` c#
 [Test]
 public void Can_deserialize_with_existing_context()
 {
