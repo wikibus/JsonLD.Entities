@@ -320,5 +320,6 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="Generate Doc" AfterTargets="Build">
     <Exec Command="$(MSBuildProjectDirectory)\..\..\tools\llite\llite.exe %(Compile.Identity) -l csharp -co ``` -cc ```" />
+    <Copy SourceFiles="Readme.mkd" DestinationFiles="$(MSBuildProjectDirectory)\..\..\readme.md" />
   </Target>
 </Project>
