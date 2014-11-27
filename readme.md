@@ -164,9 +164,9 @@ public void Can_serialize_object_to_JSON_LD()
     dynamic json = serializer.Serialize(person);
 
     // then
-    Assert.That(json.name, Is.EqualTo("Tomasz"));
-    Assert.That(json.lastName, Is.EqualTo("Pluskiewicz"));
-    Assert.That(json["@id"], Is.EqualTo("http://t-code.pl/#tomasz"));
+    Assert.That((string)json.name, Is.EqualTo("Tomasz"));
+    Assert.That((string)json.lastName, Is.EqualTo("Pluskiewicz"));
+    Assert.That((string)json["@id"], Is.EqualTo("http://t-code.pl/#tomasz"));
 }
 }
 ```
