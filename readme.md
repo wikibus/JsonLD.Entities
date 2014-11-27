@@ -1,7 +1,6 @@
 ![icon](https://raw.githubusercontent.com/wikibus/JsonLD.Entities/master/assets/icon.png)
-[![Build status](https://ci.appveyor.com/api/projects/status/u4riv8ftspthkvgh/branch/master?svg=true)](https://ci.appveyor.com/project/tpluscode78631/jsonld-entities/branch/master)
  
-# JsonLD.Entities
+# JsonLD.Entities [![Build status](https://ci.appveyor.com/api/projects/status/u4riv8ftspthkvgh/branch/master?svg=true)](https://ci.appveyor.com/project/tpluscode78631/jsonld-entities/branch/master)
  
 JsonLD.Entities is a small library for serializing and deserializing POCOs in JSON-LD.
  
@@ -138,6 +137,8 @@ public void Can_deserialize_with_changed_context()
 
 }
 ```
+
+Graph image from [W3C](http://www.w3.org/RDF/) originally desgined by [Bill Schwappacher](mailto:bill@tracermedia.com).
 
 [playground]: http://json-ld.org/playground/
 [jsonld-spec]: http://json-ld.org/spec/latest/json-ld/
