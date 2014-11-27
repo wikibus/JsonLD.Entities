@@ -71,7 +71,7 @@ public void Can_deserialize_with_existing_context()
         '@context': {
            'foaf': 'http://xmlns.com/foaf/0.1/',
            'name': 'foaf:name',
-           'familyName': 'foaf:familyName'
+           'familyName': 'foaf:familyName',
            'Person': 'foaf:Person'
         },
         '@id': 'http://t-code.pl/#tomasz',

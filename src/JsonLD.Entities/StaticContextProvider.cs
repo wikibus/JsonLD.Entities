@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
+using NullGuard;
 
 namespace JsonLD.Entities
 {
@@ -13,6 +14,7 @@ namespace JsonLD.Entities
         /// </summary>
         /// <param name="modelType">Type of the model.</param>
         /// <returns>JSON object or null if @context not found</returns>
+        [return: AllowNull]
         public JObject GetContext(Type modelType)
         {
             return null;

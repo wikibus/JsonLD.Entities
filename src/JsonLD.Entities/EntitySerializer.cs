@@ -45,7 +45,10 @@ namespace JsonLD.Entities
             var jsonLdContext = _contextProvider.GetContext(typeof(T));
             if (jsonLdContext == null)
             {
-                throw new ContextNotFoundException(typeof(T));
+                return jsonLd.ToObject<T>(new JsonSerializer
+                    {
+                        DateFormatHandling = DateFormatHandling.IsoDateFormat
+                    });
             }
 
             return JsonLdProcessor.Compact(jsonLd, jsonLdContext, new JsonLdOptions()).ToObject<T>(new JsonSerializer
