@@ -36,12 +36,7 @@ using NUnit.Framework;
 
 /**
 ### Deserialization
- **/
 
-public class Deserialization
-{
-
-/**
 #### Deserializing the model as-is
 
 The easiest operation possible is to deserialize a JSON-LD object without any changes. The example models will be deserialized to 
@@ -64,6 +59,9 @@ first test, the IContextProvider object won't be set up in any way.
 
 Note how the JSON-LD `@id` is by convention deserialized to the `Person#Id` property.
 **/
+
+public class Deserialization
+{
 
 [Test]
 public void Can_deserialize_with_existing_context()
