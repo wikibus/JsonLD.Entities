@@ -54,7 +54,7 @@ public class Person
 }
 ```
 
-Serialization and deserialization is done by instances of IEntitySerializer. It's default implementation requires you to pass a 
+Serialization and deserialization is done by instances of `IEntitySerializer`. It's default implementation requires you to pass a 
 IContextProvider, which provides [@context][jsonld-context] objects for serialized types. Because, we don't want to use a context in the
 first test, the IContextProvider object won't be set up in any way.
 
@@ -99,7 +99,8 @@ Oftentimes, like in public API, you could receive models, which do not conform t
 becuase any document can be represented in numerous equivalent ways. For that purpose the [specification][jsonld-spec] defines a set of
 [algorithms][jsonld-api], which can transform a JSON-LD document between those representations.
 
-Below example shows how the default `IContextProvider` is used to adjust the document strucuture,
+Below example shows how the default `IContextProvider` is used to adjust the document strucuture before deserializing. Perceptive reader
+would have probably noticed already that the `@context` must conform to model's properties. Pascal case in c#, camel case in JSON.
 
 ``` c#
 [Test]
