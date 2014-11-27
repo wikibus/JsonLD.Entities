@@ -102,5 +102,5 @@ public void Can_deserialize_with_existing_context()
 [jsonld-spec]: http://json-ld.org/spec/latest/json-ld/
 [jsonld]: http://json-ld.org
 [rdf]: http://en.wikipedia.org/wiki/Resource_Description_Framework
-[readme]: /wikibus/JsonLD.Entities/blob/master/src/JsonLD.Docu/Readme.cs
+[readme]: http://github.com/wikibus/JsonLD.Entities/blob/master/src/JsonLD.Docu/Readme.cs
 [jsonld-context]: http://www.w3.org/TR/json-ld/#the-context
