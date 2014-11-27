@@ -60,6 +60,11 @@
     <Compile Include="Entities\Person.cs" />
     <Compile Include="EntitySerializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serializing.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Serializing.feature</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -72,6 +77,10 @@
       <LastGenOutput>DeserializingRDF.feature.cs</LastGenOutput>
     </None>
     <None Include="paket.references" />
+    <None Include="Serializing.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Serializing.feature.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JsonLD.Entities\JsonLD.Entities.csproj">
