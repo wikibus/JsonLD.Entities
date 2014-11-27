@@ -20,13 +20,13 @@ namespace JsonLD.Entities.Tests
 
         [Test]
         [ExpectedException(typeof(ContextNotFoundException))]
-        public void Should_throw_when_context_isnt_found()
+        public void Deserializing_quads_should_throw_when_context_isnt_found()
         {
             // given
             A.CallTo(() => _provider.GetContext(typeof(Person))).Returns(null);
 
             // when
-            _serializer.Deserialize<Person>(new JObject());
+            _serializer.Deserialize<Person>(string.Empty);
         }
     }
 }

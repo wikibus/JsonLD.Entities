@@ -10,6 +10,7 @@ namespace JsonLD.Entities
     public class EntitySerializer : IEntitySerializer
     {
         private readonly IContextProvider _contextProvider;
+        private readonly JsonSerializer _jsonSerializer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntitySerializer"/> class.
@@ -18,6 +19,11 @@ namespace JsonLD.Entities
         public EntitySerializer(IContextProvider contextProvider)
         {
             _contextProvider = contextProvider;
+            _jsonSerializer = new JsonSerializer
+                              {
+                                  DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                                  ContractResolver = new JsonLdContractResolver(_contextProvider)
+                              };
         }
 
         /// <summary>
@@ -29,11 +35,7 @@ namespace JsonLD.Entities
         {
             var jsonLdObject = JsonLdProcessor.FromRDF(nQuads);
             var jsonLdContext = _contextProvider.GetContext(typeof(T));
-            return JsonLdProcessor.Compact(jsonLdObject, jsonLdContext, new JsonLdOptions()).ToObject<T>(new JsonSerializer
-                {
-                    DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                    ContractResolver = new JsonLdContractResolver(_contextProvider)
-                });
+            return JsonLdProcessor.Compact(jsonLdObject, jsonLdContext, new JsonLdOptions()).ToObject<T>(_jsonSerializer);
         }
 
         /// <summary>
@@ -46,18 +48,10 @@ namespace JsonLD.Entities
             var jsonLdContext = _contextProvider.GetContext(typeof(T));
             if (jsonLdContext == null)
             {
-                return jsonLd.ToObject<T>(new JsonSerializer
-                    {
-                        DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                        ContractResolver = new JsonLdContractResolver(_contextProvider)
-                    });
+                return jsonLd.ToObject<T>(_jsonSerializer);
             }
 
-            return JsonLdProcessor.Compact(jsonLd, jsonLdContext, new JsonLdOptions()).ToObject<T>(new JsonSerializer
-                {
-                    DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                    ContractResolver = new JsonLdContractResolver(_contextProvider)
-                });
+            return JsonLdProcessor.Compact(jsonLd, jsonLdContext, new JsonLdOptions()).ToObject<T>(_jsonSerializer);
         }
     }
 }
