@@ -35,6 +35,11 @@ namespace JsonLD.Entities
         {
             var jsonLdObject = JsonLdProcessor.FromRDF(nQuads);
             var jsonLdContext = _contextProvider.GetContext(typeof(T));
+            if (jsonLdContext == null)
+            {
+                throw new ContextNotFoundException(typeof(T));
+            }
+
             return JsonLdProcessor.Compact(jsonLdObject, jsonLdContext, new JsonLdOptions()).ToObject<T>(_jsonSerializer);
         }
 
