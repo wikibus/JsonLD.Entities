@@ -1,4 +1,5 @@
 ﻿/**
+![icon](https://raw.githubusercontent.com/wikibus/JsonLD.Entities/master/assets/icon.png)
 [![Build status](https://ci.appveyor.com/api/projects/status/u4riv8ftspthkvgh/branch/master?svg=true)](https://ci.appveyor.com/project/tpluscode78631/jsonld-entities/branch/master)
  
 # JsonLD.Entities
