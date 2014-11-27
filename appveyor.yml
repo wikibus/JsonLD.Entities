@@ -5,4 +5,4 @@ configuration: Release
 
 on_success:
   - nuget pack JsonLd.Entities.nuspec -Version %APPVEYOR_BUILD_VERSION%
-  - appveyor PushArtifact JsonLd.Entities.%APPVEYOR_BUILD_VERSION%.nupkg
+  - ps: Push-AppveyorArtifact "JsonLd.Entities.$($env:APPVEYOR_BUILD_VERSION).nupkg"
