@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using NullGuard;
 
@@ -9,6 +10,16 @@ namespace JsonLD.Entities
     /// </summary>
     public class StaticContextProvider : IContextProvider
     {
+        private readonly IDictionary<Type, JObject> _contexts;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StaticContextProvider"/> class.
+        /// </summary>
+        public StaticContextProvider()
+        {
+            _contexts = new Dictionary<Type, JObject>();
+        }
+
         /// <summary>
         /// Gets the expanded context for a give serialized type..
         /// </summary>
@@ -17,7 +28,17 @@ namespace JsonLD.Entities
         [return: AllowNull]
         public JObject GetContext(Type modelType)
         {
-            return null;
+            JObject context;
+            _contexts.TryGetValue(modelType, out context);
+            return context;
+        }
+
+        /// <summary>
+        /// Sets @context used by given <paramref name="type"/>.
+        /// </summary>
+        public void SetContext(Type type, JObject context)
+        {
+            _contexts[type] = context;
         }
     }
 }

@@ -73,7 +73,7 @@ public void Can_deserialize_with_existing_context()
         '@context': {
            'foaf': 'http://xmlns.com/foaf/0.1/',
            'name': 'foaf:name',
-           'familyName': 'foaf:familyName',
+           'lastName': 'foaf:familyName',
            'Person': 'foaf:Person'
         },
         '@id': 'http://t-code.pl/#tomasz',
@@ -91,12 +91,56 @@ public void Can_deserialize_with_existing_context()
     Assert.That(person.LastName, Is.EqualTo("Pluskiewicz"));
     Assert.That(person.Id, Is.EqualTo(new Uri("http://t-code.pl/#tomasz")));
 }
+```
+
+#### Deserialize with specific @context
+
+Oftentimes, like in public API, you could receive models, which do not conform to some specific JSON structure. With JSON-LD it is possible,
+becuase any document can be represented in numerous equivalent ways. For that purpose the [specification][jsonld-spec] defines a set of
+[algorithms][jsonld-api], which can transform a JSON-LD document between those representations.
+
+Below example shows how the default `IContextProvider` is used to adjust the document strucuture,
+
+``` c#
+[Test]
+public void Can_deserialize_with_changed_context()
+{
+    // given
+    var expanded = JObject.Parse(@"
+    {
+        '@id': 'http://t-code.pl/#tomasz',
+        '@type': 'http://xmlns.com/foaf/0.1/Person',
+        'http://xmlns.com/foaf/0.1/name': 'Tomasz',
+        'http://xmlns.com/foaf/0.1/familyName': 'Pluskiewicz'
+    }");
+
+    var @context = JObject.Parse(@"
+    {
+        'foaf': 'http://xmlns.com/foaf/0.1/',
+        'name': 'foaf:name',
+        'lastName': 'foaf:familyName',
+        'Person': 'foaf:Person'
+    }");
+
+    var contextProvider = new StaticContextProvider();
+    contextProvider.SetContext(typeof(Person), @context);
+
+    // when
+    IEntitySerializer serializer = new EntitySerializer(contextProvider);
+    var person = serializer.Deserialize<Person>(expanded);
+
+    // then
+    Assert.That(person.Name, Is.EqualTo("Tomasz"));
+    Assert.That(person.LastName, Is.EqualTo("Pluskiewicz"));
+    Assert.That(person.Id, Is.EqualTo(new Uri("http://t-code.pl/#tomasz")));
+}
 
 }
 ```
 
 [playground]: http://json-ld.org/playground/
 [jsonld-spec]: http://json-ld.org/spec/latest/json-ld/
+[jsonld-api]: http://www.w3.org/TR/json-ld-api/
 [jsonld]: http://json-ld.org
 [rdf]: http://en.wikipedia.org/wiki/Resource_Description_Framework
 [readme]: http://github.com/wikibus/JsonLD.Entities/blob/master/src/JsonLD.Docu/Readme.cs
