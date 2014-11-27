@@ -60,6 +60,8 @@ public class Person
 Serialization and deserialization is done by instances of IEntitySerializer. It's default implementation requires you to pass a 
 IContextProvider, which provides [@context][jsonld-context] objects for serialized types. Because, we don't want to use a context in the
 first test, the IContextProvider object won't be set up in any way.
+
+Note how the JSON-LD `@id` is by convention deserialized to the `Person#Id` property.
 **/
 
 [Test]

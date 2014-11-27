@@ -31,7 +31,8 @@ namespace JsonLD.Entities
             var jsonLdContext = _contextProvider.GetContext(typeof(T));
             return JsonLdProcessor.Compact(jsonLdObject, jsonLdContext, new JsonLdOptions()).ToObject<T>(new JsonSerializer
                 {
-                    DateFormatHandling = DateFormatHandling.IsoDateFormat
+                    DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                    ContractResolver = new JsonLdContractResolver(_contextProvider)
                 });
         }
 
@@ -47,13 +48,15 @@ namespace JsonLD.Entities
             {
                 return jsonLd.ToObject<T>(new JsonSerializer
                     {
-                        DateFormatHandling = DateFormatHandling.IsoDateFormat
+                        DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                        ContractResolver = new JsonLdContractResolver(_contextProvider)
                     });
             }
 
             return JsonLdProcessor.Compact(jsonLd, jsonLdContext, new JsonLdOptions()).ToObject<T>(new JsonSerializer
                 {
-                    DateFormatHandling = DateFormatHandling.IsoDateFormat
+                    DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                    ContractResolver = new JsonLdContractResolver(_contextProvider)
                 });
         }
     }

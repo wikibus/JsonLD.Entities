@@ -3,6 +3,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using NullGuard;
 
 namespace JsonLD.Entities
 {
@@ -28,7 +29,7 @@ namespace JsonLD.Entities
         /// <param name="writer">The <see cref="T:Newtonsoft.Json.JsonWriter" /> to write to.</param>
         /// <param name="value">The value.</param>
         /// <param name="serializer">The calling serializer.</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, [AllowNull] object value, JsonSerializer serializer)
         {
             writer.WriteStartObject();
 
@@ -77,9 +78,13 @@ namespace JsonLD.Entities
         /// <returns>
         /// The object value.
         /// </returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            var instance = Activator.CreateInstance(objectType);
+
+            serializer.Populate(reader, instance);
+
+            return instance;
         }
 
         /// <summary>
