@@ -31,7 +31,7 @@ First let's import the required namespaces.
 using System;
 using JsonLD.Entities;
 using Newtonsoft.Json.Linq;
-using Xunit;
+using NUnit.Framework;
 
 /**
 ### Deserialization
