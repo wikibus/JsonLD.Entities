@@ -42,7 +42,7 @@ namespace JsonLD.Entities.Tests.Bindings
         {
             var entityType = Type.GetType(typeName, true);
 
-            A.CallTo(() => _context.ContextProvider.GetExpandedContext(entityType)).Returns(ScenarioContext.Current.Get<JObject>());
+            A.CallTo(() => _context.ContextProvider.GetContext(entityType)).Returns(ScenarioContext.Current.Get<JObject>());
             var typedDeserialize = DeserializeQuadsMethod.MakeGenericMethod(entityType);
 
             var entity = typedDeserialize.Invoke(_context.Serializer, new object[] { _context.NQuads });
@@ -56,7 +56,7 @@ namespace JsonLD.Entities.Tests.Bindings
         {
             var entityType = Type.GetType(typeName, true);
 
-            A.CallTo(() => _context.ContextProvider.GetExpandedContext(entityType)).Returns(ScenarioContext.Current.Get<JObject>());
+            A.CallTo(() => _context.ContextProvider.GetContext(entityType)).Returns(ScenarioContext.Current.Get<JObject>());
             var typedDeserialize = DeserializeJsonMethod.MakeGenericMethod(entityType);
 
             var entity = typedDeserialize.Invoke(_context.Serializer, new object[] { _context.JsonLdObject });

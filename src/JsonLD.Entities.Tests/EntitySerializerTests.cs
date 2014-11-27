@@ -23,7 +23,7 @@ namespace JsonLD.Entities.Tests
         public void Should_throw_when_context_isnt_found()
         {
             // given
-            A.CallTo(() => _provider.GetExpandedContext(typeof(Person))).Returns(null);
+            A.CallTo(() => _provider.GetContext(typeof(Person))).Returns(null);
 
             // when
             _serializer.Deserialize<Person>(new JObject());

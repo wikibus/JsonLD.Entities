@@ -4,14 +4,18 @@ using Newtonsoft.Json.Linq;
 namespace JsonLD.Entities
 {
     /// <summary>
-    /// Contract for classes, which provide JSON-LD @context for given types
+    /// Provides a predefined @context for each model type.
     /// </summary>
-    public interface IContextProvider
+    public class StaticContextProvider : IContextProvider
     {
         /// <summary>
         /// Gets the expanded context for a give serialized type..
         /// </summary>
         /// <param name="modelType">Type of the model.</param>
-        JObject GetContext(Type modelType);
+        /// <returns>JSON object or null if @context not found</returns>
+        public JObject GetContext(Type modelType)
+        {
+            return null;
+        }
     }
 }

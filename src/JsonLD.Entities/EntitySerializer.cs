@@ -28,7 +28,7 @@ namespace JsonLD.Entities
         public T Deserialize<T>(string nQuads)
         {
             var jsonLdObject = JsonLdProcessor.FromRDF(nQuads);
-            var jsonLdContext = _contextProvider.GetExpandedContext(typeof(T));
+            var jsonLdContext = _contextProvider.GetContext(typeof(T));
             return JsonLdProcessor.Compact(jsonLdObject, jsonLdContext, new JsonLdOptions()).ToObject<T>(new JsonSerializer
                 {
                     DateFormatHandling = DateFormatHandling.IsoDateFormat
@@ -42,7 +42,7 @@ namespace JsonLD.Entities
         /// <param name="jsonLd">a JSON-LD object</param>
         public T Deserialize<T>(JObject jsonLd)
         {
-            var jsonLdContext = _contextProvider.GetExpandedContext(typeof(T));
+            var jsonLdContext = _contextProvider.GetContext(typeof(T));
             if (jsonLdContext == null)
             {
                 throw new ContextNotFoundException(typeof(T));
