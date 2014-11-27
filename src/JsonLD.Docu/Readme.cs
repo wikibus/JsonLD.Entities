@@ -20,7 +20,23 @@ but RDF represents graphs. And it is possible to represent a graph as multiple e
 To learn more about JSON-LD you should visit its [formal specification][jsonld-spec] and the [playground][playground], where you can 
 experiment.
 
-## Using JsonLD.Entities
+## Getting JsonLD.Entities
+
+The project's CI build creates nupkgs automatically and they are published to a appveyor feed. To install use the below command in
+Package Manager Console.
+
+```
+install-package jsonLD.Entities -Source https://ci.appveyor.com/nuget/jsonld-entities-aavhsnxi7xjp
+```
+
+## Building
+
+The project was created in VS 2010 and should build without problems on any VS 2010 and newer. Note that external packages aren't
+downloaded with NuGet, but rather with a new tool called [Paket](http://fsprojects.github.io/Paket/). For convenience there is a batch file
+in repository root, which will restore the dependencies. For more information about Paket do visit its project page. It's actually very 
+cool! :yum:
+
+## Usage examples
 
 This entire page is generated for actual C# code. You can view it in the [Readme.cs][readme] file and run the tests
 when you open the solution. Each example below and on the wiki is a compiled and runnable unit test.
