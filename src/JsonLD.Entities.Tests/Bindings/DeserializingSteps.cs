@@ -9,8 +9,16 @@ namespace JsonLD.Entities.Tests.Bindings
     [Binding]
     public class DeserializingSteps
     {
-        private static readonly MethodInfo DeserializeQuadsMethod = Info.OfMethod("JsonLD.Entities", "JsonLD.Entities.IEntitySerializer", "Deserialize", "System.String");
-        private static readonly MethodInfo DeserializeJsonMethod = Info.OfMethod("JsonLD.Entities", "JsonLD.Entities.IEntitySerializer", "Deserialize", "Newtonsoft.Json.Linq.JObject");
+        private static readonly MethodInfo DeserializeQuadsMethod = Info.OfMethod("JsonLD.Entities",
+                                                                                  "JsonLD.Entities.IEntitySerializer",
+                                                                                  "Deserialize",
+                                                                                  "System.String");
+
+        private static readonly MethodInfo DeserializeJsonMethod = Info.OfMethod("JsonLD.Entities",
+                                                                                 "JsonLD.Entities.IEntitySerializer",
+                                                                                 "Deserialize",
+                                                                                 "Newtonsoft.Json.Linq.JObject");
+
         private readonly DeserializationContext _context;
 
         public DeserializingSteps(DeserializationContext context)
