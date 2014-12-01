@@ -17,8 +17,8 @@ namespace JsonLD.Entities.Tests.Helpers
             return JObject.Parse(@"{
                 'foaf': 'http://xmlns.com/foaf/0.1/',
                 'name': 'foaf:givenName',
-                'lastName': 'foaf:familyName',
-                'lastName': 'http://example.com/ontology#dateOfBirth'
+                'surname': 'foaf:familyName',
+                'birthDate': 'http://example.com/ontology#dateOfBirth'
             }");
         }
     }

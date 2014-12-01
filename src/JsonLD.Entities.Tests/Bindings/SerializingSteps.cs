@@ -1,5 +1,7 @@
 ﻿using System;
+using FakeItEasy;
 using JsonLD.Entities.Tests.Entities;
+using JsonLD.Entities.Tests.Helpers;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -14,6 +16,7 @@ namespace JsonLD.Entities.Tests.Bindings
         public SerializingSteps(SerializerTestContext context)
         {
             _context = context;
+            A.CallTo(() => _context.ContextProvider.GetContext(typeof(Person))).Returns(Default.PersonContext);
         }
 
         [Given(@"a person without id")]

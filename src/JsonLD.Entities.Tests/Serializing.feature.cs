@@ -88,7 +88,7 @@ this.ScenarioSetup(scenarioInfo);
 	},
 	""name"": ""Tomasz"",
 	""surname"": ""Pluskiewicz"",
-	""birthDate"": ""1972-09-04""
+	""birthDate"": ""1972-09-04T00:00:00""
 }", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
