@@ -31,6 +31,10 @@ namespace JsonLD.Entities
             {
                 contract.Converter = new JsonLdConverter(_contextProvider);
             }
+            else if (type == typeof(Uri))
+            {
+                contract.Converter = new StringUriConverter();
+            }
 
             return contract;
         }
