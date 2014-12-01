@@ -44,9 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bindings\DeserializationContext.cs" />
+    <Compile Include="Bindings\SerializerTestContext.cs" />
     <Compile Include="Bindings\DeserializingSteps.cs" />
     <Compile Include="Bindings\EntityVerificationSteps.cs" />
+    <Compile Include="Bindings\SerializingSteps.cs" />
     <Compile Include="DeserializingJsonLD.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

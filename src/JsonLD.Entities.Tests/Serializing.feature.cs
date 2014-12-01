@@ -74,11 +74,22 @@ namespace JsonLD.Entities.Tests
 #line 5
 this.ScenarioSetup(scenarioInfo);
 #line 6
- testRunner.And("I have entered 70 into the calculator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("a person without id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 7
- testRunner.When("I press add", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the object is serialized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
 #line 8
- testRunner.Then("the result should be 120 on the screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the resulting JSON-LD should be:", @"{
+	""@context"": {
+		""foaf"": ""http://xmlns.com/foaf/0.1/"",
+		""name"": ""foaf:givenName"",
+		""surname"": ""foaf:familyName"",
+		""birthDate"": ""http://example.com/ontology#dateOfBirth""
+	},
+	""name"": ""Tomasz"",
+	""surname"": ""Pluskiewicz"",
+	""birthDate"": ""1972-09-04""
+}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

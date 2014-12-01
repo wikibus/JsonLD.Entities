@@ -19,9 +19,9 @@ namespace JsonLD.Entities.Tests.Bindings
                                                                                  "Deserialize",
                                                                                  "Newtonsoft.Json.Linq.JObject");
 
-        private readonly DeserializationContext _context;
+        private readonly SerializerTestContext _context;
 
-        public DeserializingSteps(DeserializationContext context)
+        public DeserializingSteps(SerializerTestContext context)
         {
             _context = context;
         }

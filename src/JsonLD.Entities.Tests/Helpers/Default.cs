@@ -14,7 +14,12 @@ namespace JsonLD.Entities.Tests.Helpers
 
         private static JObject CreatePersonContext()
         {
-            return JObject.Parse("{}");
+            return JObject.Parse(@"{
+                'foaf': 'http://xmlns.com/foaf/0.1/',
+                'name': 'foaf:givenName',
+                'lastName': 'foaf:familyName',
+                'lastName': 'http://example.com/ontology#dateOfBirth'
+            }");
         }
     }
 }
