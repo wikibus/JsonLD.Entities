@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using NullGuard;
 
 namespace JsonLD.Entities
 {
@@ -11,7 +12,7 @@ namespace JsonLD.Entities
         /// <summary>
         /// Writes the JSON representation of the Uri.
         /// </summary>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, [AllowNull] object value, JsonSerializer serializer)
         {
             writer.WriteValue(value.ToString());
         }
@@ -19,9 +20,10 @@ namespace JsonLD.Entities
         /// <summary>
         /// Reads the JSON representation of the Uri.
         /// </summary>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        [return: AllowNull]
+        public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
         {
-            return new Uri(reader.ReadAsString(), UriKind.RelativeOrAbsolute);
+            return new Uri(reader.Value.ToString(), UriKind.RelativeOrAbsolute);
         }
 
         /// <summary>
