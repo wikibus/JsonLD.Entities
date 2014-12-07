@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace JsonLD.Entities
@@ -8,7 +11,18 @@ namespace JsonLD.Entities
     /// </summary>
     public class JsonLdContractResolver : CamelCasePropertyNamesContractResolver
     {
+        private static readonly ICollection<Type> SetTypes = new HashSet<Type>();
+        private static readonly ICollection<Type> ListTypes = new HashSet<Type>();
         private readonly IContextProvider _contextProvider;
+
+        static JsonLdContractResolver()
+        {
+            SetTypes.Add(typeof(ICollection<>));
+            SetTypes.Add(typeof(IEnumerable));
+            SetTypes.Add(typeof(ISet<>));
+            ListTypes.Add(typeof(IList));
+            ListTypes.Add(typeof(IList<>));
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonLdContractResolver"/> class.
@@ -31,6 +45,29 @@ namespace JsonLD.Entities
             {
                 contract.Converter = new JsonLdConverter(_contextProvider);
             }
+            else if (contract is JsonArrayContract)
+            {
+                Type converterType;
+                Type elementType;
+
+                if (type.BaseType == typeof(Array))
+                {
+                    elementType = type.GetElementType();
+                    converterType = typeof(JsonLdArrayConverter<>);
+                }
+                else if (IsListType(type))
+                {
+                    elementType = type.GetGenericArguments()[0];
+                    converterType = typeof(JsonLdListConverter<>);
+                }
+                else
+                {
+                    elementType = type.GetGenericArguments()[0];
+                    converterType = typeof(JsonLdSetConverter<>);
+                }
+
+                contract.Converter = (JsonConverter)Activator.CreateInstance(converterType.MakeGenericType(elementType));
+            }
             else if (type == typeof(Uri))
             {
                 contract.Converter = new StringUriConverter();
@@ -51,6 +88,18 @@ namespace JsonLD.Entities
 
             var resolvePropertyName = base.ResolvePropertyName(propertyName);
             return resolvePropertyName;
+        }
+
+        private static bool IsListType(Type type)
+        {
+            return ListTypes.Contains(type)
+                || (type.IsGenericType && ListTypes.Contains(type.GetGenericTypeDefinition()));
+        }
+
+        private static bool IsSetType(Type type)
+        {
+            return SetTypes.Contains(type)
+                || (type.IsGenericType && SetTypes.Contains(type.GetGenericTypeDefinition()));
         }
     }
 }

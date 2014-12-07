@@ -140,14 +140,14 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Deserialize list into collection")]
+        [NUnit.Framework.DescriptionAttribute("Deserialize list into IList")]
         [NUnit.Framework.CategoryAttribute("JsonLD")]
         [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsArray", null)]
         [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsList", null)]
         [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsEnumerable", null)]
         [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsCollection", null)]
         [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsSet", null)]
-        public virtual void DeserializeListIntoCollection(string type, string[] exampleTags)
+        public virtual void DeserializeListIntoIList(string type, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "JsonLD"};
@@ -155,7 +155,7 @@ this.ScenarioSetup(scenarioInfo);
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize list into collection", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize list into IList", @__tags);
 #line 63
 this.ScenarioSetup(scenarioInfo);
 #line hidden
@@ -177,14 +177,13 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Deserialize list into collection when @container isn\'t specified")]
+        [NUnit.Framework.DescriptionAttribute("Deserialize list into collection")]
         [NUnit.Framework.CategoryAttribute("JsonLD")]
-        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsArray", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsList", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsEnumerable", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsCollection", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsSet", null)]
-        public virtual void DeserializeListIntoCollectionWhenContainerIsnTSpecified(string type, string[] exampleTags)
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsArray", "Array", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsEnumerable", "IEnumerable", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsCollection", "ICollection", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsSet", "ISet", null)]
+        public virtual void DeserializeListIntoCollection(string type, string container, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "JsonLD"};
@@ -192,7 +191,7 @@ this.ScenarioSetup(scenarioInfo);
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize list into collection when @container isn\'t specified", @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize list into collection", @__tags);
 #line 90
 this.ScenarioSetup(scenarioInfo);
 #line hidden
@@ -206,8 +205,33 @@ this.ScenarioSetup(scenarioInfo);
 #line 105
     testRunner.When(string.Format("I deserialize into \'{0}\'", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 106
+    testRunner.Then(string.Format("it should have failed with message \'Cannot deserialize list as {0}\'", container), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Deserialize list into collection when @container isn\'t specified")]
+        [NUnit.Framework.CategoryAttribute("JsonLD")]
+        public virtual void DeserializeListIntoCollectionWhenContainerIsnTSpecified()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize list into collection when @container isn\'t specified", new string[] {
+                        "JsonLD"});
+#line 115
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+#line 116
+    testRunner.Given("JSON-LD:", "{\r\n    \"@id\": \"http://example.com/Person\",\r\n    \"http://xmlns.com/foaf/0.1/topic_" +
+                    "interest\": { \"@list\": [ \"RDF\", \"SPARQL\" ] }\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 123
+    testRunner.And("@context is:", "{\r\n    \"foaf\": \"http://xmlns.com/foaf/0.1/\",\r\n    \"interests\": { \"@id\": \"foaf:top" +
+                    "ic_interest\" }\r\n}", ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 130
+    testRunner.When("I deserialize into \'JsonLD.Entities.Tests.Entities.HasInterestsList\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 131
     testRunner.Then("object should have property \'Interests\' containg string \'RDF\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 107
+#line 132
      testRunner.And("object should have property \'Interests\' containg string \'SPARQL\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -230,19 +254,19 @@ this.ScenarioSetup(scenarioInfo);
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize single element into collection when @container isn\'t specified", @__tags);
-#line 118
+#line 135
 this.ScenarioSetup(scenarioInfo);
 #line hidden
-#line 119
+#line 136
     testRunner.Given("JSON-LD:", "{\r\n    \"@id\": \"http://example.com/Person\",\r\n    \"http://xmlns.com/foaf/0.1/topic_" +
                     "interest\": \"RDF\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 126
+#line 143
     testRunner.And("@context is:", "{\r\n    \"foaf\": \"http://xmlns.com/foaf/0.1/\",\r\n    \"interests\": { \"@id\": \"foaf:top" +
                     "ic_interest\" }\r\n}", ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 133
+#line 150
     testRunner.When(string.Format("I deserialize into \'{0}\'", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 134
+#line 151
     testRunner.Then("object should have property \'Interests\' containg string \'RDF\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

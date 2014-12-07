@@ -60,7 +60,7 @@ Scenario Outline: Deserialize single element into collection
     | JsonLD.Entities.Tests.Entities.HasInterestsSet        | 
 
 @JsonLD
-Scenario Outline: Deserialize list into collection
+Scenario Outline: Deserialize list into IList
     Given JSON-LD:
         """
         {
@@ -81,13 +81,13 @@ Scenario Outline: Deserialize list into collection
     Examples: 
     | type                                                  | 
     | JsonLD.Entities.Tests.Entities.HasInterestsArray      | 
-    | JsonLD.Entities.Tests.Entities.HasInterestsList       | 
+    | JsonLD.Entities.Tests.Entities.HasInterestsList      | 
     | JsonLD.Entities.Tests.Entities.HasInterestsEnumerable | 
     | JsonLD.Entities.Tests.Entities.HasInterestsCollection | 
     | JsonLD.Entities.Tests.Entities.HasInterestsSet        | 
 
 @JsonLD
-Scenario Outline: Deserialize list into collection when @container isn't specified
+Scenario Outline: Deserialize list into collection
     Given JSON-LD:
         """
         {
@@ -103,16 +103,33 @@ Scenario Outline: Deserialize list into collection when @container isn't specifi
         }
         """
     When I deserialize into '<type>'
+    Then it should have failed with message 'Cannot deserialize list as <container>'
+    Examples: 
+    | type                                                  | container   |
+    | JsonLD.Entities.Tests.Entities.HasInterestsArray      | Array       |
+    | JsonLD.Entities.Tests.Entities.HasInterestsEnumerable | IEnumerable |
+    | JsonLD.Entities.Tests.Entities.HasInterestsCollection | ICollection |
+    | JsonLD.Entities.Tests.Entities.HasInterestsSet        | ISet        |
+
+@JsonLD
+Scenario: Deserialize list into collection when @container isn't specified
+    Given JSON-LD:
+        """
+        {
+            "@id": "http://example.com/Person",
+            "http://xmlns.com/foaf/0.1/topic_interest": { "@list": [ "RDF", "SPARQL" ] }
+        }
+        """
+    And @context is:
+        """
+        {
+            "foaf": "http://xmlns.com/foaf/0.1/",
+            "interests": { "@id": "foaf:topic_interest" }
+        }
+        """
+    When I deserialize into 'JsonLD.Entities.Tests.Entities.HasInterestsList'
     Then object should have property 'Interests' containg string 'RDF'
      And object should have property 'Interests' containg string 'SPARQL'
-    Examples: 
-    | type                                                  | 
-    | JsonLD.Entities.Tests.Entities.HasInterestsArray      | 
-    | JsonLD.Entities.Tests.Entities.HasInterestsList       | 
-    | JsonLD.Entities.Tests.Entities.HasInterestsEnumerable | 
-    | JsonLD.Entities.Tests.Entities.HasInterestsCollection | 
-    | JsonLD.Entities.Tests.Entities.HasInterestsSet        | 
-
 
 @JsonLD
 Scenario Outline: Deserialize single element into collection when @container isn't specified

@@ -56,7 +56,8 @@ namespace JsonLD.Entities
                 return jsonLd.ToObject<T>(_jsonSerializer);
             }
 
-            return JsonLdProcessor.Compact(jsonLd, jsonLdContext, new JsonLdOptions()).ToObject<T>(_jsonSerializer);
+            var compacted = JsonLdProcessor.Compact(jsonLd, jsonLdContext, new JsonLdOptions());
+            return compacted.ToObject<T>(_jsonSerializer);
         }
 
         /// <summary>
