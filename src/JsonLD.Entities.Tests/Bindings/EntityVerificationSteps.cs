@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Globalization;
 using ImpromptuInterface;
 using NUnit.Framework;
@@ -26,6 +27,15 @@ namespace JsonLD.Entities.Tests.Bindings
             var expectedValue = DateTime.ParseExact(expectedDateString, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
             Assert.That(actualValue, Is.EqualTo(expectedValue));
+        }
+
+        [Then(@"object should have property '(.*)' containg string '(.*)'")]
+        public void ThenObjectShouldHavePropertyContaingString(string propName, string expectedValue)
+        {
+            var entity = ScenarioContext.Current["Entity"];
+            IEnumerable collection = Impromptu.InvokeGet(entity, propName);
+
+            Assert.That(collection, Contains.Item(expectedValue));
         }
     }
 }

@@ -32,8 +32,8 @@ namespace JsonLD.Entities.Tests
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeserializingJsonLD", "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
-                    "wo numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DeserializingJsonLD", "  In order to avoid silly mistakes\r\n  As a math idiot\r\n  I want to be told the su" +
+                    "m of two numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -76,29 +76,101 @@ namespace JsonLD.Entities.Tests
 this.ScenarioSetup(scenarioInfo);
 #line hidden
 #line 8
- testRunner.Given("JSON-LD:", @"{
-	""@context"": {
-		""foaf"": ""http://xmlns.com/foaf/0.1/"",
-		""firstName"": ""foaf:givenName"",
-		""lastName"": ""foaf:familyName""
-	},
-	""@id"": ""http://example.com/Person"",
-	""firstName"": ""Tomasz"",
-	""lastName"": ""Pluskiewicz"",
-	""http://example.com/ontology#dateOfBirth"": ""1975-08-15""
+    testRunner.Given("JSON-LD:", @"{
+    ""@context"": {
+        ""foaf"": ""http://xmlns.com/foaf/0.1/"",
+        ""firstName"": ""foaf:givenName"",
+        ""lastName"": ""foaf:familyName""
+    },
+    ""@id"": ""http://example.com/Person"",
+    ""firstName"": ""Tomasz"",
+    ""lastName"": ""Pluskiewicz"",
+    ""http://example.com/ontology#dateOfBirth"": ""1975-08-15""
 }", ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 22
- testRunner.And("@context is:", "{\r\n\tfoaf: \"http://xmlns.com/foaf/0.1/\",\r\n\tname: \"foaf:givenName\",\r\n\tsurname: \"foa" +
-                    "f:familyName\",\r\n\tbirthDate: \"http://example.com/ontology#dateOfBirth\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("@context is:", "{\r\n    foaf: \"http://xmlns.com/foaf/0.1/\",\r\n    name: \"foaf:givenName\",\r\n    surn" +
+                    "ame: \"foaf:familyName\",\r\n    birthDate: \"http://example.com/ontology#dateOfBirth" +
+                    "\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 31
- testRunner.When("I deserialize into \'JsonLD.Entities.Tests.Entities.Person\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("I deserialize into \'JsonLD.Entities.Tests.Entities.Person\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 32
- testRunner.Then("object should have property \'Name\' equal to \'Tomasz\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("object should have property \'Name\' equal to \'Tomasz\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 33
- testRunner.And("object should have property \'Surname\' equal to \'Pluskiewicz\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("object should have property \'Surname\' equal to \'Pluskiewicz\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 34
- testRunner.And("object should have DateTime property \'BirthDate\' equal to \'15-08-1975\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("object should have DateTime property \'BirthDate\' equal to \'15-08-1975\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Deserialize single element into collection")]
+        [NUnit.Framework.CategoryAttribute("JsonLD")]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsArray", "@list", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsList", "@list", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsEnumerable", "@list", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsCollection", "@list", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsSet", "@list", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsArray", "@set", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsList", "@set", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsEnumerable", "@set", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsCollection", "@set", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsSet", "@set", null)]
+        public virtual void DeserializeSingleElementIntoCollection(string type, string container, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "JsonLD"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize single element into collection", @__tags);
+#line 37
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+#line 38
+    testRunner.Given("JSON-LD:", "{\r\n    \"@id\": \"http://example.com/Person\",\r\n    \"http://xmlns.com/foaf/0.1/topic_" +
+                    "interest\": \"RDF\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 45
+    testRunner.And("@context is:", string.Format("{{\r\n    \"foaf\": \"http://xmlns.com/foaf/0.1/\",\r\n    \"interests\": {{ \"@id\": \"foaf:t" +
+                        "opic_interest\", \"@container\": \"{0}\" }}\r\n}}", container), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 52
+    testRunner.When(string.Format("I deserialize into \'{0}\'", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 53
+    testRunner.Then("object should have property \'Interests\' containg string \'RDF\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Deserialize single element into array when there\'s no @context")]
+        [NUnit.Framework.CategoryAttribute("JsonLD")]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsArray", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsList", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsEnumerable", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsCollection", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsSet", null)]
+        public virtual void DeserializeSingleElementIntoArrayWhenThereSNoContext(string type, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "JsonLD"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize single element into array when there\'s no @context", @__tags);
+#line 68
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+#line 69
+    testRunner.Given("JSON-LD:", "{\r\n    \"@id\": \"http://example.com/Person\",\r\n    \"http://xmlns.com/foaf/0.1/topic_" +
+                    "interest\": \"RDF\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 76
+    testRunner.When(string.Format("I deserialize into \'{0}\'", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 77
+    testRunner.Then("object should have property \'Interests\' containg string \'RDF\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
