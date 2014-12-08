@@ -87,31 +87,6 @@ Scenario Outline: Deserialize list into IList
     | JsonLD.Entities.Tests.Entities.HasInterestsSet        | 
 
 @JsonLD
-Scenario Outline: Deserialize list into collection
-    Given JSON-LD:
-        """
-        {
-            "@id": "http://example.com/Person",
-            "http://xmlns.com/foaf/0.1/topic_interest": { "@list": [ "RDF", "SPARQL" ] }
-        }
-        """
-    And @context is:
-        """
-        {
-            "foaf": "http://xmlns.com/foaf/0.1/",
-            "interests": { "@id": "foaf:topic_interest" }
-        }
-        """
-    When I deserialize into '<type>'
-    Then it should have failed with message 'Cannot deserialize list as <container>'
-    Examples: 
-    | type                                                  | container   |
-    | JsonLD.Entities.Tests.Entities.HasInterestsArray      | Array       |
-    | JsonLD.Entities.Tests.Entities.HasInterestsEnumerable | IEnumerable |
-    | JsonLD.Entities.Tests.Entities.HasInterestsCollection | ICollection |
-    | JsonLD.Entities.Tests.Entities.HasInterestsSet        | ISet        |
-
-@JsonLD
 Scenario: Deserialize list into collection when @container isn't specified
     Given JSON-LD:
         """

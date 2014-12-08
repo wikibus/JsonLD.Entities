@@ -2,7 +2,6 @@
 using System.Reflection;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
 using TechTalk.SpecFlow;
 
 namespace JsonLD.Entities.Tests.Bindings
@@ -63,28 +62,14 @@ namespace JsonLD.Entities.Tests.Bindings
         [When(@"I deserialize into '(.*)'")]
         public void WhenIDeserializeInto(string typeName)
         {
-            try
-            {
-                var entityType = Type.GetType(typeName, true);
+            var entityType = Type.GetType(typeName, true);
 
-                A.CallTo(() => _context.ContextProvider.GetContext(entityType)).Returns(ScenarioContext.Current.Get<JObject>());
-                var typedDeserialize = DeserializeJsonMethod.MakeGenericMethod(entityType);
+            A.CallTo(() => _context.ContextProvider.GetContext(entityType)).Returns(ScenarioContext.Current.Get<JObject>());
+            var typedDeserialize = DeserializeJsonMethod.MakeGenericMethod(entityType);
 
-                var entity = typedDeserialize.Invoke(_context.Serializer, new object[] { _context.JsonLdObject });
+            var entity = typedDeserialize.Invoke(_context.Serializer, new object[] { _context.JsonLdObject });
 
-                ScenarioContext.Current.Set(entity, "Entity");
-            }
-            catch (Exception ex)
-            {
-                ScenarioContext.Current.Set(ex);
-            }
-        }
-
-        [Then(@"it should have failed with message '(.*)'")]
-        public void ThenItShouldHaveFailedWithMessage(string messageExpected)
-        {
-            var exception = ScenarioContext.Current.Get<Exception>();
-            Assert.That(exception.Message, Is.EqualTo(messageExpected));
+            ScenarioContext.Current.Set(entity, "Entity");
         }
     }
 }
