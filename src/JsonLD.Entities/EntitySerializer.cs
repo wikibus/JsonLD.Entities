@@ -1,4 +1,5 @@
 ﻿using JsonLD.Core;
+using JsonLD.Entities.Converters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

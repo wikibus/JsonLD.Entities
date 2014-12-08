@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace JsonLD.Entities
+namespace JsonLD.Entities.Converters
 {
     /// <summary>
     /// Camel-case contract resolver with overrides for JSON-LD keywords

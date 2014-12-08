@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using NullGuard;
 
-namespace JsonLD.Entities
+namespace JsonLD.Entities.Converters
 {
     /// <summary>
     /// Converter, which ensures that Uris are serialized as strings

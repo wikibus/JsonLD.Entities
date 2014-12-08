@@ -1,17 +1,15 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using Newtonsoft.Json;
 using NullGuard;
 
-namespace JsonLD.Entities
+namespace JsonLD.Entities.Converters
 {
     /// <summary>
-    /// Converter for JSON-LD @sets
+    /// Converter for JSON-LD @list
     /// </summary>
     /// <typeparam name="T">collection element type</typeparam>
-    public class JsonLdListConverter<T> : JsonConverter
+    public class JsonLdListConverter<T> : JsonLdCollectionConverter<T>
     {
         /// <summary>
         /// Writes the JSON representation of the object.
@@ -26,19 +24,7 @@ namespace JsonLD.Entities
         /// </summary>
         public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
         {
-            var result = new List<T>();
-
-            if (reader.TokenType == JsonToken.StartArray)
-            {
-                reader.Read();
-
-                while (reader.TokenType != JsonToken.EndArray)
-                {
-                    result.Add(serializer.Deserialize<T>(reader));
-                    reader.Read();
-                }
-            }
-            else if (reader.TokenType == JsonToken.StartObject)
+            if (reader.TokenType == JsonToken.StartObject)
             {
                 reader.Read();
                 while (Equals("@list", reader.Value) == false)
@@ -47,17 +33,12 @@ namespace JsonLD.Entities
                 }
 
                 reader.Read();
-                var result1 = serializer.Deserialize(reader, objectType);
+                var actualCollection = serializer.Deserialize(reader, objectType);
                 reader.Read();
-                return result1;
-            }
-            else
-            {
-                var resultObject = serializer.Deserialize<T>(reader);
-                result.Add(resultObject);
+                return actualCollection;
             }
 
-            return result;
+            return base.ReadJson(reader, objectType, existingValue, serializer);
         }
 
         /// <summary>
@@ -65,7 +46,15 @@ namespace JsonLD.Entities
         /// </summary>
         public override bool CanConvert(Type objectType)
         {
-            return typeof(IEnumerable).IsAssignableFrom(objectType);
+            return typeof(IList<T>).IsAssignableFrom(objectType);
+        }
+
+        /// <summary>
+        /// Wraps elements in <see cref="List{T}"/>
+        /// </summary>
+        protected override object CreateReturnedContainer(IEnumerable<T> elements)
+        {
+            return new List<T>(elements);
         }
     }
 }

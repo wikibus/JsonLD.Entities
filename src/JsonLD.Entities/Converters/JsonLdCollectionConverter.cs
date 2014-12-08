@@ -1,17 +1,15 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using NullGuard;
 
-namespace JsonLD.Entities
+namespace JsonLD.Entities.Converters
 {
     /// <summary>
-    /// Converter for JSON-LD @sets
+    /// Converter for JSON-LD collections
     /// </summary>
     /// <typeparam name="T">collection element type</typeparam>
-    public class JsonLdArrayConverter<T> : JsonConverter
+    public abstract class JsonLdCollectionConverter<T> : JsonConverter
     {
         /// <summary>
         /// Writes the JSON representation of the object.
@@ -28,27 +26,21 @@ namespace JsonLD.Entities
         {
             if (reader.TokenType == JsonToken.StartArray)
             {
-                reader.Read();
-
-                return GetElement(reader, serializer).ToArray();
+                return CreateReturnedContainer(GetElementsFromArray(reader, serializer));
             }
 
-            // JSON object was not an array,
-            // so deserialize the object and wrap it in a List.
             var resultObject = serializer.Deserialize<T>(reader);
-            return new[] { resultObject };
+            return CreateReturnedContainer(new[] { resultObject });
         }
 
         /// <summary>
-        /// Determines whether this instance can convert the specified object type.
+        /// Wraps element in collection object.
         /// </summary>
-        public override bool CanConvert(Type objectType)
-        {
-            return typeof(IEnumerable).IsAssignableFrom(objectType);
-        }
+        protected abstract object CreateReturnedContainer(IEnumerable<T> elements);
 
-        private static IEnumerable<T> GetElement(JsonReader reader, JsonSerializer serializer)
+        private static IEnumerable<T> GetElementsFromArray(JsonReader reader, JsonSerializer serializer)
         {
+            reader.Read();
             while (reader.TokenType != JsonToken.EndArray)
             {
                 yield return serializer.Deserialize<T>(reader);

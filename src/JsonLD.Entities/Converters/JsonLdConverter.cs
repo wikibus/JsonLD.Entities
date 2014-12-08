@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using NullGuard;
 
-namespace JsonLD.Entities
+namespace JsonLD.Entities.Converters
 {
     /// <summary>
     /// Converts objects to JSON-LD
