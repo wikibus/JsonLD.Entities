@@ -46,9 +46,6 @@
     <Compile Include="Readme.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\JsonLD.Entities\JsonLD.Entities.csproj">
       <Project>{CCB7B927-5AD6-4B98-ABA3-92EA18351B7D}</Project>
       <Name>JsonLD.Entities</Name>
@@ -57,7 +54,6 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="Generate Doc" AfterTargets="Build">
     <Exec Command="$(MSBuildProjectDirectory)\..\..\tools\llite\llite.exe %(Compile.Identity) -l csharp -co &quot;``` c#&quot; -cc ```" />
-    <Copy SourceFiles="Readme.mkd" DestinationFiles="$(MSBuildProjectDirectory)\..\..\readme.md" />
   </Target>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETCore'">

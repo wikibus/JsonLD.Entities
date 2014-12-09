@@ -1,4 +1,3 @@
-﻿/**
 # Documentation
 
 ## About the examples
@@ -10,22 +9,24 @@ test, which you can try out and debug in the solution.
 ## Basic usage
 
 First let's import the required namespaces.
- **/
+ 
 
+``` c#
 using System;
 using JsonLD.Entities;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
+```
 
-/**
 ### Deserialization
 
 #### Deserializing the model as-is
 
 The easiest operation possible is to deserialize a JSON-LD object without any changes. The example models will be deserialized to 
 instances of a Person class.
- **/
+ 
 
+``` c#
 [Class("http://xmlns.com/foaf/0.1/Person")]
 public class Person
 {
@@ -35,15 +36,15 @@ public class Person
 
     public string LastName { get; set; }
 }
+```
 
-/**
 Serialization and deserialization is done by instances of `IEntitySerializer`. It's default implementation requires you to pass a 
 IContextProvider, which provides [@context][jsonld-context] objects for serialized types. Because, we don't want to use a context in the
 first test, the IContextProvider object won't be set up in any way.
 
 Note how the JSON-LD `@id` is by convention deserialized to the `Person#Id` property.
-**/
 
+``` c#
 [TestFixture]
 public class Deserialization
 {
@@ -75,8 +76,8 @@ public void Can_deserialize_with_existing_context()
     Assert.That(person.LastName, Is.EqualTo("Pluskiewicz"));
     Assert.That(person.Id, Is.EqualTo(new Uri("http://t-code.pl/#tomasz")));
 }
+```
 
-/**
 #### Deserialize with specific @context
 
 Oftentimes, like in public API, you could receive models, which do not conform to some specific JSON structure. With JSON-LD it is possible,
@@ -85,8 +86,8 @@ becuase any document can be represented in numerous equivalent ways. For that pu
 
 Below example shows how the default `IContextProvider` is used to adjust the document strucuture before deserializing. Perceptive reader
 would have probably noticed already that the `@context` must conform to model's properties. Pascal case in c#, camel case in JSON.
-**/
 
+``` c#
 [Test]
 public void Can_deserialize_with_changed_context()
 {
@@ -120,14 +121,14 @@ public void Can_deserialize_with_changed_context()
     Assert.That(person.Id, Is.EqualTo(new Uri("http://t-code.pl/#tomasz")));
 }
 }
+```
 
-/**
 ### Serialization
 
 Of course it also possible to serialize POCO objects to JSON-LD objects. This time it is necessary to set up a `@context`, which will be
 added to the result.
-**/
 
+``` c#
 [TestFixture]
 public class Serialization
 {
@@ -159,8 +160,8 @@ public void Can_serialize_object_to_JSON_LD()
     Assert.That(json["@context"], Is.Not.Null);
 }
 }
+```
 
-/**
 Graph image from [W3C](http://www.w3.org/RDF/) originally desgined by [Bill Schwappacher](mailto:bill@tracermedia.com).
 
 [playground]: http://json-ld.org/playground/
@@ -170,4 +171,3 @@ Graph image from [W3C](http://www.w3.org/RDF/) originally desgined by [Bill Schw
 [rdf]: http://en.wikipedia.org/wiki/Resource_Description_Framework
 [readme]: http://github.com/wikibus/JsonLD.Entities/blob/master/src/JsonLD.Docu/Readme.cs
 [jsonld-context]: http://www.w3.org/TR/json-ld/#the-context
-**/
