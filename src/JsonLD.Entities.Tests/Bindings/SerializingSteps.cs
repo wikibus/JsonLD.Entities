@@ -1,5 +1,7 @@
 ﻿using System;
 using FakeItEasy;
+using ImpromptuInterface;
+using ImpromptuInterface.Dynamic;
 using JsonLD.Entities.Tests.Entities;
 using JsonLD.Entities.Tests.Helpers;
 using Newtonsoft.Json.Linq;
@@ -28,6 +30,19 @@ namespace JsonLD.Entities.Tests.Bindings
                     Surname = "Pluskiewicz",
                     BirthDate = new DateTime(1972, 9, 4)
                 };
+        }
+
+        [Given(@"model of type '(.*)'")]
+        public void GivenModelOfType(string typeName)
+        {
+            var model = Type.GetType(typeName, true);
+            _context.Object = Activator.CreateInstance(model);
+        }
+
+        [Given(@"model has interest '(.*)'")]
+        public void GivenModelInterestsRDF(string value)
+        {
+            Impromptu.InvokeMemberAction(_context.Object, "AddInterest", value);
         }
 
         [When(@"the object is serialized")]

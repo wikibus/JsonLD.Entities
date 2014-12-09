@@ -32,7 +32,7 @@ namespace JsonLD.Entities.Tests
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Serializing", "Test serializing models to JSON-LD", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Serializing", "  Test serializing models to JSON-LD", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -66,30 +66,55 @@ namespace JsonLD.Entities.Tests
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Serialize simple model with blank id")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
         public virtual void SerializeSimpleModelWithBlankId()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Serialize simple model with blank id", new string[] {
-                        "mytag"});
-#line 5
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Serialize simple model with blank id", ((string[])(null)));
+#line 4
 this.ScenarioSetup(scenarioInfo);
+#line 5
+    testRunner.Given("a person without id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 6
- testRunner.Given("a person without id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 7
- testRunner.When("the object is serialized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("the object is serialized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 8
- testRunner.Then("the resulting JSON-LD should be:", @"{
-	""@context"": {
-		""foaf"": ""http://xmlns.com/foaf/0.1/"",
-		""name"": ""foaf:givenName"",
-		""surname"": ""foaf:familyName"",
-		""birthDate"": ""http://example.com/ontology#dateOfBirth""
-	},
-	""name"": ""Tomasz"",
-	""surname"": ""Pluskiewicz"",
-	""birthDate"": ""1972-09-04T00:00:00""
+#line 7
+    testRunner.Then("the resulting JSON-LD should be:", @"{
+    ""@context"": {
+        ""foaf"": ""http://xmlns.com/foaf/0.1/"",
+        ""name"": ""foaf:givenName"",
+        ""surname"": ""foaf:familyName"",
+        ""birthDate"": ""http://example.com/ontology#dateOfBirth""
+    },
+    ""name"": ""Tomasz"",
+    ""surname"": ""Pluskiewicz"",
+    ""birthDate"": ""1972-09-04T00:00:00""
 }", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Serialize model with single element in set")]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsArray", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsSet", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsCollection", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsEnumerable", null)]
+        public virtual void SerializeModelWithSingleElementInSet(string type, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Serialize model with single element in set", exampleTags);
+#line 22
+this.ScenarioSetup(scenarioInfo);
+#line 23
+    testRunner.Given(string.Format("model of type \'{0}\'", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 24
+      testRunner.And("model has interest \'RDF\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 25
+     testRunner.When("the object is serialized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 26
+     testRunner.Then("the resulting JSON-LD should be:", "{\r\n    \"@context\": {\r\n       \"foaf\": \"http://xmlns.com/foaf/0.1/\",\r\n       \"inter" +
+                    "ests\": { \"@id\": \"foaf:topic_interest\", \"@container\": \"@set\" }\r\n    }\r\n    \"@id\":" +
+                    " \"http://example.com/Person\",\r\n    \"http://xmlns.com/foaf/0.1/topic_interest\": \"" +
+                    "RDF\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

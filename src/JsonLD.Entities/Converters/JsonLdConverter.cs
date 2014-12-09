@@ -35,7 +35,7 @@ namespace JsonLD.Entities.Converters
 
             var context = _contextProvider.GetContext(value.GetType());
 
-            if (context != null)
+            if (context != null && context.Count > 0)
             {
                 writer.WritePropertyName("@context");
                 serializer.Serialize(writer, context);

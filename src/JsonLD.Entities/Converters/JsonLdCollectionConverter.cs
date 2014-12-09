@@ -16,7 +16,13 @@ namespace JsonLD.Entities.Converters
         /// </summary>
         public override void WriteJson(JsonWriter writer, [AllowNull] object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            writer.WriteStartArray();
+            foreach (var element in (IEnumerable<T>)value)
+            {
+                serializer.Serialize(writer, element);
+            }
+
+            writer.WriteEndArray();
         }
 
         /// <summary>
