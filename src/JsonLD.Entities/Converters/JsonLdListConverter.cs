@@ -12,14 +12,6 @@ namespace JsonLD.Entities.Converters
     public class JsonLdListConverter<T> : JsonLdCollectionConverter<T>
     {
         /// <summary>
-        /// Writes the JSON representation of the object.
-        /// </summary>
-        public override void WriteJson(JsonWriter writer, [AllowNull] object value, JsonSerializer serializer)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Reads the JSON representation of the object.
         /// </summary>
         public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)

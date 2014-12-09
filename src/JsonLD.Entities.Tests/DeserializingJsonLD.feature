@@ -1,7 +1,4 @@
 ﻿Feature: DeserializingJsonLD
-    In order to avoid silly mistakes
-    As a math idiot
-    I want to be told the sum of two numbers
 
 @JsonLD
 Scenario: Deserialize compacted JSON-LD object
@@ -34,7 +31,7 @@ Scenario: Deserialize compacted JSON-LD object
     And object should have DateTime property 'BirthDate' equal to '15-08-1975'
 
 @JsonLD
-Scenario Outline: Deserialize single element into collection
+Scenario Outline: Deserialize single element into set
     Given JSON-LD:
         """
         {
@@ -54,13 +51,39 @@ Scenario Outline: Deserialize single element into collection
     Examples: 
     | type                                                  | 
     | JsonLD.Entities.Tests.Entities.HasInterestsArray      | 
-    | JsonLD.Entities.Tests.Entities.HasInterestsList       | 
     | JsonLD.Entities.Tests.Entities.HasInterestsEnumerable | 
     | JsonLD.Entities.Tests.Entities.HasInterestsCollection | 
     | JsonLD.Entities.Tests.Entities.HasInterestsSet        | 
 
 @JsonLD
-Scenario Outline: Deserialize list into IList
+Scenario Outline: Deserialize array into set
+    Given JSON-LD:
+        """
+        {
+            "@id": "http://example.com/Person",
+            "http://xmlns.com/foaf/0.1/topic_interest": [ "RDF", "SPARQL", "OWL" ]
+        }
+        """
+    And @context is:
+        """
+        {
+            "foaf": "http://xmlns.com/foaf/0.1/",
+            "interests": { "@id": "foaf:topic_interest", "@container": "@set" }
+        }
+        """
+    When I deserialize into '<type>'
+    Then object should have property 'Interests' containg string 'RDF'
+     And object should have property 'Interests' containg string 'SPARQL'
+     And object should have property 'Interests' containg string 'OWL'
+    Examples: 
+    | type                                                  | 
+    | JsonLD.Entities.Tests.Entities.HasInterestsArray      | 
+    | JsonLD.Entities.Tests.Entities.HasInterestsEnumerable | 
+    | JsonLD.Entities.Tests.Entities.HasInterestsCollection | 
+    | JsonLD.Entities.Tests.Entities.HasInterestsSet        | 
+
+@JsonLD
+Scenario: Deserialize list
     Given JSON-LD:
         """
         {
@@ -75,19 +98,12 @@ Scenario Outline: Deserialize list into IList
             "interests": { "@id": "foaf:topic_interest", "@container": "@list" }
         }
         """
-    When I deserialize into '<type>'
+    When I deserialize into 'JsonLD.Entities.Tests.Entities.HasInterestsList'
     Then object should have property 'Interests' containg string 'RDF'
      And object should have property 'Interests' containg string 'SPARQL'
-    Examples: 
-    | type                                                  | 
-    | JsonLD.Entities.Tests.Entities.HasInterestsArray      | 
-    | JsonLD.Entities.Tests.Entities.HasInterestsList      | 
-    | JsonLD.Entities.Tests.Entities.HasInterestsEnumerable | 
-    | JsonLD.Entities.Tests.Entities.HasInterestsCollection | 
-    | JsonLD.Entities.Tests.Entities.HasInterestsSet        | 
 
 @JsonLD
-Scenario: Deserialize list into collection when @container isn't specified
+Scenario: Deserialize list when @container isn't specified
     Given JSON-LD:
         """
         {
@@ -127,7 +143,25 @@ Scenario Outline: Deserialize single element into collection when @container isn
     Examples: 
     | type                                                  | 
     | JsonLD.Entities.Tests.Entities.HasInterestsArray      | 
-    | JsonLD.Entities.Tests.Entities.HasInterestsList       | 
     | JsonLD.Entities.Tests.Entities.HasInterestsEnumerable | 
     | JsonLD.Entities.Tests.Entities.HasInterestsCollection | 
     | JsonLD.Entities.Tests.Entities.HasInterestsSet        | 
+
+@JsonLD
+Scenario: Deserialize list into set
+    Given JSON-LD:
+        """
+        {
+            "@id": "http://example.com/Person",
+            "http://xmlns.com/foaf/0.1/topic_interest": { "@list": [ "RDF", "SPARQL" ] }
+        }
+        """
+    And @context is:
+        """
+        {
+            "foaf": "http://xmlns.com/foaf/0.1/",
+            "interests": { "@id": "foaf:topic_interest", "@container": "@set" }
+        }
+        """
+    When I deserialize into 'JsonLD.Entities.Tests.Entities.HasInterestsSet'
+    Then Should fail

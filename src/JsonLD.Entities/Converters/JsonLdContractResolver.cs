@@ -92,8 +92,8 @@ namespace JsonLD.Entities.Converters
 
         private static bool IsListType(Type type)
         {
-            return ListTypes.Contains(type)
-                || (type.IsGenericType && ListTypes.Contains(type.GetGenericTypeDefinition()));
+            return typeof(IList).IsAssignableFrom(type)
+                || (type.IsGenericType && typeof(IList<>).IsAssignableFrom(type.GetGenericTypeDefinition()));
         }
 
         private static bool IsSetType(Type type)

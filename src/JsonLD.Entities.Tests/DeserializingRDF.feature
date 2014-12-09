@@ -42,11 +42,7 @@ Scenario Outline: Deserialize single element list into collection
     Then object should have property 'Interests' containg string 'RDF'
     Examples: 
     | type                                                  |
-    | JsonLD.Entities.Tests.Entities.HasInterestsArray      |
     | JsonLD.Entities.Tests.Entities.HasInterestsList       | 
-    | JsonLD.Entities.Tests.Entities.HasInterestsEnumerable |
-    | JsonLD.Entities.Tests.Entities.HasInterestsCollection |
-    | JsonLD.Entities.Tests.Entities.HasInterestsSet        | 
     
 @NQuads
 Scenario Outline: Deserialize single element into collection
@@ -66,7 +62,6 @@ Scenario Outline: Deserialize single element into collection
     Examples: 
     | type                                                  |
     | JsonLD.Entities.Tests.Entities.HasInterestsArray      |
-    | JsonLD.Entities.Tests.Entities.HasInterestsList       | 
     | JsonLD.Entities.Tests.Entities.HasInterestsEnumerable |
     | JsonLD.Entities.Tests.Entities.HasInterestsCollection |
     | JsonLD.Entities.Tests.Entities.HasInterestsSet        | 

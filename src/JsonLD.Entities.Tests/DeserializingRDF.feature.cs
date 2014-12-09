@@ -99,11 +99,7 @@ this.ScenarioSetup(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Deserialize single element list into collection")]
         [NUnit.Framework.CategoryAttribute("NQuads")]
-        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsArray", null)]
         [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsList", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsEnumerable", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsCollection", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsSet", null)]
         public virtual void DeserializeSingleElementListIntoCollection(string type, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -137,7 +133,6 @@ this.ScenarioSetup(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("Deserialize single element into collection")]
         [NUnit.Framework.CategoryAttribute("NQuads")]
         [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsArray", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsList", null)]
         [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsEnumerable", null)]
         [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsCollection", null)]
         [NUnit.Framework.TestCaseAttribute("JsonLD.Entities.Tests.Entities.HasInterestsSet", null)]
@@ -150,18 +145,18 @@ this.ScenarioSetup(scenarioInfo);
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize single element into collection", @__tags);
-#line 52
+#line 48
 this.ScenarioSetup(scenarioInfo);
 #line hidden
-#line 53
+#line 49
     testRunner.Given("NQuads:", "<http://example.com/Person> <http://xmlns.com/foaf/0.1/topic_interest> \"RDF\" .", ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 57
+#line 53
     testRunner.And("@context is:", "{\r\n    \"foaf\": \"http://xmlns.com/foaf/0.1/\",\r\n    \"interests\": { \"@id\": \"foaf:top" +
                     "ic_interest\", \"@container\": \"@set\" }\r\n}", ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 64
+#line 60
     testRunner.When(string.Format("I deserialize into \'{0}\'", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 65
+#line 61
     testRunner.Then("object should have property \'Interests\' containg string \'RDF\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
