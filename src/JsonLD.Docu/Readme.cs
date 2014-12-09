@@ -161,8 +161,6 @@ public void Can_serialize_object_to_JSON_LD()
 }
 
 /**
-Graph image from [W3C](http://www.w3.org/RDF/) originally desgined by [Bill Schwappacher](mailto:bill@tracermedia.com).
-
 [playground]: http://json-ld.org/playground/
 [jsonld-spec]: http://json-ld.org/spec/latest/json-ld/
 [jsonld-api]: http://www.w3.org/TR/json-ld-api/
