@@ -112,9 +112,30 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
 #line 26
      testRunner.Then("the resulting JSON-LD should be:", "{\r\n    \"@context\": {\r\n       \"foaf\": \"http://xmlns.com/foaf/0.1/\",\r\n       \"inter" +
-                    "ests\": { \"@id\": \"foaf:topic_interest\", \"@container\": \"@set\" }\r\n    }\r\n    \"@id\":" +
-                    " \"http://example.com/Person\",\r\n    \"http://xmlns.com/foaf/0.1/topic_interest\": \"" +
-                    "RDF\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                    "ests\": { \"@id\": \"foaf:topic_interest\", \"@container\": \"@set\" }\r\n    },\r\n    \"inte" +
+                    "rests\": [ \"RDF\" ]\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Serialize model with single element in list")]
+        public virtual void SerializeModelWithSingleElementInList()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Serialize model with single element in list", ((string[])(null)));
+#line 43
+this.ScenarioSetup(scenarioInfo);
+#line 44
+    testRunner.Given("model of type \'JsonLD.Entities.Tests.Entities.HasInterestsList\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 45
+      testRunner.And("model has interest \'RDF\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 46
+     testRunner.When("the object is serialized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 47
+     testRunner.Then("the resulting JSON-LD should be:", "{\r\n    \"@context\": {\r\n       \"foaf\": \"http://xmlns.com/foaf/0.1/\",\r\n       \"inter" +
+                    "ests\": { \"@id\": \"foaf:topic_interest\", \"@container\": \"@list\" }\r\n    },\r\n    \"int" +
+                    "erests\": [ \"RDF\" ]\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

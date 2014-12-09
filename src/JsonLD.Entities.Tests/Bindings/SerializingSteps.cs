@@ -1,7 +1,6 @@
 ﻿using System;
 using FakeItEasy;
 using ImpromptuInterface;
-using ImpromptuInterface.Dynamic;
 using JsonLD.Entities.Tests.Entities;
 using JsonLD.Entities.Tests.Helpers;
 using Newtonsoft.Json.Linq;
@@ -19,6 +18,11 @@ namespace JsonLD.Entities.Tests.Bindings
         {
             _context = context;
             A.CallTo(() => _context.ContextProvider.GetContext(typeof(Person))).Returns(Default.PersonContext);
+            A.CallTo(() => _context.ContextProvider.GetContext(typeof(HasInterestsArray))).Returns(Default.HasInterestsSetContext);
+            A.CallTo(() => _context.ContextProvider.GetContext(typeof(HasInterestsCollection))).Returns(Default.HasInterestsSetContext);
+            A.CallTo(() => _context.ContextProvider.GetContext(typeof(HasInterestsEnumerable))).Returns(Default.HasInterestsSetContext);
+            A.CallTo(() => _context.ContextProvider.GetContext(typeof(HasInterestsList))).Returns(Default.HasInterestsListContext);
+            A.CallTo(() => _context.ContextProvider.GetContext(typeof(HasInterestsSet))).Returns(Default.HasInterestsSetContext);
         }
 
         [Given(@"a person without id")]
@@ -55,7 +59,7 @@ namespace JsonLD.Entities.Tests.Bindings
         public void ThenTheResultingJsonLdShouldBe(string jObject)
         {
             var expected = JObject.Parse(jObject);
-            Assert.That(JToken.DeepEquals(_context.JsonLdObject, expected));
+            Assert.That(JToken.DeepEquals(_context.JsonLdObject, expected), "Actual object was: {0}", _context.JsonLdObject);
         }
     }
 }

@@ -29,9 +29,8 @@ Scenario Outline: Serialize model with single element in set
             "@context": {
                "foaf": "http://xmlns.com/foaf/0.1/",
                "interests": { "@id": "foaf:topic_interest", "@container": "@set" }
-            }
-            "@id": "http://example.com/Person",
-            "http://xmlns.com/foaf/0.1/topic_interest": "RDF"
+            },
+            "interests": [ "RDF" ]
         }
         """
  Examples:
@@ -40,3 +39,18 @@ Scenario Outline: Serialize model with single element in set
     | JsonLD.Entities.Tests.Entities.HasInterestsSet        |
     | JsonLD.Entities.Tests.Entities.HasInterestsCollection |
     | JsonLD.Entities.Tests.Entities.HasInterestsEnumerable |
+
+Scenario: Serialize model with single element in list
+    Given model of type 'JsonLD.Entities.Tests.Entities.HasInterestsList'
+      And model has interest 'RDF'
+     When the object is serialized
+     Then the resulting JSON-LD should be:
+        """
+        {
+            "@context": {
+               "foaf": "http://xmlns.com/foaf/0.1/",
+               "interests": { "@id": "foaf:topic_interest", "@container": "@list" }
+            },
+            "interests": [ "RDF" ]
+        }
+        """
