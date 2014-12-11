@@ -49,6 +49,7 @@
     <Compile Include="ClassAttribute.cs" />
     <Compile Include="ContextNotFoundException.cs" />
     <Compile Include="Converters\JsonLdCollectionConverter.cs" />
+    <Compile Include="StaticFrameProvider.cs" />
     <Compile Include="EntitySerializer.cs" />
     <Compile Include="IContextProvider.cs" />
     <Compile Include="IEntitySerializer.cs" />
