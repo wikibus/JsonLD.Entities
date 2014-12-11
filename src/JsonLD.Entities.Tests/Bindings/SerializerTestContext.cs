@@ -13,7 +13,7 @@ namespace JsonLD.Entities.Tests.Bindings
         {
             _contextProvider = A.Fake<IContextProvider>();
             _frameProvider = A.Fake<IFrameProvider>();
-            _serializer = new EntitySerializer(_contextProvider);
+            _serializer = new EntitySerializer(_contextProvider, _frameProvider);
         }
 
         public IContextProvider ContextProvider

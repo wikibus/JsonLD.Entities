@@ -332,7 +332,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 210
      testRunner.Then("object should have object property \'Author\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 211
-      testRunner.And("object \'Author\' should have property \'Name\' containg string \'Siegfried Bufe\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+      testRunner.And("object \'Author\' should have property \'Name\' equal to \'Siegfried Bufe\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

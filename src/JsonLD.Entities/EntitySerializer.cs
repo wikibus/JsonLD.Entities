@@ -1,4 +1,5 @@
-﻿using JsonLD.Core;
+﻿using System.Linq;
+using JsonLD.Core;
 using JsonLD.Entities.Converters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -11,6 +12,7 @@ namespace JsonLD.Entities
     public class EntitySerializer : IEntitySerializer
     {
         private readonly IContextProvider _contextProvider;
+        private readonly IFrameProvider _frameProvider;
         private readonly JsonSerializer _jsonSerializer;
 
         /// <summary>
@@ -18,13 +20,24 @@ namespace JsonLD.Entities
         /// </summary>
         /// <param name="contextProvider">The JSON-LD @context provider.</param>
         public EntitySerializer(IContextProvider contextProvider)
+            : this(contextProvider, new NullFrameProvider())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntitySerializer"/> class.
+        /// </summary>
+        /// <param name="contextProvider">The JSON-LD @context provider.</param>
+        /// <param name="frameProvider">The JSON-LD frame provider.</param>
+        public EntitySerializer(IContextProvider contextProvider, IFrameProvider frameProvider)
         {
             _contextProvider = contextProvider;
+            _frameProvider = frameProvider;
             _jsonSerializer = new JsonSerializer
-                              {
-                                  DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                                  ContractResolver = new JsonLdContractResolver(_contextProvider)
-                              };
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                ContractResolver = new JsonLdContractResolver(_contextProvider)
+            };
         }
 
         /// <summary>
@@ -35,13 +48,7 @@ namespace JsonLD.Entities
         public T Deserialize<T>(string nQuads)
         {
             var jsonLdObject = JsonLdProcessor.FromRDF(nQuads);
-            var jsonLdContext = _contextProvider.GetContext(typeof(T));
-            if (jsonLdContext == null)
-            {
-                throw new ContextNotFoundException(typeof(T));
-            }
-
-            return JsonLdProcessor.Compact(jsonLdObject, jsonLdContext, new JsonLdOptions()).ToObject<T>(_jsonSerializer);
+            return Deserialize<T>(jsonLdObject);
         }
 
         /// <summary>
@@ -54,11 +61,18 @@ namespace JsonLD.Entities
             var jsonLdContext = _contextProvider.GetContext(typeof(T));
             if (jsonLdContext == null)
             {
-                return jsonLd.ToObject<T>(_jsonSerializer);
+                throw new ContextNotFoundException(typeof(T));
             }
 
-            var compacted = JsonLdProcessor.Compact(jsonLd, jsonLdContext, new JsonLdOptions());
-            return compacted.ToObject<T>(_jsonSerializer);
+            var frame = _frameProvider.GetFrame(typeof(T));
+            if (frame == null)
+            {
+                return JsonLdProcessor.Compact(jsonLd, jsonLdContext, new JsonLdOptions()).ToObject<T>(_jsonSerializer);
+            }
+
+            frame["@context"] = jsonLdContext;
+            var framed = JsonLdProcessor.Frame(jsonLd, frame, new JsonLdOptions());
+            return framed["@graph"].Single().ToObject<T>(_jsonSerializer);
         }
 
         /// <summary>
