@@ -58,6 +58,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeserializingRDF.feature</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\HasInterestsArray.cs" />
     <Compile Include="Entities\HasInterestsCollection.cs" />
     <Compile Include="Entities\HasInterestsEnumerable.cs" />

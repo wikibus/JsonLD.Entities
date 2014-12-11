@@ -57,6 +57,7 @@
     <Compile Include="Converters\JsonLdContractResolver.cs" />
     <Compile Include="Converters\JsonLdConverter.cs" />
     <Compile Include="Converters\JsonLdSetConverter.cs" />
+    <Compile Include="IFrameProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticContextProvider.cs" />
     <Compile Include="Converters\StringUriConverter.cs" />

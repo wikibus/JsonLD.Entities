@@ -19,7 +19,7 @@ namespace JsonLD.Entities
         /// </summary>
         /// <typeparam name="T">destination entity model</typeparam>
         /// <param name="jsonLd">a JSON-LD object</param>
-        T Deserialize<T>(JObject jsonLd);
+        T Deserialize<T>(JToken jsonLd);
 
         /// <summary>
         /// Serializes the specified entity as JSON-LD.

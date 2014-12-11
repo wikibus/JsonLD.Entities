@@ -165,3 +165,47 @@ Scenario: Deserialize list into set
         """
     When I deserialize into 'JsonLD.Entities.Tests.Entities.HasInterestsSet'
     Then Should fail
+
+@JsonLD
+Scenario: Deserialize a graph of objects
+    Given JSON-LD:
+         """
+            [
+              {
+                "@id": "_:autos1",
+                "http://schema.org/name": [
+                  {
+                    "@value": "Siegfried Bufe"
+                  }
+                ]
+              },
+              {
+                "@id": "http://wikibus.org/book/6",
+                "@type": [
+                    "http://wikibus.org/ontology#Book"
+                ],
+                "http://schema.org/author": [
+                  {
+                    "@id": "_:autos1"
+                  }
+                ]
+              }
+            ]
+         """
+      And @context is:
+         """
+         {
+           "sch": "http://schema.org/",
+           "author": "sch:author",
+           "name": "sch:name"
+         }
+         """
+      And frame is
+         """
+         {
+            "@type": "http://wikibus.org/ontology#Book"
+         }
+         """
+     When I deserialize into 'JsonLD.Entities.Tests.Entities.Book'
+     Then object should have object property 'Author'
+      And object 'Author' should have property 'Name' equal to 'Siegfried Bufe'

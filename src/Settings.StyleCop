@@ -4,6 +4,7 @@
     <CollectionProperty Name="RecognizedWords">
       <Value>bootstrapper</Value>
       <Value>JSON-LD</Value>
+      <Value>deserializing</Value>
     </CollectionProperty>
   </GlobalSettings>
   <Parsers>

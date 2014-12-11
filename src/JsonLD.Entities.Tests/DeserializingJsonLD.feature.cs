@@ -287,6 +287,55 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Deserialize a graph of objects")]
+        [NUnit.Framework.CategoryAttribute("JsonLD")]
+        public virtual void DeserializeAGraphOfObjects()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize a graph of objects", new string[] {
+                        "JsonLD"});
+#line 170
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+#line 171
+    testRunner.Given("JSON-LD:", @"   [
+     {
+       ""@id"": ""_:autos1"",
+       ""http://schema.org/name"": [
+         {
+           ""@value"": ""Siegfried Bufe""
+         }
+       ]
+     },
+     {
+       ""@id"": ""http://wikibus.org/book/6"",
+       ""@type"": [
+           ""http://wikibus.org/ontology#Book""
+       ],
+       ""http://schema.org/author"": [
+         {
+           ""@id"": ""_:autos1""
+         }
+       ]
+     }
+   ]", ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 195
+      testRunner.And("@context is:", "{\r\n  \"sch\": \"http://schema.org/\",\r\n  \"author\": \"sch:author\",\r\n  \"name\": \"sch:name" +
+                    "\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 203
+      testRunner.And("frame is", "{\r\n   \"@type\": \"http://wikibus.org/ontology#Book\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 209
+     testRunner.When("I deserialize into \'JsonLD.Entities.Tests.Entities.Book\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 210
+     testRunner.Then("object should have object property \'Author\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 211
+      testRunner.And("object \'Author\' should have property \'Name\' containg string \'Siegfried Bufe\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

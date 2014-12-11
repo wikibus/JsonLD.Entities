@@ -49,7 +49,7 @@ namespace JsonLD.Entities
         /// </summary>
         /// <typeparam name="T">destination entity model</typeparam>
         /// <param name="jsonLd">a JSON-LD object</param>
-        public T Deserialize<T>(JObject jsonLd)
+        public T Deserialize<T>(JToken jsonLd)
         {
             var jsonLdContext = _contextProvider.GetContext(typeof(T));
             if (jsonLdContext == null)
