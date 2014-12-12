@@ -41,9 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Readme.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <None Include="app.config" />
     <None Include="paket.references" />
-    <Compile Include="Readme.cs" />
+    <Compile Include="ComplexObjects\Readme.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JsonLD.Entities\JsonLD.Entities.csproj">
@@ -53,7 +56,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="Generate Doc" AfterTargets="Build">
-    <Exec Command="$(MSBuildProjectDirectory)\..\..\tools\llite\llite.exe %(Compile.Identity) -l csharp -co &quot;``` c#&quot; -cc ```" />
+    <Exec Command="$(MSBuildProjectDirectory)\..\..\tools\llite\llite.exe %(Compile.FullPath) -l csharp -co &quot;``` c#&quot; -cc ```"
+          WorkingDirectory="%(Compile.RelativeDir)"/>
   </Target>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETCore'">
