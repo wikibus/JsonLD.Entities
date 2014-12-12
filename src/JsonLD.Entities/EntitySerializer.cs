@@ -47,8 +47,15 @@ namespace JsonLD.Entities
         /// <param name="nQuads">RDF data in NQuads.</param>
         public T Deserialize<T>(string nQuads)
         {
-            var jsonLdObject = JsonLdProcessor.FromRDF(nQuads);
-            return Deserialize<T>(jsonLdObject);
+            var jsonLd = JsonLdProcessor.FromRDF(nQuads);
+            var context = _contextProvider.GetContext(typeof(T));
+            var frame = _frameProvider.GetFrame(typeof(T));
+            if (context == null)
+            {
+                throw new ContextNotFoundException(typeof(T));
+            }
+
+            return Deserialize<T>(jsonLd, context, frame);
         }
 
         /// <summary>
@@ -59,20 +66,9 @@ namespace JsonLD.Entities
         public T Deserialize<T>(JToken jsonLd)
         {
             var jsonLdContext = _contextProvider.GetContext(typeof(T));
-            if (jsonLdContext == null)
-            {
-                throw new ContextNotFoundException(typeof(T));
-            }
-
             var frame = _frameProvider.GetFrame(typeof(T));
-            if (frame == null)
-            {
-                return JsonLdProcessor.Compact(jsonLd, jsonLdContext, new JsonLdOptions()).ToObject<T>(_jsonSerializer);
-            }
 
-            frame["@context"] = jsonLdContext;
-            var framed = JsonLdProcessor.Frame(jsonLd, frame, new JsonLdOptions());
-            return framed["@graph"].Single().ToObject<T>(_jsonSerializer);
+            return Deserialize<T>(jsonLd, jsonLdContext, frame);
         }
 
         /// <summary>
@@ -85,6 +81,23 @@ namespace JsonLD.Entities
         public JObject Serialize(object entity)
         {
             return JObject.FromObject(entity, _jsonSerializer);
+        }
+
+        private T Deserialize<T>(JToken jsonLd, JObject context, JObject frame)
+        {
+            if (context == null)
+            {
+                return jsonLd.ToObject<T>(_jsonSerializer);
+            }
+
+            if (frame == null)
+            {
+                return JsonLdProcessor.Compact(jsonLd, context, new JsonLdOptions()).ToObject<T>(_jsonSerializer);
+            }
+
+            frame["@context"] = context;
+            var framed = JsonLdProcessor.Frame(jsonLd, frame, new JsonLdOptions());
+            return framed["@graph"].Single().ToObject<T>(_jsonSerializer);
         }
     }
 }

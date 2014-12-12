@@ -49,7 +49,7 @@ public class Deserialization
 {
 
 [Test]
-public void Can_deserialize_with_existing_context()
+public void Can_deserialize_with_existing_structure()
 {
     // given
     var json = JObject.Parse(@"
