@@ -46,6 +46,6 @@ Graph image from [W3C](http://www.w3.org/RDF/) originally desgined by [Bill Schw
 [jsonld-api]: http://www.w3.org/TR/json-ld-api/
 [jsonld]: http://json-ld.org
 [rdf]: http://en.wikipedia.org/wiki/Resource_Description_Framework
-[readme]: http://github.com/wikibus/JsonLD.Entities/blob/master/src/JsonLD.Docu/Readme.cs
+[readme]: http://github.com/wikibus/JsonLD.Entities/blob/master/src/Documentation/Readme.cs
 [jsonld-context]: http://www.w3.org/TR/json-ld/#the-context
-[docs]: https://github.com/wikibus/JsonLD.Entities/tree/master/src/JsonLD.Docu
+[docs]: https://github.com/wikibus/JsonLD.Entities/tree/master/src/Documentation
