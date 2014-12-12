@@ -37,7 +37,7 @@ cool! :yum:
 
 ## Usage examples
 
-All usage samples are written in the Literate Programming manner and can be conveniently viewed on GitHub in the [JsonLd.Docu project][docs]
+All usage samples are written in the Literate Programming manner and can be conveniently viewed on GitHub in the [Documentation project][docs]
 
 Graph image from [W3C](http://www.w3.org/RDF/) originally desgined by [Bill Schwappacher](mailto:bill@tracermedia.com).
 
