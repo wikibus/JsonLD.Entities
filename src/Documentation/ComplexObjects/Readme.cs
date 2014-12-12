@@ -38,9 +38,6 @@ public class City
     public string Name { get; set; }
 }
 
-[TestFixture]
-public class FramedDeserialization
-{
 /**
 #### Deserialize with JSON-LD frame
 
@@ -53,6 +50,10 @@ the JSON tree structure.
 In this example, the JSON-LD object will use the [`@graph`][atGraph] keyword to demonstrate a structure, which does not form a coherent
 object tree. Such could be the result of converting data in another RDF format into JSON-LD.
 **/
+
+[TestFixture]
+public class FramedDeserialization
+{
 
 private static readonly JToken JsonLd = JToken.Parse(@"
 {
@@ -104,7 +105,7 @@ This is where the [framing][framing] comes in. Another [example][sample-frame] i
 object in `@graph` has been _compressed_ into a single root by matching the `@id` property values. As you can see, the frame is an object,
 which reuses the `@context` but also defines the structure.
 
-In JsonLd.Entities, the `@context` is ignore and effectively replaced by the one declared above. It will only contain the `@type` property
+In JsonLd.Entities, the `@context` is ignored and effectively replaced by the one declared above. It will only contain the `@type` property
 to ensure that the preson is the root of out object
 **/
 
@@ -113,6 +114,10 @@ private static readonly JObject Frame = JObject.Parse(@"
   '@type': 'http://xmlns.com/foaf/0.1/Person'
 }
 ");
+
+/**
+And lastly, here's the complete example using the above frame and context.
+**/
 
 [Test]
 public void Can_deserialize_framed_document()
