@@ -10,14 +10,14 @@ namespace JsonLD.Entities
     /// </summary>
     public class StaticContextProvider : IContextProvider
     {
-        private readonly IDictionary<Type, JObject> _contexts;
+        private readonly IDictionary<Type, JToken> _contexts;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StaticContextProvider"/> class.
         /// </summary>
         public StaticContextProvider()
         {
-            _contexts = new Dictionary<Type, JObject>();
+            _contexts = new Dictionary<Type, JToken>();
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace JsonLD.Entities
         [return: AllowNull]
         public JToken GetContext(Type modelType)
         {
-            JObject context;
+            JToken context;
             _contexts.TryGetValue(modelType, out context);
             return context;
         }
@@ -36,7 +36,7 @@ namespace JsonLD.Entities
         /// <summary>
         /// Sets @context used by given <paramref name="type"/>.
         /// </summary>
-        public void SetContext(Type type, JObject context)
+        public void SetContext(Type type, JToken context)
         {
             _contexts[type] = context;
         }
