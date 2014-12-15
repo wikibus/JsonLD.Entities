@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LiteralValues\Readme.cs" />
     <Compile Include="Readme.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -56,8 +57,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="Generate Doc" AfterTargets="Build">
-    <Exec Command="$(MSBuildProjectDirectory)\..\..\tools\llite\llite.exe %(Compile.FullPath) -l csharp -co &quot;``` c#&quot; -cc ```"
-          WorkingDirectory="%(Compile.RelativeDir)"/>
+    <Exec Command="$(MSBuildProjectDirectory)\..\..\tools\llite\llite.exe %(Compile.FullPath) -l csharp -co &quot;``` c#&quot; -cc ```" WorkingDirectory="%(Compile.RelativeDir)" />
   </Target>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETCore'">
