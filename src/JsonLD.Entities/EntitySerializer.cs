@@ -83,7 +83,7 @@ namespace JsonLD.Entities
             return JObject.FromObject(entity, _jsonSerializer);
         }
 
-        private T Deserialize<T>(JToken jsonLd, JObject context, JObject frame)
+        private T Deserialize<T>(JToken jsonLd, JToken context, JObject frame)
         {
             if (context == null)
             {

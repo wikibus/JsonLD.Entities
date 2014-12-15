@@ -26,7 +26,7 @@ namespace JsonLD.Entities
         /// <param name="modelType">Type of the model.</param>
         /// <returns>JSON object or null if @context not found</returns>
         [return: AllowNull]
-        public JObject GetContext(Type modelType)
+        public JToken GetContext(Type modelType)
         {
             JObject context;
             _contexts.TryGetValue(modelType, out context);

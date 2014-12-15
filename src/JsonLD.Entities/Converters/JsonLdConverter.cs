@@ -35,7 +35,7 @@ namespace JsonLD.Entities.Converters
 
             var context = _contextProvider.GetContext(value.GetType());
 
-            if (context != null && context.Count > 0)
+            if (context != null && IsNotEmpty(context))
             {
                 writer.WritePropertyName("@context");
                 serializer.Serialize(writer, context);
@@ -107,6 +107,21 @@ namespace JsonLD.Entities.Converters
                 select new JValue(classUri);
 
             return new JArray(classes.Cast<object>().ToArray());
+        }
+
+        private static bool IsNotEmpty(JToken context)
+        {
+            if (context is JObject)
+            {
+                return ((JObject)context).Count > 0;
+            }
+
+            if (context is JArray)
+            {
+                return context.All(IsNotEmpty);
+            }
+
+            return false;
         }
     }
 }

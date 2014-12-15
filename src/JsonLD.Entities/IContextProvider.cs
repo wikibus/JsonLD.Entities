@@ -12,6 +12,6 @@ namespace JsonLD.Entities
         /// Gets the expanded context for a give serialized type..
         /// </summary>
         /// <param name="modelType">Type of the model.</param>
-        JObject GetContext(Type modelType);
+        JToken GetContext(Type modelType);
     }
 }
