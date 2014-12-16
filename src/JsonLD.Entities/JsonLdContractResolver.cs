@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using JsonLD.Entities.Converters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace JsonLD.Entities.Converters
+namespace JsonLD.Entities
 {
     /// <summary>
     /// Camel-case contract resolver with overrides for JSON-LD keywords
@@ -71,6 +72,10 @@ namespace JsonLD.Entities.Converters
             else if (type == typeof(Uri))
             {
                 contract.Converter = new StringUriConverter();
+            }
+            else if (contract is JsonPrimitiveContract)
+            {
+                contract.Converter = new JsonLdLiteralConverter();
             }
 
             return contract;

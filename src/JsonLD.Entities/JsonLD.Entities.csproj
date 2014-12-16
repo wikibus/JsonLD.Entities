@@ -49,13 +49,14 @@
     <Compile Include="ClassAttribute.cs" />
     <Compile Include="ContextNotFoundException.cs" />
     <Compile Include="Converters\JsonLdCollectionConverter.cs" />
+    <Compile Include="Converters\JsonLdLiteralConverter.cs" />
     <Compile Include="StaticFrameProvider.cs" />
     <Compile Include="EntitySerializer.cs" />
     <Compile Include="IContextProvider.cs" />
     <Compile Include="IEntitySerializer.cs" />
     <Compile Include="Converters\JsonLdArrayConverter.cs" />
     <Compile Include="Converters\JsonLdListConverter.cs" />
-    <Compile Include="Converters\JsonLdContractResolver.cs" />
+    <Compile Include="JsonLdContractResolver.cs" />
     <Compile Include="Converters\JsonLdConverter.cs" />
     <Compile Include="Converters\JsonLdSetConverter.cs" />
     <Compile Include="IFrameProvider.cs" />
