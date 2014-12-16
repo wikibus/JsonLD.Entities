@@ -54,3 +54,16 @@ Scenario: Serialize model with single element in list
             "interests": [ "RDF" ]
         }
         """
+
+Scenario: Serialize model with empty collection
+    Given model of type 'JsonLD.Entities.Tests.Entities.HasInterestsSet'
+     When the object is serialized
+     Then the resulting JSON-LD should be:
+        """
+        {
+            "@context": {
+               "foaf": "http://xmlns.com/foaf/0.1/",
+               "interests": { "@id": "foaf:topic_interest", "@container": "@set" }
+            }
+        }
+        """

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using JsonLD.Entities.Converters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -86,6 +88,25 @@ namespace JsonLD.Entities
 
             var resolvePropertyName = base.ResolvePropertyName(propertyName);
             return resolvePropertyName;
+        }
+
+        /// <summary>
+        /// Ensures that empty collections aren't serialized
+        /// </summary>
+        protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+        {
+            var property = base.CreateProperty(member, memberSerialization);
+
+            if (typeof(IEnumerable).IsAssignableFrom(property.PropertyType) && property.PropertyType != typeof(string))
+            {
+                property.ShouldSerialize = instance =>
+                {
+                    var collection = property.ValueProvider.GetValue(instance);
+                    return collection != null && ((IEnumerable)collection).Cast<object>().Any();
+                };
+            }
+
+            return property;
         }
 
         private static bool IsListType(Type type)
