@@ -24,7 +24,7 @@ public class PersonWithAge
 }
 ```
 
-### Deserialize expanded for of literals
+### Deserialize expanded form of literals
 
 JSON-LD have two ways of explicitly representing typed literal. They can be typed in the `@context`, in which case the JSON property value is
 a simple string token.
@@ -58,7 +58,7 @@ The other way is to directly state the value's type by expanding the literal to 
 }
 ```
 
-The two examples above may be eqivalent but the second one, which you will probably commonly encounter when working with JSON-LD, poses a
+The two examples above may be equivalent but the second one, which you will probably commonly encounter when working with JSON-LD, poses a
 problem for default Newtonsoft.Json serializer, because JSON object is not expected for primitive type such as `int` or `bool`.
 
 ``` c#
