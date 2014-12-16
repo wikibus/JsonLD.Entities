@@ -2,26 +2,13 @@
 
 ## Working with literal values
 
-First let's import the required namespaces.
- 
+As always, here are the required namespace imports.
 
 ``` c#
 using System;
 using JsonLD.Entities;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
-```
-
-The example below will deserialize to instances of a `PersonWithAddress` class, which contains a reference to an `Address`, which in turn references a `City`.
- 
-
-``` c#
-public class PersonWithAge
-{
-    public Uri Id { get; set; }
-
-    public long Age { get; set; }
-}
 ```
 
 ### Deserialize expanded form of literals
@@ -71,6 +58,13 @@ JsonLd.Entities will try to deserialize the `@value` instead. Note however that 
 round trip deserialization and serialization could produce different JSON-LD.
 
 ``` c#
+public class PersonWithAge
+{
+    public Uri Id { get; set; }
+
+    public long Age { get; set; }
+}
+
 [Test]
 public void Can_deserialize_expanded_literal()
 {
