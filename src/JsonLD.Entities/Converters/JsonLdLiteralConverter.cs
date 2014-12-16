@@ -32,12 +32,28 @@ namespace JsonLD.Entities.Converters
         /// </returns>
         public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
         {
-            if (reader.TokenType == JsonToken.StartObject)
+            if (reader.TokenType != JsonToken.StartObject)
             {
-                throw new NotImplementedException();
+                return DeserializeLiteral(reader, objectType, serializer);
             }
 
-            return serializer.Deserialize(reader, objectType);
+            object value = null;
+            while (reader.TokenType != JsonToken.EndObject)
+            {
+                reader.Read();
+
+                if (reader.TokenType == JsonToken.PropertyName && Equals(reader.Value, "@value"))
+                {
+                    reader.Read();
+                    value = DeserializeLiteral(reader, objectType, serializer);
+                }
+                else
+                {
+                    reader.Skip();
+                }
+            }
+
+            return value;
         }
 
         /// <summary>
@@ -49,7 +65,15 @@ namespace JsonLD.Entities.Converters
         /// </returns>
         public override bool CanConvert(Type objectType)
         {
-            throw new NotImplementedException();
+            return true;
+        }
+
+        /// <summary>
+        /// When implemented in derived classes can be used to customize deserialization logic for literal value
+        /// </summary>
+        protected virtual object DeserializeLiteral(JsonReader reader, Type objectType, JsonSerializer serializer)
+        {
+            return serializer.Deserialize(reader, objectType);
         }
     }
 }

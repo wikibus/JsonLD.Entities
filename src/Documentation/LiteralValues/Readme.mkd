@@ -6,7 +6,9 @@ As always, here are the required namespace imports.
 
 ``` c#
 using System;
+using System.Net;
 using JsonLD.Entities;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 ```
@@ -88,6 +90,67 @@ public void Can_deserialize_expanded_literal()
 
     // then
     Assert.That(person.Age, Is.EqualTo(28));
+}
+```
+
+### Using custom converter to serialize class instance as literal
+
+Of course if is also possible to use Newtonsoft.Json's attributes to define custom converter for a property. For example we may want to use
+a custom converter to convert `IPAddress` to string values.
+
+``` c#
+public class RequestLogItem
+{
+    [JsonConverter(typeof(IPAddressConverter))]
+    public IPAddress Ip { get; set; }   
+}
+
+[Test]
+public void Can_deserialize_class_from_literal()
+{
+    // given
+    var jsonLd = JObject.Parse(@"
+{
+  '@context': {
+    'ip': {
+      '@id': 'http://rdfs.org/sioc/ns#ip_address'
+    }
+  },
+  'ip': '148.9.20.34'
+}");
+
+    // when
+    IEntitySerializer serializer = new EntitySerializer(new StaticContextProvider());
+    var person = serializer.Deserialize<RequestLogItem>(jsonLd);
+
+    // then
+    Assert.That(person.Ip, Is.EqualTo(IPAddress.Parse("148.9.20.34")));
+}
+```
+
+And it would also work if the literal was given in it's expanded form.
+
+``` c#
+[Test]
+public void Can_deserialize_class_from_expanded_literal()
+{
+    // given
+    var jsonLd = JObject.Parse(@"
+{
+  '@context': {
+    'ip': {
+      '@id': 'http://rdfs.org/sioc/ns#ip_address'
+    }
+  },
+  'ip': { '@value': '148.9.20.34' }
+}");
+
+    // when
+    IEntitySerializer serializer = new EntitySerializer(new StaticContextProvider());
+    var person = serializer.Deserialize<RequestLogItem>(jsonLd);
+
+    // then
+    Assert.That(person.Ip, Is.EqualTo(IPAddress.Parse("148.9.20.34")));
 }
 }
 ```
