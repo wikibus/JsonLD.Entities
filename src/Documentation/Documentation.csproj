@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LiteralValues\IPAddressConverter.cs" />
     <Compile Include="LiteralValues\Readme.cs" />
     <Compile Include="Readme.cs">
       <SubType>Code</SubType>

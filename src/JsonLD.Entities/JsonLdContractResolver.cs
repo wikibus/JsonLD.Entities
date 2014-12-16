@@ -10,11 +10,10 @@ namespace JsonLD.Entities
     /// <summary>
     /// Camel-case contract resolver with overrides for JSON-LD keywords
     /// </summary>
-    public class JsonLdContractResolver : CamelCasePropertyNamesContractResolver
+    public sealed class JsonLdContractResolver : CamelCasePropertyNamesContractResolver
     {
         private static readonly ICollection<Type> SetTypes = new HashSet<Type>();
         private static readonly ICollection<Type> ListTypes = new HashSet<Type>();
-        private readonly IContextProvider _contextProvider;
 
         static JsonLdContractResolver()
         {
@@ -26,15 +25,6 @@ namespace JsonLD.Entities
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonLdContractResolver"/> class.
-        /// </summary>
-        /// <param name="contextProvider">The @context provider.</param>
-        public JsonLdContractResolver(IContextProvider contextProvider)
-        {
-            _contextProvider = contextProvider;
-        }
-
-        /// <summary>
         /// Resolves the contract for a given type.
         /// </summary>
         /// <param name="type">The type to resolve a contract for.</param>
@@ -42,11 +32,7 @@ namespace JsonLD.Entities
         {
             var contract = base.ResolveContract(type);
 
-            if (contract is JsonObjectContract)
-            {
-                contract.Converter = new JsonLdConverter(_contextProvider);
-            }
-            else if (contract is JsonArrayContract)
+            if (contract is JsonArrayContract)
             {
                 Type converterType;
                 Type elementType;
@@ -106,12 +92,6 @@ namespace JsonLD.Entities
         {
             return typeof(IList).IsAssignableFrom(type)
                 || (type.IsGenericType && typeof(IList<>).IsAssignableFrom(type.GetGenericTypeDefinition()));
-        }
-
-        private static bool IsSetType(Type type)
-        {
-            return SetTypes.Contains(type)
-                || (type.IsGenericType && SetTypes.Contains(type.GetGenericTypeDefinition()));
         }
     }
 }

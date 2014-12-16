@@ -9,6 +9,7 @@ As always, here are the required namespace imports.
 using System;
 using System.Net;
 using JsonLD.Entities;
+using JsonLD.Entities.Converters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -106,6 +107,29 @@ public class RequestLogItem
     public IPAddress Ip { get; set; }   
 }
 
+/**
+It's vital, that the converter is derived from `JsonLdLiteralConverter`. This way expanded literals are handled correctly. If it were
+derived from the deafult `JsonConverter` it would fail to deserialize such literals.
+**/
+
+public class IPAddressConverter : JsonLdLiteralConverter
+{
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+        writer.WriteValue(value.ToString());
+    }
+
+    protected override object DeserializeLiteral(JsonReader reader, Type objectType, JsonSerializer serializer)
+    {
+        return IPAddress.Parse((string)reader.Value);
+    }
+
+    public override bool CanConvert(Type objectType)
+    {
+        return objectType == typeof(IPAddress);
+    }
+}
+
 [Test]
 public void Can_deserialize_class_from_literal()
 {
@@ -152,5 +176,32 @@ public void Can_deserialize_class_from_expanded_literal()
 
     // then
     Assert.That(person.Ip, Is.EqualTo(IPAddress.Parse("148.9.20.34")));
+}
+
+/**
+And lastly it is possible to serialize such an object to literal. Note that compacted value will always be produced, so it's important to
+create a fitting `@context` so that the JSON-LD document is valid and correct.
+**/
+
+[Test]
+public void Can_serialize_class_instance_to_literal()
+{
+    // given
+    var entity = new RequestLogItem { Ip = IPAddress.Parse("148.9.20.34") };
+    var contextProvider = new StaticContextProvider();
+    var context = JObject.Parse(@"
+{
+    'ip': {
+        '@id': 'http://rdfs.org/sioc/ns#ip_address'
+    }
+}");
+    contextProvider.SetContext(typeof(RequestLogItem), context);
+
+    // when
+    IEntitySerializer serializer = new EntitySerializer(contextProvider);
+    dynamic jsonLd = serializer.Serialize(entity);
+
+    // then
+    Assert.That((string)jsonLd.ip, Is.EqualTo("148.9.20.34"));
 }
 }

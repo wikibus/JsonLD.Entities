@@ -57,7 +57,6 @@
     <Compile Include="Converters\JsonLdArrayConverter.cs" />
     <Compile Include="Converters\JsonLdListConverter.cs" />
     <Compile Include="JsonLdContractResolver.cs" />
-    <Compile Include="Converters\JsonLdConverter.cs" />
     <Compile Include="Converters\JsonLdSetConverter.cs" />
     <Compile Include="IFrameProvider.cs" />
     <Compile Include="NullFrameProvider.cs" />

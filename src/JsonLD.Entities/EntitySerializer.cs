@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using JsonLD.Core;
-using JsonLD.Entities.Converters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -36,7 +36,8 @@ namespace JsonLD.Entities
             _jsonSerializer = new JsonSerializer
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                ContractResolver = new JsonLdContractResolver(_contextProvider)
+                ContractResolver = new JsonLdContractResolver(),
+                NullValueHandling = NullValueHandling.Ignore
             };
         }
 
@@ -80,7 +81,47 @@ namespace JsonLD.Entities
         /// </returns>
         public JObject Serialize(object entity)
         {
-            return JObject.FromObject(entity, _jsonSerializer);
+            var jsonLd = JObject.FromObject(entity, _jsonSerializer);
+
+            var types = GetTypes(entity.GetType());
+            if (types.Any())
+            {
+                jsonLd.AddFirst(new JProperty("@type", types));
+            }
+
+            var context = _contextProvider.GetContext(entity.GetType());
+            if (context != null && IsNotEmpty(context))
+            {
+                jsonLd.AddFirst(new JProperty("@context", context));
+            }
+
+            return jsonLd;
+        }
+
+        private static JArray GetTypes(Type modelType)
+        {
+            var classes =
+                from attr in modelType.GetCustomAttributes(typeof(ClassAttribute), false).OfType<ClassAttribute>()
+                let classUri = attr.ClassUri
+                select new JValue(classUri.ToString());
+
+            return new JArray(classes.Cast<object>().ToArray());
+        }
+
+        private static bool IsNotEmpty(JToken context)
+        {
+            if (context is JObject)
+            {
+                return ((JObject)context).Count > 0;
+            }
+
+            var array = context as JArray;
+            if (array != null)
+            {
+                return array.All(IsNotEmpty);
+            }
+
+            return true;
         }
 
         private T Deserialize<T>(JToken jsonLd, JToken context, JObject frame)
