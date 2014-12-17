@@ -20,7 +20,11 @@ namespace JsonLD.Entities.Converters
         /// <summary>
         /// Reads the JSON representation of the object.
         /// </summary>
-        public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
+        public sealed override object ReadJson(
+            JsonReader reader,
+            Type objectType,
+            [AllowNull] object existingValue,
+            JsonSerializer serializer)
         {
             if (reader.TokenType != JsonToken.StartObject)
             {
