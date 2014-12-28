@@ -39,6 +39,7 @@ Scenario Outline: Serialize model with single element in set
     | JsonLD.Entities.Tests.Entities.HasInterestsSet        |
     | JsonLD.Entities.Tests.Entities.HasInterestsCollection |
     | JsonLD.Entities.Tests.Entities.HasInterestsEnumerable |
+    | JsonLD.Entities.Tests.Entities.HasInterestsGenerator  |
 
 Scenario: Serialize model with single element in list
     Given model of type 'JsonLD.Entities.Tests.Entities.HasInterestsList'
@@ -55,8 +56,8 @@ Scenario: Serialize model with single element in list
         }
         """
 
-Scenario: Serialize model with empty collection
-    Given model of type 'JsonLD.Entities.Tests.Entities.HasInterestsSet'
+Scenario Outline: Serialize model with empty collection
+    Given model of type '<type>'
      When the object is serialized
      Then the resulting JSON-LD should be:
         """
@@ -67,3 +68,7 @@ Scenario: Serialize model with empty collection
             }
         }
         """
+ Examples:
+    | type                                                 |
+    | JsonLD.Entities.Tests.Entities.HasInterestsGenerator |
+    | JsonLD.Entities.Tests.Entities.HasInterestsSet       |

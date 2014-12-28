@@ -209,3 +209,27 @@ Scenario: Deserialize a graph of objects
      When I deserialize into 'JsonLD.Entities.Tests.Entities.Book'
      Then object should have object property 'Author'
       And object 'Author' should have property 'Name' equal to 'Siegfried Bufe'
+
+@JsonLD
+Scenario: Deserialize type with converter
+    Given JSON-LD:
+         """
+         {
+            "@id": "http://example.com/TheIdentifier"
+         }
+         """
+     When I deserialize into 'JsonLD.Entities.Tests.Entities.WithConverter'
+     Then object should have property 'Id' equal to 'TheIdentifier'
+
+@JsonLD
+Scenario: Deserialize nested type with converter
+    Given JSON-LD:
+         """
+         {
+            "child": {
+              "@id": "http://example.com/TheIdentifier"
+            }
+         }
+         """
+     When I deserialize into 'JsonLD.Entities.Tests.Entities.WithConverter'
+     Then object should have property 'Id' equal to 'TheIdentifier'

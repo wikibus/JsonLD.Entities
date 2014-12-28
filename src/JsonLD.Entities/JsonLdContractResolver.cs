@@ -37,21 +37,18 @@ namespace JsonLD.Entities
             if (contract is JsonArrayContract)
             {
                 Type converterType;
-                Type elementType;
+                Type elementType = ((JsonArrayContract)contract).CollectionItemType;
 
                 if (type.BaseType == typeof(Array))
                 {
-                    elementType = type.GetElementType();
                     converterType = typeof(JsonLdArrayConverter<>);
                 }
                 else if (IsListType(type))
                 {
-                    elementType = type.GetGenericArguments()[0];
                     converterType = typeof(JsonLdListConverter<>);
                 }
                 else
                 {
-                    elementType = type.GetGenericArguments()[0];
                     converterType = typeof(JsonLdSetConverter<>);
                 }
 

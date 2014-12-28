@@ -336,6 +336,46 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Deserialize type with converter")]
+        [NUnit.Framework.CategoryAttribute("JsonLD")]
+        public virtual void DeserializeTypeWithConverter()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize type with converter", new string[] {
+                        "JsonLD"});
+#line 214
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+#line 215
+    testRunner.Given("JSON-LD:", "{\r\n   \"@id\": \"http://example.com/TheIdentifier\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 221
+     testRunner.When("I deserialize into \'JsonLD.Entities.Tests.Entities.WithConverter\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 222
+     testRunner.Then("object should have property \'Id\' equal to \'TheIdentifier\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Deserialize nested type with converter")]
+        [NUnit.Framework.CategoryAttribute("JsonLD")]
+        public virtual void DeserializeNestedTypeWithConverter()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize nested type with converter", new string[] {
+                        "JsonLD"});
+#line 225
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+#line 226
+    testRunner.Given("JSON-LD:", "{\r\n   \"child\": {\r\n     \"@id\": \"http://example.com/TheIdentifier\"\r\n   }\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 234
+     testRunner.When("I deserialize into \'JsonLD.Entities.Tests.Entities.WithConverter\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 235
+     testRunner.Then("object should have property \'Id\' equal to \'TheIdentifier\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

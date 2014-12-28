@@ -62,9 +62,12 @@
     <Compile Include="Entities\HasInterestsArray.cs" />
     <Compile Include="Entities\HasInterestsCollection.cs" />
     <Compile Include="Entities\HasInterestsEnumerable.cs" />
+    <Compile Include="Entities\HasInterestsGenerator.cs" />
     <Compile Include="Entities\HasInterestsList.cs" />
     <Compile Include="Entities\HasInterestsSet.cs" />
+    <Compile Include="Entities\ParentWithConverter.cs" />
     <Compile Include="Entities\Person.cs" />
+    <Compile Include="Entities\WithConverter.cs" />
     <Compile Include="EntitySerializerTests.cs" />
     <Compile Include="Helpers\Default.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
