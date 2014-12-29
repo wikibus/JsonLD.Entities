@@ -2,7 +2,6 @@
 using FakeItEasy;
 using ImpromptuInterface;
 using JsonLD.Entities.Tests.Entities;
-using JsonLD.Entities.Tests.Helpers;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -17,13 +16,7 @@ namespace JsonLD.Entities.Tests.Bindings
         public SerializingSteps(SerializerTestContext context)
         {
             _context = context;
-            A.CallTo(() => _context.ContextProvider.GetContext(typeof(Person))).Returns(Default.PersonContext);
-            A.CallTo(() => _context.ContextProvider.GetContext(typeof(HasInterestsArray))).Returns(Default.HasInterestsSetContext);
-            A.CallTo(() => _context.ContextProvider.GetContext(typeof(HasInterestsCollection))).Returns(Default.HasInterestsSetContext);
-            A.CallTo(() => _context.ContextProvider.GetContext(typeof(HasInterestsGenerator))).Returns(Default.HasInterestsSetContext);
-            A.CallTo(() => _context.ContextProvider.GetContext(typeof(HasInterestsEnumerable))).Returns(Default.HasInterestsSetContext);
-            A.CallTo(() => _context.ContextProvider.GetContext(typeof(HasInterestsList))).Returns(Default.HasInterestsListContext);
-            A.CallTo(() => _context.ContextProvider.GetContext(typeof(HasInterestsSet))).Returns(Default.HasInterestsSetContext);
+            A.CallTo(() => _context.ContextProvider.GetContext(A<Type>.Ignored)).Returns(null);
         }
 
         [Given(@"a person without id")]

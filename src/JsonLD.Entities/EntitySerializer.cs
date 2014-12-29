@@ -102,8 +102,8 @@ namespace JsonLD.Entities
         {
             var classes =
                 from attr in modelType.GetCustomAttributes(typeof(ClassAttribute), false).OfType<ClassAttribute>()
-                let classUri = attr.ClassUri
-                select new JValue(classUri.ToString());
+                let classUri = attr.Class
+                select new JValue(classUri);
 
             return new JArray(classes.Cast<object>().ToArray());
         }

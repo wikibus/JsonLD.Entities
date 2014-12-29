@@ -1,7 +1,6 @@
 ﻿using System;
 using FakeItEasy;
 using JsonLD.Entities.Tests.Entities;
-using JsonLD.Entities.Tests.Helpers;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
@@ -35,7 +34,12 @@ namespace JsonLD.Entities.Tests
         public void Should_serialize_id_as_string()
         {
             // given
-            A.CallTo(() => _provider.GetContext(typeof(Person))).Returns(Default.PersonContext);
+            A.CallTo(() => _provider.GetContext(typeof(Person))).Returns(JObject.Parse(@"{
+                'foaf': 'http://xmlns.com/foaf/0.1/',
+                'name': 'foaf:givenName',
+                'surname': 'foaf:familyName',
+                'birthDate': 'http://example.com/ontology#dateOfBirth'
+            }"));
             var id = new Uri("http://example.org/Some/Person");
 
             // when

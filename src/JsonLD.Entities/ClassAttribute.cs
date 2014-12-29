@@ -8,23 +8,18 @@ namespace JsonLD.Entities
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
     public sealed class ClassAttribute : Attribute
     {
-        private readonly Uri _classUri;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ClassAttribute"/> class.
         /// </summary>
-        /// <param name="classUri">The class URI.</param>
-        public ClassAttribute(string classUri)
+        /// <param name="classUriOrPrefixedName">The class URI.</param>
+        public ClassAttribute(string classUriOrPrefixedName)
         {
-            _classUri = new Uri(classUri);
+            Class = classUriOrPrefixedName;
         }
 
         /// <summary>
         /// Gets the RDF class URI.
         /// </summary>
-        public Uri ClassUri
-        {
-            get { return _classUri; }
-        }
+        public string Class { get; private set; }
     }
 }

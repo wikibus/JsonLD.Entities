@@ -7,12 +7,6 @@ Scenario: Serialize simple model with blank id
     Then the resulting JSON-LD should be:
         """
         {
-            "@context": {
-                "foaf": "http://xmlns.com/foaf/0.1/",
-                "name": "foaf:givenName",
-                "surname": "foaf:familyName",
-                "birthDate": "http://example.com/ontology#dateOfBirth"
-            },
             "name": "Tomasz",
             "surname": "Pluskiewicz",
             "birthDate": "1972-09-04T00:00:00"
@@ -26,10 +20,6 @@ Scenario Outline: Serialize model with single element in set
      Then the resulting JSON-LD should be:
         """
         {
-            "@context": {
-               "foaf": "http://xmlns.com/foaf/0.1/",
-               "interests": { "@id": "foaf:topic_interest", "@container": "@set" }
-            },
             "interests": [ "RDF" ]
         }
         """
@@ -48,10 +38,6 @@ Scenario: Serialize model with single element in list
      Then the resulting JSON-LD should be:
         """
         {
-            "@context": {
-               "foaf": "http://xmlns.com/foaf/0.1/",
-               "interests": { "@id": "foaf:topic_interest", "@container": "@list" }
-            },
             "interests": [ "RDF" ]
         }
         """
@@ -62,13 +48,25 @@ Scenario Outline: Serialize model with empty collection
      Then the resulting JSON-LD should be:
         """
         {
-            "@context": {
-               "foaf": "http://xmlns.com/foaf/0.1/",
-               "interests": { "@id": "foaf:topic_interest", "@container": "@set" }
-            }
         }
         """
  Examples:
     | type                                                 |
     | JsonLD.Entities.Tests.Entities.HasInterestsGenerator |
     | JsonLD.Entities.Tests.Entities.HasInterestsSet       |
+
+Scenario: Serialize model with prefixed name in ClassAttribute
+    Given model of type 'JsonLD.Entities.Tests.Entities.PersonWithPrefixedClass'
+    And @context is:
+         """
+         {
+            "ex": "http://example.com/ontology#"
+         }
+         """
+    When the object is serialized
+    Then the resulting JSON-LD should be:
+        """
+        {
+            "@type": [ "ex:Person" ]
+        }
+        """
