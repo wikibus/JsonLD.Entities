@@ -76,7 +76,7 @@ When each of the above will be serailized, the inline context will be used.
 public void UsesInlineContextWhenSerializing(Type entityType)
 {
     // given
-    const string expected = "{ '@context': { '@base': 'http://example.com' } }";
+    const string expected = "{ '@context': { '@base': 'http://example.com/' } }";
     var entity = Activator.CreateInstance(entityType);
     var serializer = new EntitySerializer();
 
@@ -84,7 +84,7 @@ public void UsesInlineContextWhenSerializing(Type entityType)
     var json = serializer.Serialize(entity);
 
     // then
-    Assert.That(JToken.DeepEquals(json, JObject.Parse(expected)));
+    Assert.That(JToken.DeepEquals(json, JObject.Parse(expected)), "Actual object is {0}", json);
 }
 }
 ```
