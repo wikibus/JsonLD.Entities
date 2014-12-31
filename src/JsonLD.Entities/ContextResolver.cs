@@ -29,21 +29,7 @@ namespace JsonLD.Entities
         [return: AllowNull]
         public JToken GetContext(Type type)
         {
-            dynamic context = _contextProvider.GetContext(type);
-
-            if (context != null)
-            {
-                return context;
-            }
-
-            try
-            {
-                context = Impromptu.InvokeGet(type.WithStaticContext(), "Context");
-            }
-            catch (RuntimeBinderException)
-            {
-                return null;
-            }
+            var context = GetContextFromProvider(type) ?? GetContextFromProperty(type);
 
             return EnsureContextType(context);
         }
@@ -54,27 +40,20 @@ namespace JsonLD.Entities
         [return: AllowNull]
         public JToken GetContext(object entity)
         {
-            dynamic context = _contextProvider.GetContext(entity.GetType());
-
-            if (context != null)
-            {
-                return context;
-            }
-
-            try
-            {
-                context = Impromptu.InvokeMember(entity.GetType().WithStaticContext(), "GetContext", entity);
-            }
-            catch (RuntimeBinderException)
-            {
-                return GetContext(entity.GetType());
-            }
+            var context = GetContextFromProvider(entity.GetType())
+                          ?? GetContextFromMethod(entity)
+                          ?? GetContextFromProperty(entity.GetType());
 
             return EnsureContextType(context);
         }
 
         private static JToken EnsureContextType(dynamic context)
         {
+            if (context == null)
+            {
+                return null;
+            }
+
             if (context is string)
             {
                 return JToken.Parse(context);
@@ -86,6 +65,42 @@ namespace JsonLD.Entities
             }
 
             throw new InvalidOperationException(string.Format("Invalid context type {0}. Must be string or JToken", context.GetType()));
+        }
+
+        private static dynamic GetContextFromProperty(Type type)
+        {
+            try
+            {
+                return Impromptu.InvokeGet(type.WithStaticContext(), "Context");
+            }
+            catch (RuntimeBinderException)
+            {
+                return null;
+            }
+        }
+
+        private static dynamic GetContextFromMethod(object entity)
+        {
+            try
+            {
+                return Impromptu.InvokeMember(entity.GetType().WithStaticContext(), "GetContext", entity);
+            }
+            catch (RuntimeBinderException)
+            {
+                return null;
+            }
+        }
+
+        private JToken GetContextFromProvider(Type type)
+        {
+            var context = _contextProvider.GetContext(type);
+
+            if (context != null)
+            {
+                return context;
+            }
+
+            return null;
         }
     }
 }
