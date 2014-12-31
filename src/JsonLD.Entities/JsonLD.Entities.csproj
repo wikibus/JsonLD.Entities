@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="ClassAttribute.cs" />
     <Compile Include="ContextNotFoundException.cs" />
+    <Compile Include="ContextResolver.cs" />
     <Compile Include="Converters\JsonLdCollectionConverter.cs" />
     <Compile Include="Converters\JsonLdLiteralConverter.cs" />
     <Compile Include="StaticFrameProvider.cs" />

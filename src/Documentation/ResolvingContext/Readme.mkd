@@ -23,42 +23,44 @@ using NUnit.Framework;
 public class DefiningContextInline
 {
 
-private const string Context = "{ '@base': 'http://example.com/' }";
+private const string TestContext = "{ '@base': 'http://example.com/' }";
 ```
 
-The simples way is to define a `_context` property. It must return a string or `JToken` and can be static and private. Below are
-example entity types with various ways of defining the `@context`.
+The simples way is to define a `Context` property. It must be static and return a string or `JToken`. It can also be private. Another way
+is to declare a `GetContext` method, which takes an object as parameter. This way a @context can be built dynamically.
+    
+Below are example entity types with various ways of defining the `@context` inline.
 
 ``` c#
 public class ContextInlineProperty
 {
-    public JObject _context
+    public static JObject Context
     {
-        get { return JObject.Parse(Context); }
+        get { return JObject.Parse(TestContext); }
     }
 }
 
 public class ContextInlinePrivateProperty
 {
-    private JObject _context
+    private static JObject Context
     {
-        get { return JObject.Parse(Context); }
+        get { return JObject.Parse(TestContext); }
     }
 }
 
 public class ContextInlineStaticStringProperty
 {
-    public static string _context
+    public static string Context
     {
-        get { return Context; }
+        get { return TestContext; }
     }
 }
 
-public class ContextInlinePrivateStaticProperty
+public class ContextInlineMethod
 {
-    private static JObject _context
+    private static JObject GetContext(ContextInlineMethod instance)
     {
-        get { return JObject.Parse(Context); }
+        return JObject.Parse(TestContext);
     }
 }
 ```
@@ -70,7 +72,7 @@ When each of the above will be serailized, the inline context will be used.
 [TestCase(typeof(ContextInlineProperty))]
 [TestCase(typeof(ContextInlinePrivateProperty))]
 [TestCase(typeof(ContextInlineStaticStringProperty))]
-[TestCase(typeof(ContextInlinePrivateStaticProperty))]
+[TestCase(typeof(ContextInlineMethod))]
 public void UsesInlineContextWhenSerializing(Type entityType)
 {
     // given

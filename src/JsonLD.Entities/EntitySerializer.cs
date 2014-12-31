@@ -11,9 +11,16 @@ namespace JsonLD.Entities
     /// </summary>
     public class EntitySerializer : IEntitySerializer
     {
-        private readonly IContextProvider _contextProvider;
+        private readonly ContextResolver _contextResolver;
         private readonly IFrameProvider _frameProvider;
         private readonly JsonSerializer _jsonSerializer;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntitySerializer"/> class.
+        /// </summary>
+        public EntitySerializer() : this(new ContextResolver())
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntitySerializer"/> class.
@@ -30,9 +37,14 @@ namespace JsonLD.Entities
         /// <param name="contextProvider">The JSON-LD @context provider.</param>
         /// <param name="frameProvider">The JSON-LD frame provider.</param>
         public EntitySerializer(IContextProvider contextProvider, IFrameProvider frameProvider)
+            : this(new ContextResolver(contextProvider))
         {
-            _contextProvider = contextProvider;
             _frameProvider = frameProvider;
+        }
+
+        private EntitySerializer(ContextResolver contextResolver)
+        {
+            _contextResolver = contextResolver;
             _jsonSerializer = new JsonSerializer
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -49,7 +61,7 @@ namespace JsonLD.Entities
         public T Deserialize<T>(string nQuads)
         {
             var jsonLd = JsonLdProcessor.FromRDF(nQuads);
-            var context = _contextProvider.GetContext(typeof(T));
+            var context = _contextResolver.GetContext(typeof(T));
             var frame = _frameProvider.GetFrame(typeof(T));
             if (context == null)
             {
@@ -66,7 +78,7 @@ namespace JsonLD.Entities
         /// <param name="jsonLd">a JSON-LD object</param>
         public T Deserialize<T>(JToken jsonLd)
         {
-            var jsonLdContext = _contextProvider.GetContext(typeof(T));
+            var jsonLdContext = _contextResolver.GetContext(typeof(T));
             var frame = _frameProvider.GetFrame(typeof(T));
 
             return Deserialize<T>(jsonLd, jsonLdContext, frame);
@@ -89,7 +101,7 @@ namespace JsonLD.Entities
                 jsonLd.AddFirst(new JProperty("@type", types));
             }
 
-            var context = _contextProvider.GetContext(entity.GetType());
+            var context = _contextResolver.GetContext(entity);
             if (context != null && IsNotEmpty(context))
             {
                 jsonLd.AddFirst(new JProperty("@context", context));
