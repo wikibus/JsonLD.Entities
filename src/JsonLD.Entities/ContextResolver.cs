@@ -3,6 +3,7 @@ using ImpromptuInterface;
 using ImpromptuInterface.InvokeExt;
 using Microsoft.CSharp.RuntimeBinder;
 using Newtonsoft.Json.Linq;
+using NullGuard;
 
 namespace JsonLD.Entities
 {
@@ -11,34 +12,37 @@ namespace JsonLD.Entities
     /// </summary>
     public sealed class ContextResolver
     {
+        private readonly IContextProvider _contextProvider;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ContextResolver"/> class.
         /// </summary>
         /// <param name="contextProvider">The context provider.</param>
         public ContextResolver(IContextProvider contextProvider)
         {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContextResolver"/> class.
-        /// </summary>
-        public ContextResolver()
-        {
+            _contextProvider = contextProvider;
         }
 
         /// <summary>
         /// Gets @context for an entity type.
         /// </summary>
+        [return: AllowNull]
         public JToken GetContext(Type type)
         {
-            dynamic context;
+            dynamic context = _contextProvider.GetContext(type);
+
+            if (context != null)
+            {
+                return context;
+            }
+
             try
             {
                 context = Impromptu.InvokeGet(type.WithStaticContext(), "Context");
             }
             catch (RuntimeBinderException)
             {
-                return new JObject();
+                return null;
             }
 
             return EnsureContextType(context);
@@ -47,9 +51,16 @@ namespace JsonLD.Entities
         /// <summary>
         /// Gets @context for an entity instance.
         /// </summary>
+        [return: AllowNull]
         public JToken GetContext(object entity)
         {
-            dynamic context;
+            dynamic context = _contextProvider.GetContext(entity.GetType());
+
+            if (context != null)
+            {
+                return context;
+            }
+
             try
             {
                 context = Impromptu.InvokeMember(entity.GetType().WithStaticContext(), "GetContext", entity);
