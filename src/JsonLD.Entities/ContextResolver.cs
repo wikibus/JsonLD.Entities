@@ -24,13 +24,16 @@ namespace JsonLD.Entities
         }
 
         /// <summary>
-        /// Gets the context.
+        /// Gets @context for an entity type.
         /// </summary>
         public JToken GetContext(Type type)
         {
             return new JObject();
         }
 
+        /// <summary>
+        /// Gets @context for an entity instance.
+        /// </summary>
         public JToken GetContext(object entity)
         {
             return new JObject();
