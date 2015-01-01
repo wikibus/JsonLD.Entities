@@ -51,6 +51,7 @@
     <Compile Include="ContextResolver.cs" />
     <Compile Include="Converters\JsonLdCollectionConverter.cs" />
     <Compile Include="Converters\JsonLdLiteralConverter.cs" />
+    <Compile Include="JsonLdKeywords.cs" />
     <Compile Include="NullContextProvider.cs" />
     <Compile Include="StaticFrameProvider.cs" />
     <Compile Include="EntitySerializer.cs" />

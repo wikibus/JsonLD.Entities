@@ -78,13 +78,13 @@ namespace JsonLD.Entities
         /// </summary>
         protected override string ResolvePropertyName(string propertyName)
         {
-            if (propertyName == "Id")
+            var keyword = JsonLdKeywords.GetKeywordForProperty(propertyName);
+            if (keyword != null)
             {
-                return "@id";
+                return keyword;
             }
 
-            var resolvePropertyName = base.ResolvePropertyName(propertyName);
-            return resolvePropertyName;
+            return base.ResolvePropertyName(propertyName);
         }
 
         /// <summary>
