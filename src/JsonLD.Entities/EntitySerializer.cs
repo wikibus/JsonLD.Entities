@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using JsonLD.Core;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -95,12 +94,6 @@ namespace JsonLD.Entities
         {
             var jsonLd = JObject.FromObject(entity, _jsonSerializer);
 
-            var types = GetTypes(entity.GetType());
-            if (types.Any())
-            {
-                jsonLd.AddFirst(new JProperty("@type", types));
-            }
-
             var context = _contextResolver.GetContext(entity);
             if (context != null && IsNotEmpty(context))
             {
@@ -108,16 +101,6 @@ namespace JsonLD.Entities
             }
 
             return jsonLd;
-        }
-
-        private static JArray GetTypes(Type modelType)
-        {
-            var classes =
-                from attr in modelType.GetCustomAttributes(typeof(ClassAttribute), false).OfType<ClassAttribute>()
-                let classUri = attr.Class
-                select new JValue(classUri);
-
-            return new JArray(classes.Cast<object>().ToArray());
         }
 
         private static bool IsNotEmpty(JToken context)

@@ -67,6 +67,6 @@ Scenario: Serialize model with prefixed name in ClassAttribute
     Then the resulting JSON-LD should be:
         """
         {
-            "@type": [ "ex:Person" ]
+            "@type": "ex:Person"
         }
         """

@@ -13,6 +13,7 @@ First let's import the required namespaces.
  **/
 
 using System;
+using System.Collections.Generic;
 using JsonLD.Entities;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -26,7 +27,6 @@ The easiest operation possible is to deserialize a JSON-LD object without any ch
 instances of a Person class.
  **/
 
-[Class("http://xmlns.com/foaf/0.1/Person")]
 public class Person
 {
     public Uri Id { get; set; }
@@ -34,6 +34,11 @@ public class Person
     public string Name { get; set; }
 
     public string LastName { get; set; }
+
+    public IEnumerable<Uri> Types
+    {
+        get { yield return new Uri("http://xmlns.com/foaf/0.1/Person"); }
+    }
 }
 
 /**

@@ -164,7 +164,7 @@ this.ScenarioSetup(scenarioInfo);
     testRunner.When("the object is serialized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 67
-    testRunner.Then("the resulting JSON-LD should be:", "{\r\n    \"@type\": [ \"ex:Person\" ]\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("the resulting JSON-LD should be:", "{\r\n    \"@type\": \"ex:Person\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
