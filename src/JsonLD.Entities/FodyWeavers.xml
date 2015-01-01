@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Weavers>
   <NullGuard IncludeDebugAssert="false" />
-    <InfoOf />
+  <InfoOf />
+  <Costura>
+    <IncludeAssemblies>
+      ImpromptuInterface
+    </IncludeAssemblies>
+  </Costura>
 </Weavers>
