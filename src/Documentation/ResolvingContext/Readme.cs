@@ -108,38 +108,40 @@ public void BuildComplexContextSimply()
     const string expected = @"
 {
     '@base': 'http://example.com/',
-'@vocab': 'http://schema.org/',
-'dcterms': 'http://purl.org/dc/terms/title',
-'xsd': 'http://www.w3.org/2001/XMLSchema#',
-'title': 'dcterms:title',
-'creator': { 
-    '@id': 'dcterms:creator', 
-    '@type': '@vocab'
-},
-'medium': { 
-    '@id': 'dcterms:medium', 
-    '@container': '@set'
-},
-'date': { 
-    '@id': 'dcterms:date', 
-    '@type': 'xsd:date'
-},
-'@language': 'en',
-'label': {
-    'http://www.w3.org/2004/02/skos/core#prefLabel',
-    '@language': null
-},
-'altLabel': {
-    '@id': 'http://www.w3.org/2004/02/skos/core#altLabel',
-    '@container': '@language'
-}
+    '@vocab': 'http://schema.org/',
+    'dcterms': 'http://purl.org/dc/terms/',
+    'xsd': 'http://www.w3.org/2001/XMLSchema#',
+    'title': 'dcterms:title',
+    'creator': { 
+        '@id': 'dcterms:creator', 
+        '@type': '@id'
+    },
+    'medium': { 
+        '@id': 'dcterms:medium', 
+        '@container': '@set', 
+        '@type': '@vocab'
+    },
+    'date': { 
+        '@id': 'dcterms:date', 
+        '@type': 'xsd:date'
+    },
+    '@language': 'en',
+    'label': {
+        '@id': 'http://www.w3.org/2004/02/skos/core#prefLabel',
+        '@language': null
+    },
+    'altLabel': {
+        '@id': 'http://www.w3.org/2004/02/skos/core#altLabel',
+        '@container': '@language',
+        '@type': 'xsd:string'
+    }
 }";
 
     // when
     var context = new JObject(
         Base.Is("http://example.com/"),
         Vocab.Is(new Uri("http://schema.org/")),
-        "dcterms".IsPrefixOf("http://purl.org/dc/terms/title"),
+        "dcterms".IsPrefixOf("http://purl.org/dc/terms/"),
         "xsd".IsPrefixOf(new Uri("http://www.w3.org/2001/XMLSchema#")),
         "title".IsProperty("dcterms:title"),
         "creator".IsProperty("dcterms:creator")
@@ -157,7 +159,7 @@ public void BuildComplexContextSimply()
                   .Type().Is("xsd:string"));
 
     // then
-    Assert.That(JToken.DeepEquals(context, JObject.Parse(expected)));
+    Assert.That(JToken.DeepEquals(context, JObject.Parse(expected)), "Actual context was {0}", context);
 }
 }
 

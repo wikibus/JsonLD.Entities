@@ -1,25 +1,35 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using NullGuard;
 
 namespace JsonLD.Entities.Context
 {
     /// <summary>
     /// Used to build property maps for JSON-LD @context
     /// </summary>
-    public class PropertyBuilder
+    [NullGuard(ValidationFlags.All)]
+    public class PropertyBuilder : JProperty
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyBuilder"/> class.
         /// </summary>
         public PropertyBuilder(string property, string uriOrPrefixedName)
+            : base(property, uriOrPrefixedName)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyBuilder"/> class.
+        /// </summary>
+        internal PropertyBuilder(JProperty property) : base(property)
         {
         }
 
         /// <summary>
         /// Creates a builder for properties with type coercion
         /// </summary>
-        public CoercionBuilder Type()
+        public new CoercionBuilder Type()
         {
-            throw new NotImplementedException();
+            return new CoercionBuilder(this);
         }
 
         /// <summary>
@@ -27,15 +37,17 @@ namespace JsonLD.Entities.Context
         /// </summary>
         public ContainerBuilder Container()
         {
-            throw new NotImplementedException();
+            return new ContainerBuilder(this);
         }
 
         /// <summary>
         /// Defines an internationalized property
         /// </summary>
-        public PropertyBuilder Language(string languageCode)
+        public PropertyBuilder Language([AllowNull] string languageCode)
         {
-            throw new NotImplementedException();
+            var property = this.EnsureExpandedDefinition()
+                               .With(JsonLdKeywords.Language, languageCode);
+            return new PropertyBuilder(property);
         }
     }
 }

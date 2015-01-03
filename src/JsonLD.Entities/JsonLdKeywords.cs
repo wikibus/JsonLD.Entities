@@ -10,34 +10,54 @@ namespace JsonLD.Entities
     public static class JsonLdKeywords
     {
         /// <summary>
-        /// @id property
+        /// @id keyword
         /// </summary>
         public const string Id = "@id";
 
         /// <summary>
-        /// @type property
+        /// @type keyword
         /// </summary>
         public const string Type = "@type";
 
         /// <summary>
-        /// @base property
+        /// @base keyword
         /// </summary>
         public const string Base = "@base";
 
         /// <summary>
-        /// @vocab property
+        /// @vocab keyword
         /// </summary>
-        public const string Vocab = "@base";
+        public const string Vocab = "@vocab";
 
         /// <summary>
-        /// @context property
+        /// @context keyword
         /// </summary>
         public const string Context = "@context";
 
         /// <summary>
-        /// @language property
+        /// @language keyword
         /// </summary>
         public const string Language = "@language";
+
+        /// <summary>
+        /// @container keyword
+        /// </summary>
+        public const string Container = "@container";
+
+        /// <summary>
+        /// @list keyword
+        /// </summary>
+        public const string List = "@list";
+
+        /// <summary>
+        /// @set keyword
+        /// </summary>
+        public const string Set = "@set";
+
+        /// <summary>
+        /// @index keyword
+        /// </summary>
+        public const string Index = "@index";
 
         private static readonly IDictionary<string, string> KnownPropertyNames = new Dictionary<string, string>();
 
