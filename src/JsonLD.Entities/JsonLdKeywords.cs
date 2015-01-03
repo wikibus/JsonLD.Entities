@@ -19,6 +19,26 @@ namespace JsonLD.Entities
         /// </summary>
         public const string Type = "@type";
 
+        /// <summary>
+        /// @base property
+        /// </summary>
+        public const string Base = "@base";
+
+        /// <summary>
+        /// @vocab property
+        /// </summary>
+        public const string Vocab = "@base";
+
+        /// <summary>
+        /// @context property
+        /// </summary>
+        public const string Context = "@context";
+
+        /// <summary>
+        /// @language property
+        /// </summary>
+        public const string Language = "@language";
+
         private static readonly IDictionary<string, string> KnownPropertyNames = new Dictionary<string, string>();
 
         static JsonLdKeywords()
@@ -26,6 +46,7 @@ namespace JsonLD.Entities
             KnownPropertyNames.Add("Id", Id);
             KnownPropertyNames.Add("Type", Type);
             KnownPropertyNames.Add("Types", Type);
+            KnownPropertyNames.Add("Context", Context);
         }
 
         /// <summary>

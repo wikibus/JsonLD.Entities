@@ -48,6 +48,12 @@
   <ItemGroup>
     <Compile Include="ContextNotFoundException.cs" />
     <Compile Include="ContextResolver.cs" />
+    <Compile Include="Context\Base.cs" />
+    <Compile Include="Context\CoercionBuilder.cs" />
+    <Compile Include="Context\ContainerBuilder.cs" />
+    <Compile Include="Context\PropertyBuilder.cs" />
+    <Compile Include="Context\StringExtensions.cs" />
+    <Compile Include="Context\Vocab.cs" />
     <Compile Include="Converters\JsonLdCollectionConverter.cs" />
     <Compile Include="Converters\JsonLdLiteralConverter.cs" />
     <Compile Include="JsonLdKeywords.cs" />
@@ -69,6 +75,7 @@
   <ItemGroup>
     <None Include="paket.references" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\.build\CommonTargets.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

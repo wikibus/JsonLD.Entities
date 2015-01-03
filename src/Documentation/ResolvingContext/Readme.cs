@@ -11,7 +11,9 @@ First let's import the required namespaces.
  **/
 
 using System;
+using System.Globalization;
 using JsonLD.Entities;
+using JsonLD.Entities.Context;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
@@ -86,4 +88,81 @@ public void UsesInlineContextWhenSerializing(Type entityType)
     // then
     Assert.That(JToken.DeepEquals(json, JObject.Parse(expected)), "Actual object is {0}", json);
 }
+
+/**
+### Building the `@context` programmatically
+
+The most reasonable way for creating the `@context` is to produce a `JObject` (or `JArray`) with the desired structure programmatically.
+This way it would also be possible to reuse and modify common contexts shared by hierarchies of classes. To simplify the repetitive chore
+of creating complex objects and introduce some semantics into the code, JsonLd.Entities introduces specialized classes for parts of the
+`@context` strucutre. They make it simpler to use advanced features like [type coercion][coercion], [internationalization][i8n] 
+or [@reverse][reverse].
+
+This can be done simply by passing instances of the aforementioned classes to a JObject constructor or appending them to
+**/
+
+[Test]
+public void BuildComplexContextSimply()
+{
+    // given
+    const string expected = @"
+{
+    '@base': 'http://example.com/',
+'@vocab': 'http://schema.org/',
+'dcterms': 'http://purl.org/dc/terms/title',
+'xsd': 'http://www.w3.org/2001/XMLSchema#',
+'title': 'dcterms:title',
+'creator': { 
+    '@id': 'dcterms:creator', 
+    '@type': '@vocab'
+},
+'medium': { 
+    '@id': 'dcterms:medium', 
+    '@container': '@set'
+},
+'date': { 
+    '@id': 'dcterms:date', 
+    '@type': 'xsd:date'
+},
+'@language': 'en',
+'label': {
+    'http://www.w3.org/2004/02/skos/core#prefLabel',
+    '@language': null
+},
+'altLabel': {
+    '@id': 'http://www.w3.org/2004/02/skos/core#altLabel',
+    '@container': '@language'
 }
+}";
+
+    // when
+    var context = new JObject(
+        Base.Is("http://example.com/"),
+        Vocab.Is(new Uri("http://schema.org/")),
+        "dcterms".IsPrefixOf("http://purl.org/dc/terms/title"),
+        "xsd".IsPrefixOf(new Uri("http://www.w3.org/2001/XMLSchema#")),
+        "title".IsProperty("dcterms:title"),
+        "creator".IsProperty("dcterms:creator")
+                 .Type().Id(),
+        "medium".IsProperty("dcterms:medium")
+                .Container().Set()
+                .Type().Vocab(),
+        "date".IsProperty("dcterms:date")
+              .Type().Is("xsd:date"),
+        "en".IsLanguage(),
+        "label".IsProperty("http://www.w3.org/2004/02/skos/core#prefLabel")
+               .Language(null),
+        "altLabel".IsProperty("http://www.w3.org/2004/02/skos/core#altLabel")
+                  .Container().Language()
+                  .Type().Is("xsd:string"));
+
+    // then
+    Assert.That(JToken.DeepEquals(context, JObject.Parse(expected)));
+}
+}
+
+/**
+[coercion]: http://www.w3.org/TR/json-ld/#type-coercion
+[reverse]: http://www.w3.org/TR/json-ld/#reverse-properties
+[i8n]: http://www.w3.org/TR/json-ld/#string-internationalization
+**/
