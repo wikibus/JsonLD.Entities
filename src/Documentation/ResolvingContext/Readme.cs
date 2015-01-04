@@ -11,7 +11,6 @@ First let's import the required namespaces.
  **/
 
 using System;
-using System.Globalization;
 using JsonLD.Entities;
 using JsonLD.Entities.Context;
 using Newtonsoft.Json.Linq;
