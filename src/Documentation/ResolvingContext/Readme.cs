@@ -94,11 +94,9 @@ public void UsesInlineContextWhenSerializing(Type entityType)
 
 The most reasonable way for creating the `@context` is to produce a `JObject` (or `JArray`) with the desired structure programmatically.
 This way it would also be possible to reuse and modify common contexts shared by hierarchies of classes. To simplify the repetitive chore
-of creating complex objects and introduce some semantics into the code, JsonLd.Entities introduces specialized classes for parts of the
-`@context` strucutre. They make it simpler to use advanced features like [type coercion][coercion], [internationalization][i8n] 
-or [@reverse][reverse].
-
-This can be done simply by passing instances of the aforementioned classes to a JObject constructor or appending them to
+of creating complex objects and introduce some semantics into the code, JsonLd.Entities introduces a number of helper methods, which can be
+used to create parts of the `@context` strucutre. They make it simpler to use advanced features like [type coercion][coercion],
+[internationalization][i8n] or [@reverse][reverse].
 **/
 
 [Test]
@@ -159,6 +157,7 @@ public void BuildComplexContextSimply()
                   .Type().Is("xsd:string"));
 
     // then
+    context = JObject.Parse(context.ToString()); // DeepEqual fails otherwise
     Assert.That(JToken.DeepEquals(context, JObject.Parse(expected)), "Actual context was {0}", context);
 }
 }
