@@ -1,5 +1,6 @@
 using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using NullGuard;
 
 namespace JsonLD.Entities.Converters
@@ -9,6 +10,19 @@ namespace JsonLD.Entities.Converters
     /// </summary>
     public class JsonLdLiteralConverter : JsonConverter
     {
+        private static readonly JsonLdSerializer LiteralSerializer;
+
+        /// <summary>
+        /// Initializes static members of the <see cref="JsonLdLiteralConverter"/> class.
+        /// </summary>
+        static JsonLdLiteralConverter()
+        {
+            LiteralSerializer = new JsonLdSerializer
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+        }
+
         /// <summary>
         /// Writes the JSON representation of the object.
         /// </summary>
@@ -63,7 +77,7 @@ namespace JsonLD.Entities.Converters
         /// </summary>
         protected virtual object DeserializeLiteral(JsonReader reader, Type objectType, JsonSerializer serializer)
         {
-            return serializer.Deserialize(reader, objectType);
+            return LiteralSerializer.Deserialize(reader, objectType);
         }
     }
 }

@@ -44,12 +44,7 @@ namespace JsonLD.Entities
         private EntitySerializer(ContextResolver contextResolver)
         {
             _contextResolver = contextResolver;
-            _jsonSerializer = new JsonSerializer
-            {
-                DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                ContractResolver = new JsonLdContractResolver(),
-                NullValueHandling = NullValueHandling.Ignore
-            };
+            _jsonSerializer = new JsonLdSerializer();
         }
 
         /// <summary>
