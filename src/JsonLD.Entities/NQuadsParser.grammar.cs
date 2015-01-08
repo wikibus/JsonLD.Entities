@@ -36,7 +36,6 @@ namespace JsonLD.Entities
         private static readonly Parser @object = (IRIREF | BLANK_NODE_LABEL | literal).Named("object");
         private static readonly Parser graphLabel = (IRIREF | BLANK_NODE_LABEL).Named("graphLabel");
         private static readonly Parser statement = (subject & predicate & @object & ~graphLabel & '.').SeparatedBy(Ws).Named("statement");
-        private static readonly Parser EOL = Terminals.Eol;
         // ReSharper restore InconsistentNaming
     }
 }
