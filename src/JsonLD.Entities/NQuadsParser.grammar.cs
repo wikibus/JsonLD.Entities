@@ -18,7 +18,7 @@ namespace JsonLD.Entities
                                               | new CharRangeTerminal('\x2C00', '\x2FEF')
                                               | new CharRangeTerminal('\x3001', '\xD7FF')
                                               | new CharRangeTerminal('\xF900', '\xFDCF')
-                                              | new CharRangeTerminal('\xFDF0', '\xFFFD');
+                                              | new CharRangeTerminal('\xFDF0', '\xFFFD')).Named("PN_CHARS_BASE");
                                               ////| new SurrogatePairRangeTerminal(0x10000, 0xEFFFF)).Named("PN_CHARS_BASE");
         private static readonly Parser PN_CHARS_U = (PN_CHARS_BASE | '_' | ':').Named("PN_CHARS_U");
         private static readonly Parser ECHAR = ('\\' & new CharSetTerminal('t', 'b', 'n', 'r', 'f', '"', '\\')).Named("ECHAR");
