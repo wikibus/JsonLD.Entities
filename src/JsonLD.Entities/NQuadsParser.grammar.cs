@@ -35,7 +35,7 @@ namespace JsonLD.Entities
         private static readonly Parser literal = (STRING_LITERAL_QUOTE & ~(("^^" & IRIREF) | LANGTAG)).SeparateChildrenBy(Ws).Named("literal");
         private static readonly Parser @object = (IRIREF | BLANK_NODE_LABEL | literal).Named("object");
         private static readonly Parser graphLabel = (IRIREF | BLANK_NODE_LABEL).Named("graphLabel");
-        private static readonly Parser Comment = (Ws & '#' & -Terminals.AnyChar).SeparatedBy(Ws).Optional();
+        private static readonly Parser Comment = (Ws & '#' & -Terminals.AnyChar.Except(Terminals.Eol)).SeparatedBy(Ws).Optional();
         private static readonly Parser statement = ((subject & predicate & @object & ~graphLabel & '.').SeparatedBy(Ws) & ~Comment).Named("statement");
         private static readonly Parser EOL = (Comment & Terminals.Eol) | -Terminals.Eol;
         // ReSharper restore InconsistentNaming

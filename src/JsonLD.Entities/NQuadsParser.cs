@@ -17,7 +17,7 @@ namespace JsonLD.Entities
 
         static NQuadsParser()
         {
-            Grammar = new Grammar((-statement).SeparatedBy(-EOL) & -EOL);
+            Grammar = new Grammar(~EOL & (-statement).SeparatedBy(-EOL) & -EOL);
         }
 
         /// <summary>
