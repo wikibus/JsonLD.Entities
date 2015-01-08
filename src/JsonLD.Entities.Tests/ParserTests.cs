@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using JsonLD.Core;
 using JsonLD.Impl;
 using Newtonsoft.Json.Linq;
@@ -41,7 +42,9 @@ namespace JsonLD.Entities.Tests
             string quads = File.ReadAllText(BasePath + path);
 
             // when
-            _parser.Parse(quads);
+            var dataset = _parser.Parse(quads);
+
+            Console.WriteLine("{0} quads deserialized", dataset.SelectMany(d => (IList<RDFDataset.Quad>)d.Value).Count());
         }
 
         private static IEnumerable<TestCaseData> GetTestCases()
