@@ -232,3 +232,4 @@ $RECYCLE.BIN/
 *.msp
 
 .NETFramework,Version=v4.0.AssemblyAttributes.mkd
+src/JsonLD.Entities.Tests/ParsingTests
