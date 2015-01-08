@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Eto.Parse;
 using JsonLD.Core;
@@ -16,7 +17,7 @@ namespace JsonLD.Entities
 
         static NQuadsParser()
         {
-            Grammar = new Grammar((~statement & -(Terminals.Eol & statement) & ~Terminals.Eol).SeparatedBy(Ws));
+            Grammar = new Grammar((-statement).SeparatedBy(-EOL) & -EOL);
         }
 
         /// <summary>
@@ -35,6 +36,7 @@ namespace JsonLD.Entities
 
             if (parsingResult.Success == false)
             {
+                Debug.WriteLine(parsingResult.ErrorMessage);
                 throw new Exception(string.Format("Could not parse NQuads at {0}", parsingResult.ErrorIndex));
             }
 
