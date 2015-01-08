@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Eto.Parse;
 using JsonLD.Core;
 using Newtonsoft.Json.Linq;
@@ -15,7 +16,7 @@ namespace JsonLD.Entities
 
         static NQuadsParser()
         {
-            Grammar = new Grammar((+statement).SeparatedBy(Ws));
+            Grammar = new Grammar((~statement & -(Terminals.Eol & statement) & ~Terminals.Eol).SeparatedBy(Ws));
         }
 
         /// <summary>
@@ -29,10 +30,15 @@ namespace JsonLD.Entities
                 throw new ArgumentException(string.Format("Input must be a string, but got {0}", input.Type), "input");
             }
 
-            var matches = Grammar.Matches((string)input);
+            var parsingResult = Grammar.Match((string)input);
             var result = new RDFDataset();
 
-            foreach (var match in matches)
+            if (parsingResult.Success == false)
+            {
+                throw new Exception(string.Format("Could not parse NQuads at {0}", parsingResult.ErrorIndex));
+            }
+
+            foreach (var match in parsingResult.Matches)
             {
                 var subj = GetSubjectNode(match["subject"]);
                 var pred = new RDFDataset.IRI(GetIri(match["predicate"]));

@@ -30,7 +30,7 @@ namespace JsonLD.Entities
         private static readonly Parser BLANK_NODE_LABEL = ("_:" & -(PN_CHARS_U | Terminals.Digit) & ~(-(PN_CHARS | '.') & PN_CHARS)).Named("BLANK_NODE_LABEL");
         private static readonly Parser LANGTAG = ('@' & +Terminals.Letter & -('-' & +Terminals.Letter)).Named("LANGTAG");
         private static readonly Parser subject = (IRIREF | BLANK_NODE_LABEL).Named("subject");
-        private static readonly Parser Ws = -Terminals.WhiteSpace;
+        private static readonly Parser Ws = -Terminals.SingleLineWhiteSpace;
         private static readonly Parser predicate = IRIREF.Named("predicate");
         private static readonly Parser literal = (STRING_LITERAL_QUOTE & ~(("^^" & IRIREF) | LANGTAG)).SeparateChildrenBy(Ws).Named("literal");
         private static readonly Parser @object = (IRIREF | BLANK_NODE_LABEL | literal).Named("object");
