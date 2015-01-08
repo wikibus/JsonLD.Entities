@@ -54,7 +54,7 @@ namespace JsonLD.Entities
         /// <param name="nQuads">RDF data in NQuads.</param>
         public T Deserialize<T>(string nQuads)
         {
-            var jsonLd = JsonLdProcessor.FromRDF(nQuads);
+            var jsonLd = JsonLdProcessor.FromRDF(nQuads, new NQuadsParser());
             var context = _contextResolver.GetContext(typeof(T));
             var frame = _frameProvider.GetFrame(typeof(T));
             if (context == null)

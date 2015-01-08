@@ -5,6 +5,7 @@
   <Costura>
     <IncludeAssemblies>
       ImpromptuInterface
+      Eto.Parse
     </IncludeAssemblies>
   </Costura>
 </Weavers>

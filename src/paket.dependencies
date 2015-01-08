@@ -15,5 +15,6 @@ nuget InfoOf.Fody
 nuget FakeItEasy
 nuget ImpromptuInterface
 nuget Costura.Fody
+nuget eto.parse
 
-github tpluscode/FileVersionExtractor FULLPROJECT
+github tpluscode/FileVersionExtractor
