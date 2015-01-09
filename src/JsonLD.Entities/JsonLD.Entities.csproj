@@ -59,11 +59,24 @@
     <Compile Include="Converters\JsonLdLiteralConverter.cs" />
     <Compile Include="JsonLdKeywords.cs" />
     <Compile Include="JsonLdSerializer.cs" />
-    <Compile Include="NQuadsParser.grammar.cs">
-      <DependentUpon>NQuadsParser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="NQuadsParser.cs" />
+    <Compile Include="Parsing\BlankNode.cs" />
+    <Compile Include="Parsing\LineStartState.cs" />
+    <Compile Include="Parsing\IriNode.cs" />
+    <Compile Include="Parsing\Literal.cs" />
+    <Compile Include="Parsing\Node.cs" />
+    <Compile Include="Parsing\NQuadsParser.cs" />
     <Compile Include="NullContextProvider.cs" />
+    <Compile Include="Parsing\NQuadsParserBase.cs" />
+    <Compile Include="Parsing\NQuadsParserState.cs" />
+    <Compile Include="Parsing\MatchExtensions.cs" />
+    <Compile Include="Parsing\PredicateMatchedState.cs" />
+    <Compile Include="Parsing\Quad.cs" />
+    <Compile Include="Parsing\QuadMatchedState.cs" />
+    <Compile Include="Parsing\QuadParsedEventArgs.cs" />
+    <Compile Include="Parsing\SubjectMatchedState.cs" />
+    <Compile Include="Parsing\Triple.cs" />
+    <Compile Include="Parsing\TripleMatchedState.cs" />
+    <Compile Include="Parsing\TripleParsedEventArgs.cs" />
     <Compile Include="StaticFrameProvider.cs" />
     <Compile Include="EntitySerializer.cs" />
     <Compile Include="IContextProvider.cs" />

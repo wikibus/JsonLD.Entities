@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using JsonLD.Core;
+using JsonLD.Entities.Parsing;
 using JsonLD.Impl;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -27,12 +26,12 @@ namespace JsonLD.Entities.Tests
     '@type': 'mf:Manifest'
 }");
 
-        private NQuadsParser _parser;
+        private NQuadsParserTestable _parser;
 
         [SetUp]
         public void Setup()
         {
-            _parser = new NQuadsParser();
+            _parser = new NQuadsParserTestable();
         }
 
         [TestCaseSource("GetTestCases")]
@@ -42,9 +41,7 @@ namespace JsonLD.Entities.Tests
             string quads = File.ReadAllText(BasePath + path);
 
             // when
-            var dataset = _parser.Parse(quads);
-
-            Console.WriteLine("{0} quads deserialized", dataset.SelectMany(d => (IList<RDFDataset.Quad>)d.Value).Count());
+            _parser.Parse(quads);
         }
 
         private static IEnumerable<TestCaseData> GetTestCases()
@@ -64,6 +61,27 @@ namespace JsonLD.Entities.Tests
                 }
 
                 yield return testCaseData;
+            }
+        }
+
+        public class NQuadsParserTestable : NQuadsParserBase
+        {
+            public new void Parse(string quads)
+            {
+                QuadParsed += HandleParsedQuad;
+                TripleParsed += HandleParsedTriple;
+
+                base.Parse(quads);
+            }
+
+            private void HandleParsedQuad(object sender, QuadParsedEventArgs args)
+            {
+                Console.WriteLine("Parsed quad '{0}' on line {1}", args.Quad, args.Line);
+            }
+
+            private void HandleParsedTriple(object sender, TripleParsedEventArgs args)
+            {
+                Console.WriteLine("Parsed triple '{1}' on line {0}", args.Line, args.Triple);
             }
         }
     }
