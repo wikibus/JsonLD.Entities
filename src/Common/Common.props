@@ -3,6 +3,5 @@
   <PropertyGroup>
     <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
     <GitVersionOnlyMajorAndMinorInAssemblyVersion>true</GitVersionOnlyMajorAndMinorInAssemblyVersion>
-    <MSBuildCommunityTasksPath>$(SolutionDir)\packages\MSBuildTasks\tools</MSBuildCommunityTasksPath>
   </PropertyGroup>
 </Project>
