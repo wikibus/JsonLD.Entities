@@ -1,6 +1,4 @@
 using System;
-using System.Diagnostics;
-using System.Linq;
 using Eto.Parse;
 using Eto.Parse.Parsers;
 
@@ -114,16 +112,12 @@ namespace JsonLD.Entities.Parsing
 
             if (result.Success == false)
             {
-                var message = string.Format("Unrecognized token at position {0}", result.ErrorIndex);
-                Debug.WriteLine(message);
-                throw new ParsingException(message);
+                throw new ParsingException(string.Format("Unrecognized token at position {0}", result.ErrorIndex));
             }
         }
 
         private void OnSubjectMatched(Match subjectMatch)
         {
-            Debug.WriteLine("Parsed subject {0}", subjectMatch);
-
             if (subjectMatch[IRIREF.Name].Success)
             {
                 _state.SubjectMatched(subjectMatch.ToTriNode());
@@ -136,22 +130,16 @@ namespace JsonLD.Entities.Parsing
 
         private void OnPredicateMatched(Match match)
         {
-            Debug.WriteLine("Parsed predicate {0}", match);
-
             _state.PredicateMatched(match.ToTriNode());
         }
 
         private void OnObjectMatched(Match match)
         {
-            Debug.WriteLine("Parsed object {0}", match);
-
             _state.ObjectMatched(match.ToObjectNode());
         }
 
         private void OnGraphLabelMatched(Match match)
         {
-            Debug.WriteLine("Parsed graph {0}", match);
-
             _state.GraphMatched(match.ToGraphNode());
         }
 
