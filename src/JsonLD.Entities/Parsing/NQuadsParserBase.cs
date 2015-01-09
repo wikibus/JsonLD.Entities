@@ -116,7 +116,7 @@ namespace JsonLD.Entities.Parsing
             {
                 var message = string.Format("Unrecognized token at position {0}", result.ErrorIndex);
                 Debug.WriteLine(message);
-                throw new Exception(message);
+                throw new ParsingException(message);
             }
         }
 

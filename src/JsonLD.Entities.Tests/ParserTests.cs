@@ -57,7 +57,7 @@ namespace JsonLD.Entities.Tests
 
                 if ((string)testCase["@type"] == "rdft:TestNQuadsNegativeSyntax")
                 {
-                    testCaseData.Throws(typeof(Exception));
+                    testCaseData.Throws(typeof(ParsingException));
                 }
 
                 yield return testCaseData;

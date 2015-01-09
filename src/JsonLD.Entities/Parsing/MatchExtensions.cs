@@ -1,3 +1,4 @@
+using System;
 using Eto.Parse;
 
 namespace JsonLD.Entities.Parsing
@@ -42,7 +43,15 @@ namespace JsonLD.Entities.Parsing
         /// </summary>
         public static IriNode ToTriNode(this Match iriMatch)
         {
-            return new IriNode(iriMatch.StringValue.Trim('<', '>'));
+            var iri = iriMatch.StringValue.Trim('<', '>');
+            try
+            {
+                return new IriNode(iri);
+            }
+            catch (UriFormatException ex)
+            {
+                throw new ParsingException(string.Format("Value '{0}' is not a valid absolute IRI", "ARG0"), ex);
+            }
         }
 
         /// <summary>

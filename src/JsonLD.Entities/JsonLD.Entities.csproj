@@ -69,6 +69,7 @@
     <Compile Include="Parsing\NQuadsParserBase.cs" />
     <Compile Include="Parsing\NQuadsParserState.cs" />
     <Compile Include="Parsing\MatchExtensions.cs" />
+    <Compile Include="Parsing\ParsingException.cs" />
     <Compile Include="Parsing\PredicateMatchedState.cs" />
     <Compile Include="Parsing\Quad.cs" />
     <Compile Include="Parsing\QuadMatchedState.cs" />
