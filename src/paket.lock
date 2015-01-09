@@ -33,3 +33,7 @@ GITHUB
   remote: tpluscode/FileVersionExtractor
   specs:
     FULLPROJECT (b1126aa31f362d0cd1e19e7abe1acd30da35ab6a)
+HTTP
+  remote: http://www.w3.org/2013/N-QuadsTests/TESTS.zip
+  specs:
+    TESTS.zip
