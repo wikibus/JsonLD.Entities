@@ -37,7 +37,7 @@ namespace JsonLD.Entities.Parsing
         private static readonly Parser BLANK_NODE_LABEL = ("_:" & -(PN_CHARS_U | Terminals.Digit) & ~(-(PN_CHARS | '.') & PN_CHARS)).Named("BLANK_NODE_LABEL");
         private static readonly Parser LANGTAG = ('@' & +Terminals.Letter & -('-' & +Terminals.Letter)).Named("LANGTAG");
         private static readonly Parser Ws = -Terminals.SingleLineWhiteSpace;
-        private static readonly Parser literal = (STRING_LITERAL_QUOTE & ~(("^^" & IRIREF) | LANGTAG)).SeparatedBy(Ws).Named("literal");
+        private static readonly Parser literal = (STRING_LITERAL_QUOTE & ~(("^^" & IRIREF) | LANGTAG)).Named("literal");
         private static readonly Parser comment = ~(Ws & '#' & -Terminals.AnyChar.Except(Terminals.Eol)).SeparatedBy(Ws);
         private static readonly Parser eol = (comment & Terminals.Eol) | -Terminals.Eol;
         // ReSharper restore InconsistentNaming
