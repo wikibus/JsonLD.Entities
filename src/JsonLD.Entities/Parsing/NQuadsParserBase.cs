@@ -38,8 +38,7 @@ namespace JsonLD.Entities.Parsing
         private static readonly Parser LANGTAG = ('@' & +Terminals.Letter & -('-' & +Terminals.Letter)).Named("LANGTAG");
         private static readonly Parser Ws = -Terminals.SingleLineWhiteSpace;
         private static readonly Parser literal = (STRING_LITERAL_QUOTE & ~(("^^" & IRIREF) | LANGTAG)).Named("literal");
-        private static readonly Parser comment = ~(Ws & '#' & -Terminals.AnyChar.Except(Terminals.Eol)).SeparatedBy(Ws);
-        private static readonly Parser eol = (comment & Terminals.Eol) | -Terminals.Eol;
+        private static readonly Parser comment = ('#' & -Terminals.AnyChar.Except(Terminals.Eol)).SeparatedBy(Ws);
         // ReSharper restore InconsistentNaming
 
         private readonly Grammar _grammar;
@@ -62,7 +61,9 @@ namespace JsonLD.Entities.Parsing
             var statement = ((subject & predicate & @object & ~graphLabel & '.').SeparatedBy(Ws) & ~comment).Named("statement");
             statement.Matched += match => HandleStatement();
 
-            _grammar = new Grammar(~eol & (-statement).SeparatedBy(-eol) & -eol);
+            Parser line = statement | (Ws & comment);
+
+            _grammar =new Grammar(~Terminals.WhiteSpace & (-line).SeparatedBy(-Terminals.WhiteSpace) & -Terminals.WhiteSpace);
             _state = new LineStartState(this, 1);
         }
 
