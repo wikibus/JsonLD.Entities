@@ -10,7 +10,7 @@ namespace JsonLD.Entities.Parsing
         /// </summary>
         /// <param name="triple">The triple.</param>
         /// <param name="graph">The graph.</param>
-        public Quad(Triple triple, IriNode graph)
+        public Quad(Triple triple, Node graph)
             : this()
         {
             Triple = triple;
@@ -25,7 +25,7 @@ namespace JsonLD.Entities.Parsing
         /// <summary>
         /// Gets the graph.
         /// </summary>
-        public IriNode Graph { get; private set; }
+        public Node Graph { get; private set; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.

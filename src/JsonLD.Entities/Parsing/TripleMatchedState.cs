@@ -26,7 +26,7 @@ namespace JsonLD.Entities.Parsing
         /// <summary>
         /// Handles matched graph
         /// </summary>
-        public override void GraphMatched(IriNode graphNode)
+        public override void GraphMatched(Node graphNode)
         {
             Parser.State = new QuadMatchedState(Parser, CurrentLine, new Quad(Triple, graphNode));
         }

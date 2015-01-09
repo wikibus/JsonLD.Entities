@@ -10,7 +10,7 @@ namespace JsonLD.Entities.Parsing
         /// <summary>
         /// Converts object match to a node
         /// </summary>
-        public static Node GetObjectNode(this Match objectMatch)
+        public static Node ToObjectNode(this Match objectMatch)
         {
             if (objectMatch["IRIREF"].Success)
             {
@@ -43,6 +43,19 @@ namespace JsonLD.Entities.Parsing
         public static IriNode ToTriNode(this Match iriMatch)
         {
             return new IriNode(iriMatch.StringValue.Trim('<', '>'));
+        }
+
+        /// <summary>
+        /// Converts graph match to IRI or blank node
+        /// </summary>
+        public static Node ToGraphNode(this Match match)
+        {
+            if (match["BLANK_NODE_LABEL"].Success)
+            {
+                return match.ToBlankNode();
+            }
+
+            return match.ToTriNode();
         }
 
         /// <summary>

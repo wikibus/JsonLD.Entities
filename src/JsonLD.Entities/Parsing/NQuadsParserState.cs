@@ -52,7 +52,7 @@ namespace JsonLD.Entities.Parsing
         /// <summary>
         /// Handles matched graph
         /// </summary>
-        public virtual void GraphMatched(IriNode graphNode)
+        public virtual void GraphMatched(Node graphNode)
         {
             throw new System.NotImplementedException(GetType().Name);
         }

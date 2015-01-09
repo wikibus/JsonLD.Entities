@@ -145,14 +145,14 @@ namespace JsonLD.Entities.Parsing
         {
             Debug.WriteLine("Parsed object {0}", match);
 
-            _state.ObjectMatched(match.GetObjectNode());
+            _state.ObjectMatched(match.ToObjectNode());
         }
 
         private void OnGraphLabelMatched(Match match)
         {
             Debug.WriteLine("Parsed graph {0}", match);
 
-            _state.GraphMatched(match.ToTriNode());
+            _state.GraphMatched(match.ToGraphNode());
         }
 
         private void HandleStatement()
