@@ -89,6 +89,9 @@ public void UsesInlineContextWhenSerializing(Type entityType)
 }
 
 /**
+**NOTE**: It's important to remember that private static members will not be visible in inherited classes. If you need to share a `@context`
+between a hierarchy of classes, then the `Context` property or `GetCOntext(OwnType)` must be declared protected or public.
+
 ### Building the `@context` programmatically
 
 The most reasonable way for creating the `@context` is to produce a `JObject` (or `JArray`) with the desired structure programmatically.
