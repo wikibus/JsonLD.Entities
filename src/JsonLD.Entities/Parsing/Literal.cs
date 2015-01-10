@@ -6,7 +6,7 @@ namespace JsonLD.Entities.Parsing
     /// <summary>
     /// A literal node
     /// </summary>
-    internal class Literal : Node
+    public class Literal : Node
     {
         private readonly string _value;
         private readonly Uri _datatype;

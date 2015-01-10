@@ -3,7 +3,7 @@ namespace JsonLD.Entities.Parsing
     /// <summary>
     /// A blank node
     /// </summary>
-    internal class BlankNode : Node
+    public class BlankNode : Node
     {
         private readonly string _blankNodeId;
 
