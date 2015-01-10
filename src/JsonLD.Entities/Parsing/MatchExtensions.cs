@@ -32,7 +32,7 @@ namespace JsonLD.Entities.Parsing
 
             if (objectMatch["LANGTAG", true].Success)
             {
-                return new Literal(value, objectMatch["LANGTAG"].StringValue.Trim('@'));
+                return new Literal(value, objectMatch["LANGTAG", true].StringValue.Trim('@'));
             }
 
             return new Literal(value);
