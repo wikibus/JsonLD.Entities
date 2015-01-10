@@ -36,6 +36,9 @@
     <Content Include="FodyWeavers.xml">
       <Paket>True</Paket>
     </Content>
+    <Content Include="ParsingTests\NQuads\rdf11blanknodes.nq">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -96,8 +99,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\paket-files\www.w3.org\2013\N-QuadsTests\TESTS.zip\*">
-	  <Link>ParsingTests\NQuads\%(Filename)%(Extension)</Link>
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>ParsingTests\NQuads\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -44,6 +44,17 @@ namespace JsonLD.Entities.Tests
             _parser.Parse(quads);
         }
 
+        [Test]
+        public void ParseBlankNodesTest()
+        {
+            // given
+            const string path = "rdf11blanknodes.nq";
+            string quads = File.ReadAllText(BasePath + path);
+
+            // when
+            _parser.Parse(quads);
+        }
+
         private static IEnumerable<TestCaseData> GetTestCases()
         {
             var manifest = JsonLdProcessor.FromRDF(File.ReadAllText(ManifestPath), new TurtleRDFParser());

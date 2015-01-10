@@ -31,7 +31,7 @@ namespace JsonLD.Entities.Parsing
         private static readonly Parser IRIREF_UNRESERVED = Terminals.AnyChar.Except(new CharSetTerminal('<', '>', '"', '{', '}', '|', '^', '`', '\\') | new CharRangeTerminal((char)0, (char)0x20));
         private static readonly Parser IRIREF = ('<' & -(IRIREF_UNRESERVED | UCHAR) & '>').Named("IRIREF");
         private static readonly Parser STRING_LITERAL_QUOTE = ('"' & -(!new CharSetTerminal('\x22', '\x5C', '\xA', '\xD') | ECHAR | UCHAR) & '"').Named("STRING_LITERAL_QUOTE");
-        private static readonly Parser BLANK_NODE_LABEL = ("_:" & -(PN_CHARS_U | Terminals.Digit) & ~(-(PN_CHARS | '.') & PN_CHARS)).Named("BLANK_NODE_LABEL");
+        private static readonly Parser BLANK_NODE_LABEL = ("_:" & (PN_CHARS_U | Terminals.Digit) & ~(-('.' & PN_CHARS | PN_CHARS))).Named("BLANK_NODE_LABEL");
         private static readonly Parser LANGTAG = ('@' & +Terminals.Letter & -('-' & +Terminals.Letter)).Named("LANGTAG");
         private static readonly Parser Ws = -Terminals.SingleLineWhiteSpace;
         private static readonly Parser literal = (STRING_LITERAL_QUOTE & ~(("^^" & IRIREF) | LANGTAG)).Named("literal");
