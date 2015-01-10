@@ -1,11 +1,11 @@
 namespace JsonLD.Entities.Parsing
 {
     /// <summary>
-    /// Abstract state of <see cref="NQuadsParserBase"/>
+    /// Abstract state of <see cref="NQuadsParser"/>
     /// </summary>
     internal abstract class NQuadsParserState
     {
-        private readonly NQuadsParserBase _parser;
+        private readonly NQuadsParser _parser;
         private readonly int _currentLine;
 
         /// <summary>
@@ -13,7 +13,7 @@ namespace JsonLD.Entities.Parsing
         /// </summary>
         /// <param name="parser">The parser.</param>
         /// <param name="currentLine">The current line.</param>
-        protected NQuadsParserState(NQuadsParserBase parser, int currentLine)
+        protected NQuadsParserState(NQuadsParser parser, int currentLine)
         {
             _parser = parser;
             _currentLine = currentLine;
@@ -36,7 +36,7 @@ namespace JsonLD.Entities.Parsing
         /// <value>
         /// The parser.
         /// </value>
-        protected NQuadsParserBase Parser
+        protected NQuadsParser Parser
         {
             get { return _parser; }
         }
@@ -84,7 +84,7 @@ namespace JsonLD.Entities.Parsing
         /// <summary>
         /// Advances parser state to next line.
         /// </summary>
-        protected void AdvanceToNextLine()
+        public void AdvanceToNextLine()
         {
             Parser.State = new LineStartState(Parser, CurrentLine + 1);
         }

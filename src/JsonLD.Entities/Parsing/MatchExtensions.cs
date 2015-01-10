@@ -27,15 +27,15 @@ namespace JsonLD.Entities.Parsing
 
             if (objectMatch["IRIREF", true].Success)
             {
-                return new Literal(value, objectMatch["IRIREF", true].ToTriNode().Iri, null);
+                return new Literal(value, objectMatch["IRIREF", true].ToTriNode().Iri);
             }
 
             if (objectMatch["LANGTAG", true].Success)
             {
-                return new Literal(value, null, objectMatch["LANGTAG"].StringValue.Trim('@'));
+                return new Literal(value, objectMatch["LANGTAG"].StringValue.Trim('@'));
             }
 
-            return new Literal(value, null, null);
+            return new Literal(value);
         }
 
         /// <summary>

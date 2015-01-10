@@ -1,7 +1,7 @@
 <StyleCopSettings Version="105" >
   <SourceFileList>
     <SourceFile>VersionAssemblyInfo.cs</SourceFile>
-    <SourceFile>NQuadsParserBase.cs</SourceFile>
+    <SourceFile>NQuadsParser.grammar.cs</SourceFile>
     <Settings>
 	  <GlobalSettings>
 	    <BooleanProperty Name="RulesEnabledByDefault">False</BooleanProperty>

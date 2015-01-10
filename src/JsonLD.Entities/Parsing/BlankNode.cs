@@ -17,6 +17,14 @@ namespace JsonLD.Entities.Parsing
         }
 
         /// <summary>
+        /// Gets the identifier.
+        /// </summary>
+        public string Identifier
+        {
+            get { return _blankNodeId; }
+        }
+
+        /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         public override string ToString()

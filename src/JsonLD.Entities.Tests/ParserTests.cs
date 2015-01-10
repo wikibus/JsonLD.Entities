@@ -64,14 +64,16 @@ namespace JsonLD.Entities.Tests
             }
         }
 
-        public class NQuadsParserTestable : NQuadsParserBase
+        public class NQuadsParserTestable
         {
-            public new void Parse(string quads)
+            public void Parse(string quads)
             {
-                QuadParsed += HandleParsedQuad;
-                TripleParsed += HandleParsedTriple;
+                Parsing.NQuadsParser parser = new Parsing.NQuadsParser();
 
-                base.Parse(quads);
+                parser.QuadParsed += HandleParsedQuad;
+                parser.TripleParsed += HandleParsedTriple;
+
+                parser.Parse(quads);
             }
 
             private void HandleParsedQuad(object sender, QuadParsedEventArgs args)

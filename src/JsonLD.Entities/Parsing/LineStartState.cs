@@ -12,7 +12,7 @@ namespace JsonLD.Entities.Parsing
         /// </summary>
         /// <param name="parser">The parser.</param>
         /// <param name="currentLine">The current line.</param>
-        public LineStartState(NQuadsParserBase parser, int currentLine)
+        public LineStartState(NQuadsParser parser, int currentLine)
             : base(parser, currentLine)
         {
         }

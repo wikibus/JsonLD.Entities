@@ -11,7 +11,7 @@ namespace JsonLD.Entities.Parsing
         /// <summary>
         /// Initializes a new instance of the <see cref="PredicateMatchedState"/> class.
         /// </summary>
-        public PredicateMatchedState(NQuadsParserBase parser, int currentLine, Node subjectNode, IriNode predicateNode)
+        public PredicateMatchedState(NQuadsParser parser, int currentLine, Node subjectNode, IriNode predicateNode)
             : base(parser, currentLine)
         {
             _subjectNode = subjectNode;

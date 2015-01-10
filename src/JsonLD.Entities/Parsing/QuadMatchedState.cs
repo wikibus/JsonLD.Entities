@@ -10,7 +10,7 @@ namespace JsonLD.Entities.Parsing
         /// <summary>
         /// Initializes a new instance of the <see cref="QuadMatchedState"/> class.
         /// </summary>
-        public QuadMatchedState(NQuadsParserBase parser, int currentLine, Quad quad) : base(parser, currentLine)
+        public QuadMatchedState(NQuadsParser parser, int currentLine, Quad quad) : base(parser, currentLine)
         {
             _quad = quad;
         }
@@ -29,7 +29,6 @@ namespace JsonLD.Entities.Parsing
         public override void StatementMatched()
         {
             Parser.HandleParsedQuad(Quad);
-            AdvanceToNextLine();
         }
     }
 }
