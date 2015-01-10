@@ -20,6 +20,7 @@ NUGET
     MethodTimer.Fody (1.15.2)
       Fody
     Newtonsoft.Json (6.0.6)
+    Nivot.StrongNaming (1.0.4.2)
     NullGuard.Fody (1.2.0)
       Fody
     NUnit (2.6.3)

@@ -33,6 +33,15 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\bin\JsonLD.Entities.XML</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>JsonLD.Entities.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml">
       <Paket>True</Paket>
@@ -94,17 +103,25 @@
     <Compile Include="Converters\StringUriConverter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="JsonLD.Entities.snk" />
     <None Include="paket.references" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\.build\CommonTargets.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
+	<PropertyGroup> 
+		<SignAssemblies><![CDATA[
+		Import-Module ..\packages\Nivot.StrongNaming\tools\StrongNaming.psd1
+		$key = Import-StrongNameKeyPair ..\JsonLD.Entities\JsonLD.Entities.snk
+		dir ..\packages\Eto.Parse -rec *.dll | where { -not (test-strongname \$_) } | set-strongname -keypair $key -verbose
+		dir ..\packages\json-ld.net -rec *.dll | where { -not (test-strongname \$_) } | set-strongname -keypair $key -verbose
+		dir ..\packages\NullGuard.Fody -rec *.dll | where { -not (test-strongname \$_) } | set-strongname -keypair $key -verbose
+		]]></SignAssemblies>
+	</PropertyGroup> 
+    <Powershell Script="$(SignAssemblies)" />
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  -->
   <Choose>
     <When Condition="($(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3')) Or ($(TargetFrameworkIdentifier) == 'MonoAndroid') Or ($(TargetFrameworkIdentifier) == 'MonoTouch')">
       <ItemGroup>

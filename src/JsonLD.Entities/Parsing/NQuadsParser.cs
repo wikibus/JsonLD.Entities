@@ -1,5 +1,6 @@
 using System;
 using Eto.Parse;
+using Eto.Parse.Scanners;
 
 namespace JsonLD.Entities.Parsing
 {

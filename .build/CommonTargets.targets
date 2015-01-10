@@ -8,4 +8,5 @@
   <Import Project="$(MSBuildThisFileDirectory)..\src\packages\StyleCop.MSBuild\build\StyleCop.MSBuild.Targets" Condition="Exists('$(MSBuildThisFileDirectory)..\src\packages\StyleCop.MSBuild\build\StyleCop.MSBuild.Targets')" />
   <Import Project="$(MSBuildThisFileDirectory)..\src\packages\Zoltu.Versioning\build\Zoltu.Versioning.targets" Condition="Exists('$(MSBuildThisFileDirectory)..\src\packages\Zoltu.Versioning\build\Zoltu.Versioning.targets')" />
   <Import Project="$(MSBuildThisFileDirectory)..\src\packages\Fody\build\Fody.targets" Condition="Exists('$(MSBuildThisFileDirectory)..\src\packages\Fody\build\Fody.targets')" />
+  <Import Project="PowershellMSBuildTask.Targets" />
 </Project>
