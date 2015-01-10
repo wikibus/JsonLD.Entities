@@ -34,14 +34,21 @@ namespace JsonLD.Entities
 
         private void AddQuadToDataset(Triple quad, string graphName, RDFDataset rdfDataset)
         {
-            if (quad.Object is Literal)
+            Literal literal = quad.Object as Literal;
+            if (literal != null)
             {
+                string datatype = null;
+                if (literal.Datatype != null)
+                {
+                    datatype = literal.Datatype.ToString();
+                }
+
                 rdfDataset.AddQuad(
                     GetValue(quad.Subject),
                     GetValue(quad.Predicate),
-                    GetValue(quad.Object),
-                    ((Literal)quad.Object).Datatype.ToString(),
-                    ((Literal)quad.Object).LanguageTag,
+                    GetValue(literal),
+                    datatype,
+                    literal.LanguageTag,
                     graphName);
             }
             else
@@ -56,14 +63,16 @@ namespace JsonLD.Entities
 
         private string GetValue(Node node)
         {
-            if (node is IriNode)
+            var iriNode = node as IriNode;
+            if (iriNode != null)
             {
-                return ((IriNode)node).Iri.ToString();
+                return iriNode.Iri.ToString();
             }
 
-            if (node is BlankNode)
+            var blankNode = node as BlankNode;
+            if (blankNode != null)
             {
-                return ((BlankNode)node).Identifier;
+                return blankNode.Identifier;
             }
 
             return ((Literal)node).Value;
