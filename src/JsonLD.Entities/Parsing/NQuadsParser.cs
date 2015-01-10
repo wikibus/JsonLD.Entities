@@ -31,7 +31,7 @@ namespace JsonLD.Entities.Parsing
             var statement = ((subject & predicate & @object & ~graphLabel & '.').SeparatedBy(Ws) & ~comment).Named("statement");
             statement.Matched += match => HandleStatement();
 
-            var line = (((Ws & statement) | (Ws & ~comment)) & Terminals.Eol).Named("documentLine");
+            var line = (((Ws & statement) | (Ws & ~comment)) & ~Terminals.Eol).Named("documentLine");
             line.Matched += HandleNewLine;
 
             _grammar = new Grammar(-line);
@@ -61,7 +61,6 @@ namespace JsonLD.Entities.Parsing
         /// </summary>
         public void Parse(string nquads)
         {
-            _grammar.AllowPartialMatch = true;
             var result = _grammar.Match(nquads);
 
             if (result.Success == false)
