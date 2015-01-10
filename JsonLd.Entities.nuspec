@@ -20,7 +20,7 @@
     <tags>rdf json-ld turtle ttl n3 notation3 semantic web</tags>
     <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="6.0.0" />
+      <dependency id="json-ld.net" version="1.0" />
     </dependencies>
   </metadata>
   <files>

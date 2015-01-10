@@ -6,7 +6,6 @@
     <IncludeAssemblies>
       ImpromptuInterface
       Eto.Parse
-      JsonLD
     </IncludeAssemblies>
   </Costura>
 </Weavers>
