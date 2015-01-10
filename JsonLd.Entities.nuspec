@@ -19,10 +19,6 @@
   </copyright>
     <tags>rdf json-ld turtle ttl n3 notation3 semantic web</tags>
   <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
-  <dependencies>
-    <dependency id="dotNetRDF" version="1.0.0" />
-    <dependency id="json-ld.net" version="1.0" />
-  </dependencies>
   </metadata>
   <files>
     <file src="bin\JsonLd.Entities.dll" target="lib\net40" />
