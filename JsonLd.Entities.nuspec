@@ -7,7 +7,7 @@
     <authors>Tomasz Pluskiewicz</authors>
     <owners>Tomasz Pluskiewicz</owners>
     <projectUrl>http://github.org/wikibus/JsonLd.Entities</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/wikibus/Nancy.RDF/blob/master/assets/icon_21532.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/wikibus/JsonLD.Entities/master/assets/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Simple object serializer for JSON-LD</description>
     <releaseNotes>
