@@ -9,12 +9,12 @@
     <projectUrl>http://github.org/wikibus/JsonLd.Entities</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/wikibus/Nancy.RDF/blob/master/assets/icon_21532.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Simple object serializer JSON-LD</description>
+    <description>Simple object serializer for JSON-LD</description>
     <releaseNotes>
 
     </releaseNotes>
     <copyright>
-      Copyright 2014 Tomasz Pluskiewicz
+      Copyright 2014-2016 Tomasz Pluskiewicz
       Icon designed by Piotrek Chuchla from The Noun Project
     </copyright>
     <tags>rdf json-ld turtle ttl n3 notation3 semantic web</tags>
