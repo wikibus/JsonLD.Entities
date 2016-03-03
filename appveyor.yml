@@ -13,9 +13,3 @@ after_build:
   
 artifacts:
   - path: '*.nupkg'
-  
-deploy:
-- provider: NuGet
-  server: https://ci.appveyor.com/nuget/tpluscode78631-6jxuo30rn51k
-  api_key:
-    secure: i9B4FzSsIyRHv57fkSaH97JiI7jwQL+FC1WSal2lR0E=
