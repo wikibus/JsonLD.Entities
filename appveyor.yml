@@ -12,7 +12,7 @@ after_build:
   - nuget pack JsonLd.Entities.nuspec -Version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
   
 artifacts:
-  - path: JsonLd.Entities.%GitVersion_NuGetVersion%.nupkg
+- path: JsonLd.Entities.%GitVersion_NuGetVersion%.nupkg
   
 deploy:
 - provider: NuGet
