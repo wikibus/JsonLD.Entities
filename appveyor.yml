@@ -8,7 +8,7 @@ before_build:
 
 configuration: Release
 
-on_success:
+after_build:
   - nuget pack JsonLd.Entities.nuspec -Version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
   
 deploy:
