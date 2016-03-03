@@ -235,3 +235,4 @@ $RECYCLE.BIN/
 .NETFramework,Version=v4.0.AssemblyAttributes.mkd
 src/JsonLD.Entities.Tests/ParsingTests
 VersionAssemblyInfo.cs
+.paket/paket.exe
