@@ -12,8 +12,8 @@ nuget SpecFlow
 nuget NullGuard.Fody
 nuget NUnit < 3 
 nuget MethodTimer.Fody
-nuget dotNetRDF < 1.0.7
-nuget HtmlAgilityPack == 1.4.6
+nuget dotNetRDF
+nuget HtmlAgilityPack
 nuget ImpromptuInterface
 nuget InfoOf.Fody
 nuget FakeItEasy
