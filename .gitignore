@@ -196,7 +196,8 @@ FakesAssemblies/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -233,3 +234,4 @@ $RECYCLE.BIN/
 
 .NETFramework,Version=v4.0.AssemblyAttributes.mkd
 src/JsonLD.Entities.Tests/ParsingTests
+VersionAssemblyInfo.cs
