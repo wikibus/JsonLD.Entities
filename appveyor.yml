@@ -12,11 +12,10 @@ after_build:
   - nuget pack JsonLd.Entities.nuspec -Version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
   
 artifacts:
-- path: JsonLd.Entities.%GitVersion_NuGetVersion%.nupkg
+  - path: '*.nupkg'
   
 deploy:
 - provider: NuGet
   server: https://ci.appveyor.com/nuget/tpluscode78631-6jxuo30rn51k
   api_key:
     secure: i9B4FzSsIyRHv57fkSaH97JiI7jwQL+FC1WSal2lR0E=
-  artifact: JsonLd.Entities.%GitVersion_NuGetVersion%.nupkg
