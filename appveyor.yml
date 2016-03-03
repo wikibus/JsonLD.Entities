@@ -1,9 +1,13 @@
+install:
+  - choco install gitversion.portable -pre -y
+  
 before_build:  
   - .paket\paket.bootstrapper.exe
   - .paket\paket.exe restore
+  - ps: gitversion /l console /output buildserver
 
 configuration: Release
 
 on_success:
-  - nuget pack JsonLd.Entities.nuspec -Version %APPVEYOR_BUILD_VERSION%
-  - ps: Push-AppveyorArtifact "JsonLd.Entities.$($env:APPVEYOR_BUILD_VERSION).nupkg"
+  - nuget pack JsonLd.Entities.nuspec -Version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
+  - ps: Push-AppveyorArtifact "JsonLd.Entities.%GitVersion_NuGetVersion%.nupkg"

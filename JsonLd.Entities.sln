@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonLD.Entities", "src\JsonLD.Entities\JsonLD.Entities.csproj", "{CCB7B927-5AD6-4B98-ABA3-92EA18351B7D}"
 EndProject
@@ -14,8 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		paket.lock = paket.lock
 		Settings.StyleCop = Settings.StyleCop
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileVersionExtractor", "paket-files\tpluscode\FileVersionExtractor\FileVersionExtractor.csproj", "{893216AC-D571-401F-8A5A-726448693552}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonLD.Entities.Tests", "src\JsonLD.Entities.Tests\JsonLD.Entities.Tests.csproj", "{AE56D865-7892-4A1B-B09D-D697E7F6F894}"
 EndProject
@@ -31,10 +29,6 @@ Global
 		{CCB7B927-5AD6-4B98-ABA3-92EA18351B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCB7B927-5AD6-4B98-ABA3-92EA18351B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCB7B927-5AD6-4B98-ABA3-92EA18351B7D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{893216AC-D571-401F-8A5A-726448693552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{893216AC-D571-401F-8A5A-726448693552}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{893216AC-D571-401F-8A5A-726448693552}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{893216AC-D571-401F-8A5A-726448693552}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AE56D865-7892-4A1B-B09D-D697E7F6F894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AE56D865-7892-4A1B-B09D-D697E7F6F894}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE56D865-7892-4A1B-B09D-D697E7F6F894}.Release|Any CPU.ActiveCfg = Release|Any CPU
