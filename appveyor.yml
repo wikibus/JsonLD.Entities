@@ -10,4 +10,4 @@ configuration: Release
 
 on_success:
   - nuget pack JsonLd.Entities.nuspec -Version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
-  - ps: Push-AppveyorArtifact "JsonLd.Entities.%GitVersion_NuGetVersion%.nupkg"
+  - ps: Push-AppveyorArtifact "JsonLd.Entities.$($env:GitVersion_NuGetVersion).nupkg"
