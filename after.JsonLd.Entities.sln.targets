@@ -3,14 +3,6 @@
   <UsingTask AssemblyFile="$(MSBuildProjectDirectory)\paket-files\tpluscode\FileVersionExtractor\bin\Release\FileVersionExtractor.dll" 
              TaskName="GetAssemblyFileVersion"/>
 
-  <Target Name="Update Build Version" AfterTargets="Build">
-    <GetAssemblyFileVersion FilePathAssemblyInfo="$(MSBuildProjectDirectory)\JsonLd.Entities\Properties\VersionAssemblyInfo.cs">
-      <Output TaskParameter="AssemblyFileVersion" PropertyName="AssemblyFileVersion" />
-    </GetAssemblyFileVersion>
-    <Exec Command='appveyor UpdateBuild -Version "$(AssemblyFileVersion)"' 
-          ContinueOnError="true" IgnoreExitCode="true" />
-  </Target>
-
   <Target Name="GitHubLink" AfterTargets="Build">
     <Exec Command='"$(MSBuildProjectDirectory)\packages\gitlink\lib\net45\GitLink.exe" "$([System.IO.Path]::GetFullPath($(MSBuildProjectDirectory)\..))" -u https://github.com/wikibus/JsonLd.Entities'
           ContinueOnError="false" IgnoreExitCode="false"></Exec>

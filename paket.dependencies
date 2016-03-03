@@ -7,7 +7,7 @@ redirects: on
 nuget json-ld.net
 nuget GitLink
 nuget StyleCopPlus.MSBuild
-nuget Zoltu.Versioning
+nuget GitVersionTask
 nuget SpecFlow
 nuget NullGuard.Fody
 nuget NUnit < 3 

@@ -125,6 +125,13 @@
   </Choose>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.5')">
+      <PropertyGroup>
+        <__paket__GitVersionTask_targets>\packages\GitVersionTask\Build\portable-net+sl+win+wpa+wp\GitVersionTask</__paket__GitVersionTask_targets>
+      </PropertyGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.5')">
       <ItemGroup>
         <Reference Include="ImpromptuInterface">
           <HintPath>..\..\packages\ImpromptuInterface\lib\net40\ImpromptuInterface.dll</HintPath>
@@ -187,13 +194,6 @@
       </ItemGroup>
     </When>
   </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.5')">
-      <PropertyGroup>
-        <__paket__Zoltu_Versioning_targets>Zoltu.Versioning</__paket__Zoltu_Versioning_targets>
-      </PropertyGroup>
-    </When>
-  </Choose>
   <Import Project="..\..\packages\Fody\build\$(__paket__Fody_targets).targets" Condition="Exists('..\..\packages\Fody\build\$(__paket__Fody_targets).targets')" Label="Paket" />
-  <Import Project="..\..\packages\Zoltu.Versioning\build\$(__paket__Zoltu_Versioning_targets).targets" Condition="Exists('..\..\packages\Zoltu.Versioning\build\$(__paket__Zoltu_Versioning_targets).targets')" Label="Paket" />
+  <Import Project="..\..$(__paket__GitVersionTask_targets).targets" Condition="Exists('..\..$(__paket__GitVersionTask_targets).targets')" Label="Paket" />
 </Project>
