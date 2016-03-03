@@ -1,5 +1,6 @@
 before_build:  
-  - restore_packages.bat
+  - .paket\paket.bootstrapper.exe
+  - .paket\paket.exe restore
 
 configuration: Release
 
