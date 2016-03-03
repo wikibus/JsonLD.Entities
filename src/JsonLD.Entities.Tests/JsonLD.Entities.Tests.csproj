@@ -99,7 +99,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\paket-files\www.w3.org\2013\N-QuadsTests\TESTS.zip\*">
+    <Content Include="..\..\paket-files\www.w3.org\*">
       <Link>ParsingTests\NQuads\%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
