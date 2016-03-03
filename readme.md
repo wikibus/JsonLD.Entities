@@ -21,23 +21,30 @@ experiment.
 
 ## Getting JsonLD.Entities
 
-The project's CI build creates nupkgs automatically and they are published to a appveyor feed. To install use the below command in
+The project's CI build creates nupkgs automatically and they are published on NuGet. To install use the below command in
 Package Manager Console.
 
 ```
-install-package jsonLD.Entities -Source https://ci.appveyor.com/nuget/jsonld-entities-aavhsnxi7xjp
+install-package JsonLD.Entities
 ```
+
+Prerelease builds are available on AppVeyor's project feed: `https://ci.appveyor.com/nuget/jsonld-entities-aavhsnxi7xjp`
 
 ## Building
 
 The project was created in VS 2010 and should build without problems on any VS 2010 and newer. Note that external packages aren't
-downloaded with NuGet, but rather with a new tool called [Paket](http://fsprojects.github.io/Paket/). For convenience there is a batch file
-in repository root, which will restore the dependencies. For more information about Paket do visit its project page. It's actually very 
-cool! :yum:
+downloaded with NuGet, but rather with a new tool called [Paket](http://fsprojects.github.io/Paket/). For a better developer eperience
+there is a [Visual Studio Extension](https://visualstudiogallery.msdn.microsoft.com/ce104917-e8b3-4365-9490-8432c6e75c36). 
+Otherwise run this in console from repository root:
+
+``` batch
+> .paket\paket.bootstrapper.exe
+> .paket\paket.exe restore
+```
 
 ## Usage examples
 
-All usage samples are written in the Literate Programming manner and can be conveniently viewed on GitHub in the [Documentation project][docs]
+All usage samples are written in the [Literate Programming][lp] manner and can be conveniently viewed on GitHub in the [Documentation project][docs]
 
 Graph image from [W3C](http://www.w3.org/RDF/) originally desgined by [Bill Schwappacher](mailto:bill@tracermedia.com).
 
@@ -49,3 +56,4 @@ Graph image from [W3C](http://www.w3.org/RDF/) originally desgined by [Bill Schw
 [readme]: http://github.com/wikibus/JsonLD.Entities/blob/master/src/Documentation/Readme.cs
 [jsonld-context]: http://www.w3.org/TR/json-ld/#the-context
 [docs]: https://github.com/wikibus/JsonLD.Entities/tree/master/src/Documentation
+[lp]: https://en.wikipedia.org/wiki/Literate_programming
