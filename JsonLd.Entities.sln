@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonLD.Entities", "JsonLD.Entities\JsonLD.Entities.csproj", "{CCB7B927-5AD6-4B98-ABA3-92EA18351B7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonLD.Entities", "src\JsonLD.Entities\JsonLD.Entities.csproj", "{CCB7B927-5AD6-4B98-ABA3-92EA18351B7D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EAFC3ABA-17B5-4557-86A7-545A17506D30}"
 	ProjectSection(SolutionItems) = preProject
-		Common\Common.props = Common\Common.props
-		..\.build\CommonTargets.targets = ..\.build\CommonTargets.targets
-		..\JsonLd.Entities.nuspec = ..\JsonLd.Entities.nuspec
+		src\Common\Common.props = src\Common\Common.props
+		.build\CommonTargets.targets = .build\CommonTargets.targets
+		JsonLd.Entities.nuspec = JsonLd.Entities.nuspec
 		paket.dependencies = paket.dependencies
 		paket.lock = paket.lock
 		Settings.StyleCop = Settings.StyleCop
@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileVersionExtractor", "paket-files\tpluscode\FileVersionExtractor\FileVersionExtractor.csproj", "{893216AC-D571-401F-8A5A-726448693552}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonLD.Entities.Tests", "JsonLD.Entities.Tests\JsonLD.Entities.Tests.csproj", "{AE56D865-7892-4A1B-B09D-D697E7F6F894}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonLD.Entities.Tests", "src\JsonLD.Entities.Tests\JsonLD.Entities.Tests.csproj", "{AE56D865-7892-4A1B-B09D-D697E7F6F894}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documentation", "Documentation\Documentation.csproj", "{AF6A37F7-16E9-4DC9-B56C-1667BD88F2AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documentation", "src\Documentation\Documentation.csproj", "{AF6A37F7-16E9-4DC9-B56C-1667BD88F2AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,5 +1,8 @@
 source https://nuget.org/api/v2
 
+framework: net40, net45
+content: none
+
 nuget json-ld.net
 nuget GitLink
 nuget StyleCopPlus.MSBuild
