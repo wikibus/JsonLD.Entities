@@ -8,7 +8,7 @@ before_build:
 
 configuration: Release
 
-build_success:
+after_build:
   - .paket\paket.exe pack output nugets include-referenced-projects version %GitVersion_NuGetVersion%
   
 artifacts:
