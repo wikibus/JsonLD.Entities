@@ -9,7 +9,7 @@ before_build:
 configuration: Release
 
 build_success:
-  - nuget pack JsonLd.Entities.nuspec -Version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
+  - .paket\paket.exe pack output nugets include-referenced-projects version %GitVersion_NuGetVersion%
   
 artifacts:
-  - path: '*.nupkg'
+  - path: 'nugets\*.nupkg'

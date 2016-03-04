@@ -1,0 +1,18 @@
+type project
+include-pdbs true
+excludeddependencies
+  GitVersionTask
+  Costura.Fody
+  Eto.Parse
+  ImpromptuInterface
+iconUrl
+  https://raw.githubusercontent.com/wikibus/JsonLD.Entities/master/assets/icon.png
+tags
+  rdf json-ld turtle ttl n3 notation3 semantic web
+copyright 
+  Copyright 2014-2016 Tomasz Pluskiewicz
+  Icon designed by Piotrek Chuchla from The Noun Project
+licenseUrl
+  http://www.opensource.org/licenses/mit-license.php
+projectUrl
+  http://github.org/wikibus/JsonLd.Entities
