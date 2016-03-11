@@ -1,6 +1,7 @@
 ![icon](https://raw.githubusercontent.com/wikibus/JsonLD.Entities/master/assets/icon.png)
  
 # JsonLD.Entities [![Build status](https://ci.appveyor.com/api/projects/status/u4riv8ftspthkvgh/branch/master?svg=true)](https://ci.appveyor.com/project/tpluscode78631/jsonld-entities/branch/master)
+[![NuGet version](https://badge.fury.io/nu/jsonld.entities.svg)](https://badge.fury.io/nu/jsonld.entities)
  
 JsonLD.Entities is a small library for serializing and deserializing POCOs in JSON-LD.
  
