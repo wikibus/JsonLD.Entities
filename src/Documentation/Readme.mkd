@@ -43,7 +43,7 @@ public class Person
 }
 ```
 
-Serialization and deserialization is done by instances of `IEntitySerializer`. Its default implementation requires you to pass a 
+Serialization and deserialization is done by instances of `IEntitySerializer`. It's default implementation requires you to pass a 
 IContextProvider, which provides [@context][jsonld-context] objects for serialized types. Because, we don't want to use a context in the
 first test, the IContextProvider object won't be set up in any way.
 
@@ -130,8 +130,7 @@ public void Can_deserialize_with_changed_context()
 
 ### Serialization
 
-Of course it also possible to serialize POCO objects to JSON-LD objects. This time it is necessary to set up a `@context`, which will be
-added to the result.
+Of course it also possible to serialize POCO objects to JSON-LD objects.
 
 ``` c#
 [TestFixture]
@@ -148,13 +147,9 @@ public void Can_serialize_object_to_JSON_LD()
             Name = "Tomasz",
             LastName = "Pluskiewicz"
         };
-    var @context = JObject.Parse("{ '@context': 'http://example.org/context/Person' }");
-
-    var contextProvider = new StaticContextProvider();
-    contextProvider.SetContext(typeof(Person), @context);
 
     // when
-    IEntitySerializer serializer = new EntitySerializer(contextProvider);
+    IEntitySerializer serializer = new EntitySerializer();
     dynamic json = serializer.Serialize(person);
 
     // then
@@ -162,7 +157,6 @@ public void Can_serialize_object_to_JSON_LD()
     Assert.That((string)json.lastName, Is.EqualTo("Pluskiewicz"));
     Assert.That((string)json["@id"], Is.EqualTo("http://t-code.pl/#tomasz"));
     Assert.That((string)json["@type"][0], Is.EqualTo("http://xmlns.com/foaf/0.1/Person"));
-    Assert.That(json["@context"], Is.Not.Null);
 }
 }
 ```

@@ -30,7 +30,7 @@ Easiest way to define an instance's `@type`s is to declare a `Types` or `Type` p
 The property can return any type or collection thereof, provided that the serialized value is a string. Thus any custom converter could also
 be used.
 
-It could also be possible to use any other property and give it a proper name by setting the attribute like `[JsonProperty("@type")]`
+It is also be possible to use any other property and give it a proper name by setting the attribute like `[JsonProperty("@type")]`
 
 ``` c#
 public class TypesAsSingleUri

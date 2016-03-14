@@ -73,6 +73,7 @@
     <Compile Include="Entities\ParentWithConverter.cs" />
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Entities\PersonWithPrefixedClass.cs" />
+    <Compile Include="Entities\PropertiesMappedToAbsoluteUrls.cs" />
     <Compile Include="Entities\WithConverter.cs" />
     <Compile Include="EntitySerializerTests.cs" />
     <Compile Include="ParserTests.cs" />

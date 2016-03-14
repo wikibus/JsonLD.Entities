@@ -94,6 +94,7 @@ namespace JsonLD.Entities
             if (context != null && IsNotEmpty(context))
             {
                 jsonLd.AddFirst(new JProperty("@context", context));
+                jsonLd = JsonLdProcessor.Compact(jsonLd, context, new JsonLdOptions());
             }
 
             return jsonLd;
