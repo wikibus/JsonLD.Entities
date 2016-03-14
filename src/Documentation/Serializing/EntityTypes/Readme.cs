@@ -17,7 +17,7 @@ using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
 [TestFixture]
-public class SerializingTypeEntities
+public class SerializingTypedEntities
 {
 
 /**

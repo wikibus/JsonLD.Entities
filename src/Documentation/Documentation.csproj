@@ -41,15 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityTypes\Readme.cs" />
-    <Compile Include="LiteralValues\Readme.cs" />
+    <Compile Include="Serializing\EnsuringCompactedResource\Readme.cs" />
+    <Compile Include="Serializing\EntityTypes\Readme.cs" />
+    <Compile Include="Deserializing\LiteralValues\Readme.cs" />
     <Compile Include="Readme.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ResolvingContext\Readme.cs" />
     <None Include="app.config" />
     <None Include="paket.references" />
-    <Compile Include="ComplexObjects\Readme.cs" />
+    <Compile Include="Deserializing\GraphsOfObjects\Readme.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JsonLD.Entities\JsonLD.Entities.csproj">

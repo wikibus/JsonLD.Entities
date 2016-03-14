@@ -3,6 +3,7 @@ using JsonLD.Core;
 using JsonLD.Entities.Parsing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NullGuard;
 
 namespace JsonLD.Entities
 {
@@ -14,11 +15,12 @@ namespace JsonLD.Entities
         private readonly ContextResolver _contextResolver;
         private readonly IFrameProvider _frameProvider;
         private readonly JsonSerializer _jsonSerializer;
+        private readonly SerializationOptions _options;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntitySerializer"/> class.
         /// </summary>
-        public EntitySerializer() : this(new ContextResolver(new NullContextProvider()))
+        public EntitySerializer([AllowNull] SerializationOptions options = null) : this(new ContextResolver(new NullContextProvider()), options)
         {
         }
 
@@ -26,8 +28,8 @@ namespace JsonLD.Entities
         /// Initializes a new instance of the <see cref="EntitySerializer"/> class.
         /// </summary>
         /// <param name="contextProvider">The JSON-LD @context provider.</param>
-        public EntitySerializer(IContextProvider contextProvider)
-            : this(contextProvider, new NullFrameProvider())
+        public EntitySerializer(IContextProvider contextProvider, [AllowNull] SerializationOptions options = null)
+            : this(contextProvider, new NullFrameProvider(), options)
         {
         }
 
@@ -36,15 +38,16 @@ namespace JsonLD.Entities
         /// </summary>
         /// <param name="contextProvider">The JSON-LD @context provider.</param>
         /// <param name="frameProvider">The JSON-LD frame provider.</param>
-        public EntitySerializer(IContextProvider contextProvider, IFrameProvider frameProvider)
-            : this(new ContextResolver(contextProvider))
+        public EntitySerializer(IContextProvider contextProvider, IFrameProvider frameProvider, [AllowNull] SerializationOptions options = null)
+            : this(new ContextResolver(contextProvider), options)
         {
             _frameProvider = frameProvider;
         }
 
-        private EntitySerializer(ContextResolver contextResolver)
+        private EntitySerializer(ContextResolver contextResolver, SerializationOptions options)
         {
             _contextResolver = contextResolver;
+            _options = options ?? new SerializationOptions();
             _jsonSerializer = new JsonLdSerializer();
         }
 
@@ -94,7 +97,11 @@ namespace JsonLD.Entities
             if (context != null && IsNotEmpty(context))
             {
                 jsonLd.AddFirst(new JProperty("@context", context));
-                jsonLd = JsonLdProcessor.Compact(jsonLd, context, new JsonLdOptions());
+
+                if (_options.SerializeCompacted)
+                {
+                    jsonLd = JsonLdProcessor.Compact(jsonLd, context, new JsonLdOptions());
+                }
             }
 
             return jsonLd;

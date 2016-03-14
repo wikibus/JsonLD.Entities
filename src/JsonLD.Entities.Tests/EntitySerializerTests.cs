@@ -1,6 +1,5 @@
 ﻿using System;
 using FakeItEasy;
-using JsonLD.Entities.Context;
 using JsonLD.Entities.Tests.Entities;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -49,20 +48,6 @@ namespace JsonLD.Entities.Tests
             // then
             Assert.That(person["@id"], Is.InstanceOf<JValue>());
             Assert.That(person["@id"], Has.Property("Value").EqualTo("http://example.org/Some/Person"));
-        }
-
-        [Test]
-        public void Should_ensure_all_properties_are_compacted()
-        {
-            // given
-            A.CallTo(() => _provider.GetContext(typeof(PropertiesMappedToAbsoluteUrls)))
-                .Returns(new JObject("name".IsProperty("http://xmlns.com/foaf/0.1/givenName")));
-
-            // when
-            dynamic person = _serializer.Serialize(new PropertiesMappedToAbsoluteUrls { Name = "Tomasz" });
-
-            // then
-            Assert.That(person.name.ToString(), Is.EqualTo("Tomasz"));
         }
     }
 }
