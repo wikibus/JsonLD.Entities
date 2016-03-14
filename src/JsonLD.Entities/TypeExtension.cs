@@ -13,7 +13,7 @@ namespace JsonLD.Entities
         /// </summary>
         internal static bool IsMarkedForCompaction(this Type type)
         {
-            return type.GetCustomAttributes(typeof(SerializeCompactedAttribute), false).Any();
+            return type.GetCustomAttributes(typeof(SerializeCompactedAttribute), true).Any();
         }
     }
 }

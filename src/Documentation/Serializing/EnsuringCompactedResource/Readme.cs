@@ -89,8 +89,6 @@ public void ShouldForceCompactSerializedModelWhenRequested()
 It is also possible to force this behaviour on by annotating a class with the `[SerializeCompacted]`
 attrbute. This could be useful in scenarios where the owner of the serialized classes doesn't control how
 and when the `EntitySerializer` is called.
-
-**NOTE**: the SerializeCompactedAttribute is not inherited
 **/
 
 [SerializeCompacted]
@@ -114,6 +112,35 @@ public void ShouldForceCompactSerializedModelWhenSetByAttribute()
     };
     var contextProvider = new StaticContextProvider();
     contextProvider.SetContext(typeof(PersonWithInterest2), Context);
+    var serializer = new EntitySerializer(contextProvider);
+
+    // when
+    dynamic serialized = serializer.Serialize(person);
+
+    // then
+    Assert.That(serialized.name.ToString(), Is.EqualTo("Tomasz Pluskiewicz"));
+    Assert.That(serialized.interest.name.ToString(), Is.EqualTo("JSON-LD"));
+}
+
+/**
+And this also works on inherited classes.
+**/
+
+public class PersonWithInterest3: PersonWithInterest2
+{
+}
+
+[Test]
+public void ShouldForceCompactSerializedModelWhenSetByAttribute_Inherited()
+{
+    // given
+    var person = new PersonWithInterest3
+    {
+        Name = "Tomasz Pluskiewicz",
+        Interest = new Interest { Name = "JSON-LD" }
+    };
+    var contextProvider = new StaticContextProvider();
+    contextProvider.SetContext(typeof(PersonWithInterest3), Context);
     var serializer = new EntitySerializer(contextProvider);
 
     // when
