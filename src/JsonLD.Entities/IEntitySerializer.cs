@@ -25,7 +25,8 @@ namespace JsonLD.Entities
         /// Serializes the specified entity as JSON-LD.
         /// </summary>
         /// <param name="entity">The entity.</param>
+        /// <param name="options">Options, which modify how the object is serialized.</param>
         /// <returns>A compacted JSON-LD object</returns>
-        JObject Serialize(object entity);
+        JObject Serialize(object entity, SerializationOptions options = null);
     }
 }

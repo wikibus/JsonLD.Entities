@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using JsonLD.Core;
-using JsonLD.Entities.Parsing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NullGuard;
@@ -15,12 +14,11 @@ namespace JsonLD.Entities
         private readonly ContextResolver _contextResolver;
         private readonly IFrameProvider _frameProvider;
         private readonly JsonSerializer _jsonSerializer;
-        private readonly SerializationOptions _options;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntitySerializer"/> class.
         /// </summary>
-        public EntitySerializer([AllowNull] SerializationOptions options = null) : this(new ContextResolver(new NullContextProvider()), options)
+        public EntitySerializer() : this(new ContextResolver(new NullContextProvider()))
         {
         }
 
@@ -28,8 +26,8 @@ namespace JsonLD.Entities
         /// Initializes a new instance of the <see cref="EntitySerializer"/> class.
         /// </summary>
         /// <param name="contextProvider">The JSON-LD @context provider.</param>
-        public EntitySerializer(IContextProvider contextProvider, [AllowNull] SerializationOptions options = null)
-            : this(contextProvider, new NullFrameProvider(), options)
+        public EntitySerializer(IContextProvider contextProvider)
+            : this(contextProvider, new NullFrameProvider())
         {
         }
 
@@ -38,16 +36,15 @@ namespace JsonLD.Entities
         /// </summary>
         /// <param name="contextProvider">The JSON-LD @context provider.</param>
         /// <param name="frameProvider">The JSON-LD frame provider.</param>
-        public EntitySerializer(IContextProvider contextProvider, IFrameProvider frameProvider, [AllowNull] SerializationOptions options = null)
-            : this(new ContextResolver(contextProvider), options)
+        public EntitySerializer(IContextProvider contextProvider, IFrameProvider frameProvider)
+            : this(new ContextResolver(contextProvider))
         {
             _frameProvider = frameProvider;
         }
 
-        private EntitySerializer(ContextResolver contextResolver, SerializationOptions options)
+        private EntitySerializer(ContextResolver contextResolver)
         {
             _contextResolver = contextResolver;
-            _options = options ?? new SerializationOptions();
             _jsonSerializer = new JsonLdSerializer();
         }
 
@@ -85,12 +82,12 @@ namespace JsonLD.Entities
         /// <summary>
         /// Serializes the specified entity as JSON-LD.
         /// </summary>
-        /// <param name="entity">The entity.</param>
         /// <returns>
         /// A compacted JSON-LD object
         /// </returns>
-        public JObject Serialize(object entity)
+        public JObject Serialize(object entity, [AllowNull] SerializationOptions options = null)
         {
+            options = options ?? new SerializationOptions();
             var jsonLd = JObject.FromObject(entity, _jsonSerializer);
 
             var context = _contextResolver.GetContext(entity);
@@ -98,7 +95,7 @@ namespace JsonLD.Entities
             {
                 jsonLd.AddFirst(new JProperty("@context", context));
 
-                if (_options.SerializeCompacted)
+                if (options.SerializeCompacted)
                 {
                     jsonLd = JsonLdProcessor.Compact(jsonLd, context, new JsonLdOptions());
                 }

@@ -72,10 +72,10 @@ public void ShouldForceCompactSerializedModel()
     };
     var contextProvider = new StaticContextProvider();
     contextProvider.SetContext(typeof(PersonWithInterest), Context);
-    var serializer = new EntitySerializer(contextProvider, new SerializationOptions { SerializeCompacted = true });
+    var serializer = new EntitySerializer(contextProvider);
 
     // when
-    dynamic serialized = serializer.Serialize(person);
+    dynamic serialized = serializer.Serialize(person, new SerializationOptions { SerializeCompacted = true });
 
     // then
     Assert.That(serialized.name.ToString(), Is.EqualTo("Tomasz Pluskiewicz"));
