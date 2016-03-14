@@ -72,7 +72,7 @@ public void ShouldForceCompactSerializedModel()
     };
     var contextProvider = new StaticContextProvider();
     contextProvider.SetContext(typeof(PersonWithInterest), Context);
-    var serializer = new EntitySerializer(contextProvider, new SerializationOptions { SerializeCompacted = false });
+    var serializer = new EntitySerializer(contextProvider, new SerializationOptions { SerializeCompacted = true });
 
     // when
     dynamic serialized = serializer.Serialize(person);
