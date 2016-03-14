@@ -62,7 +62,7 @@ private static readonly JObject Context = JObject.Parse(@"{
   }");
 
 [Test]
-public void ShouldForceCompactSerializedModel()
+public void ShouldForceCompactSerializedModelWhenRequested()
 {
     // given
     var person = new PersonWithInterest
@@ -76,6 +76,45 @@ public void ShouldForceCompactSerializedModel()
 
     // when
     dynamic serialized = serializer.Serialize(person, new SerializationOptions { SerializeCompacted = true });
+
+    // then
+    Assert.That(serialized.name.ToString(), Is.EqualTo("Tomasz Pluskiewicz"));
+    Assert.That(serialized.interest.name.ToString(), Is.EqualTo("JSON-LD"));
+}
+```
+
+It is also possible to force this behaviour on by annotating a class with the `[SerializeCompacted]`
+attrbute. This could be useful in scenarios where the owner of the serialized classes doesn't control how
+and when the `EntitySerializer` is called.
+
+**NOTE**: the SerializeCompactedAttribute is not inherited
+
+``` c#
+[SerializeCompacted]
+public class PersonWithInterest2
+{
+    [JsonProperty("http://xmlns.com/foaf/0.1/interest")]
+    public Interest Interest { get; set;}
+        
+    [JsonProperty("http://xmlns.com/foaf/0.1/name")]
+    public string Name { get; set; }
+}
+
+[Test]
+public void ShouldForceCompactSerializedModelWhenSetByAttribute()
+{
+    // given
+    var person = new PersonWithInterest2
+    {
+        Name = "Tomasz Pluskiewicz",
+        Interest = new Interest { Name = "JSON-LD" }
+    };
+    var contextProvider = new StaticContextProvider();
+    contextProvider.SetContext(typeof(PersonWithInterest2), Context);
+    var serializer = new EntitySerializer(contextProvider);
+
+    // when
+    dynamic serialized = serializer.Serialize(person);
 
     // then
     Assert.That(serialized.name.ToString(), Is.EqualTo("Tomasz Pluskiewicz"));

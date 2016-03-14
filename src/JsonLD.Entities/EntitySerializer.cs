@@ -95,7 +95,7 @@ namespace JsonLD.Entities
             {
                 jsonLd.AddFirst(new JProperty("@context", context));
 
-                if (options.SerializeCompacted)
+                if (options.SerializeCompacted || entity.GetType().IsMarkedForCompaction())
                 {
                     jsonLd = JsonLdProcessor.Compact(jsonLd, context, new JsonLdOptions());
                 }
