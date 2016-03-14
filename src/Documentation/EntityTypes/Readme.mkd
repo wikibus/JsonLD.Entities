@@ -43,7 +43,7 @@ public class TypesAsSingleUri
 
 public class TypesAsStringCollection
 {
-    public IEnumerable<string> Type
+    public IEnumerable<string> Types
     {
         get { yield return "http://schema.org/Person"; }
     }
