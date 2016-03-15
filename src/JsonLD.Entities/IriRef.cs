@@ -44,5 +44,15 @@ namespace JsonLD.Entities
         {
             return !left.Equals(right);
         }
+
+        public static implicit operator IriRef(Uri uri)
+        {
+            return new IriRef(uri);
+        }
+
+        public static explicit operator IriRef(string uriString)
+        {
+            return new IriRef(uriString);
+        }
     }
 }
