@@ -1,5 +1,6 @@
 ﻿using System;
 using FakeItEasy;
+using JsonLD.Entities.Tests.ContextTestEntities;
 using JsonLD.Entities.Tests.Entities;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -48,6 +49,37 @@ namespace JsonLD.Entities.Tests
             // then
             Assert.That(person["@id"], Is.InstanceOf<JValue>());
             Assert.That(person["@id"], Has.Property("Value").EqualTo("http://example.org/Some/Person"));
+        }
+
+        [Test]
+        public void Should_use_GetContext_method_from_base_class()
+        {
+            // given
+            var obj = new DerivedClass { Name = "Tomasz" };
+
+            // when
+            var serialized = _serializer.Serialize(obj);
+
+            // then
+            Assert.That(serialized["@context"], Is.Not.Null);
+        }
+
+        [Test]
+        public void Should_compact_when_one_of_contexts_is_empty()
+        {
+            // given
+            A.CallTo(() => _provider.GetContext(typeof(DerivedClass))).Returns(new JArray
+            {
+                new JObject { { "foaf", "http://not.foaf" } },
+                new JObject()
+            });
+            var obj = new DerivedClass { Name = "Tomasz" };
+
+            // when
+            var serialized = _serializer.Serialize(obj, new SerializationOptions { SerializeCompacted = true });
+
+            // then
+            Assert.That(serialized["@context"], Is.Not.Null);
         }
     }
 }

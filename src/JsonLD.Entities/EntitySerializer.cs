@@ -114,7 +114,7 @@ namespace JsonLD.Entities
             var array = context as JArray;
             if (array != null)
             {
-                return array.All(IsNotEmpty);
+                return array.Any(IsNotEmpty);
             }
 
             return true;

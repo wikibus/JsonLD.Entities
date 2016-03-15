@@ -54,16 +54,25 @@ namespace JsonLD.Entities
 
                 contract.Converter = (JsonConverter)Activator.CreateInstance(converterType.MakeGenericType(elementType));
             }
-            else if (type == typeof(Uri))
-            {
-                contract.Converter = new StringUriConverter();
-            }
-            else if (contract is JsonPrimitiveContract)
+            else if (contract is JsonPrimitiveContract && contract.Converter == null)
             {
                 contract.Converter = new JsonLdLiteralConverter();
             }
 
             return contract;
+        }
+
+        /// <summary>
+        /// Resolves the contract converter.
+        /// </summary>
+        protected override JsonConverter ResolveContractConverter(Type type)
+        {
+            if (type == typeof(Uri))
+            {
+                return new StringUriConverter();
+            }
+
+            return base.ResolveContractConverter(type);
         }
 
         /// <summary>

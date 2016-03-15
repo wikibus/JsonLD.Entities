@@ -49,6 +49,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ResolvingContext\Readme.cs" />
+    <Compile Include="Serializing\WorkingWithURIs\Readme.cs" />
     <None Include="app.config" />
     <None Include="paket.references" />
     <Compile Include="Deserializing\GraphsOfObjects\Readme.cs" />
@@ -63,6 +64,17 @@
   <Target Name="Generate Doc" AfterTargets="Build">
     <Exec Command="$(MSBuildProjectDirectory)\..\..\tools\llite\llite.exe %(Compile.FullPath) -l csharp -co &quot;``` c#&quot; -cc ```" WorkingDirectory="%(Compile.RelativeDir)" />
   </Target>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.5')">
+      <ItemGroup>
+        <Reference Include="JsonLD">
+          <HintPath>..\..\packages\json-ld.net\lib\net40-Client\JsonLD.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.0'">
       <ItemGroup>
