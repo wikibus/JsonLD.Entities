@@ -44,25 +44,5 @@ namespace JsonLD.Entities
         {
             return !left.Equals(right);
         }
-
-        public bool Equals(IriRef other)
-        {
-            return Equals(Value, other.Value);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            return obj is IriRef && Equals((IriRef)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return Value != null ? Value.GetHashCode() : 0;
-        }
     }
 }
