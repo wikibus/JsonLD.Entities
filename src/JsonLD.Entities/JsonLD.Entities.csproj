@@ -53,6 +53,7 @@
     <Compile Include="Context\PropertyExtensions.cs" />
     <Compile Include="Context\StringExtensions.cs" />
     <Compile Include="Context\Vocab.cs" />
+    <Compile Include="Converters\IriRefConverter.cs" />
     <Compile Include="Converters\JsonLdCollectionConverter.cs" />
     <Compile Include="Converters\JsonLdLiteralConverter.cs" />
     <Compile Include="IriRef.cs" />

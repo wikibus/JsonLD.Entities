@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using JsonLD.Entities.Converters;
 using Newtonsoft.Json;
 using NullGuard;
 
@@ -10,6 +11,7 @@ namespace JsonLD.Entities
     /// when JSON-LD is serialized
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "Ignore equality memebers")]
+    [JsonConverter(typeof(IriRefConverter))]
     public struct IriRef
     {
         /// <summary>
@@ -53,6 +55,16 @@ namespace JsonLD.Entities
         public static explicit operator IriRef(string uriString)
         {
             return new IriRef(uriString);
+        }
+
+        public override string ToString()
+        {
+            if (Value != null)
+            {
+                return Value.ToString();
+            }
+
+            return string.Empty;
         }
     }
 }

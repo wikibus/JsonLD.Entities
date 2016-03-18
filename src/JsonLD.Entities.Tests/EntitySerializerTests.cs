@@ -2,6 +2,7 @@
 using FakeItEasy;
 using JsonLD.Entities.Tests.ContextTestEntities;
 using JsonLD.Entities.Tests.Entities;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
@@ -80,6 +81,49 @@ namespace JsonLD.Entities.Tests
 
             // then
             Assert.That(serialized["@context"], Is.Not.Null);
+        }
+
+        [TestCase("{ 'property': 'http://example.com/absolute/id' }", Description = "Absolute IriRef")]
+        [TestCase("{ 'property': '/relative/id' }", Description = "Relative IriRef")]
+        public void Should_deserialize_compacted_IriRef(string json)
+        {
+            // given
+            dynamic raw = JsonConvert.DeserializeObject(json);
+            var iriRef = new IriRef(raw.property.ToString());
+
+            // when
+            var deserialized = _serializer.Deserialize<ClassWithIriRef>((JToken)raw);
+
+            // then
+            Assert.That(deserialized.Property, Is.EqualTo(iriRef));
+        }
+
+        [TestCase("{ 'property': { '@id': 'http://example.com/absolute/id' } }", Description = "Absolute IriRef")]
+        [TestCase("{ 'property': { '@id': '/relative/id' } }", Description = "Relative IriRef")]
+        public void Should_deserialize_expanded_IriRef(string json)
+        {
+            // given
+            dynamic raw = JsonConvert.DeserializeObject(json);
+            var iriRef = new IriRef(raw.property["@id"].ToString());
+
+            // when
+            var deserialized = _serializer.Deserialize<ClassWithIriRef>((JToken)raw);
+
+            // then
+            Assert.That(deserialized.Property, Is.EqualTo(iriRef));
+        }
+
+        [Test]
+        public void Should_deserialize_null_IriRef()
+        {
+            // given
+            dynamic raw = JsonConvert.DeserializeObject("{ 'property': { '@id': null } }");
+
+            // when
+            var deserialized = _serializer.Deserialize<ClassWithIriRef>((JToken)raw);
+
+            // then
+            Assert.That(deserialized.Property, Is.EqualTo(default(IriRef)));
         }
     }
 }
