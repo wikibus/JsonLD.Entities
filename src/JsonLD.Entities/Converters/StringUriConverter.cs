@@ -20,7 +20,6 @@ namespace JsonLD.Entities.Converters
         /// <summary>
         /// Reads the JSON representation of the Uri.
         /// </summary>
-        [return: AllowNull]
         public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
         {
             return new Uri(reader.Value.ToString(), UriKind.RelativeOrAbsolute);

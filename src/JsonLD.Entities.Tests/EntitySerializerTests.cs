@@ -92,7 +92,7 @@ namespace JsonLD.Entities.Tests
             var iriRef = new IriRef(raw.property.ToString());
 
             // when
-            var deserialized = _serializer.Deserialize<ClassWithIriRef>((JToken)raw);
+            var deserialized = _serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
 
             // then
             Assert.That(deserialized.Property, Is.EqualTo(iriRef));
@@ -107,7 +107,7 @@ namespace JsonLD.Entities.Tests
             var iriRef = new IriRef(raw.property["@id"].ToString());
 
             // when
-            var deserialized = _serializer.Deserialize<ClassWithIriRef>((JToken)raw);
+            var deserialized = _serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
 
             // then
             Assert.That(deserialized.Property, Is.EqualTo(iriRef));
@@ -120,10 +120,23 @@ namespace JsonLD.Entities.Tests
             dynamic raw = JsonConvert.DeserializeObject("{ 'property': { '@id': null } }");
 
             // when
-            var deserialized = _serializer.Deserialize<ClassWithIriRef>((JToken)raw);
+            var deserialized = _serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
 
             // then
             Assert.That(deserialized.Property, Is.EqualTo(default(IriRef)));
+        }
+
+        [Test]
+        public void Should_deserialize_null_Uri()
+        {
+            // given
+            dynamic raw = JsonConvert.DeserializeObject("{ 'uriProperty': null }");
+
+            // when
+            var deserialized = _serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
+
+            // then
+            Assert.That(deserialized.UriProperty, Is.Null);
         }
     }
 }
