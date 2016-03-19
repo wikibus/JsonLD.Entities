@@ -23,7 +23,7 @@ namespace JsonLD.Entities.Converters
             {
                 writer.WriteStartObject();
                 writer.WritePropertyName(JsonLdKeywords.Id);
-                writer.WriteValue(iriRef.Value.ToString());
+                writer.WriteValue(iriRef.Value);
                 writer.WriteEndObject();
             }
         }

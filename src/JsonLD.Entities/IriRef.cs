@@ -17,25 +17,25 @@ namespace JsonLD.Entities
         /// <summary>
         /// Initializes a new instance of the <see cref="IriRef"/> struct.
         /// </summary>
-        /// <param name="uri">The URI.</param>
-        public IriRef(string uri) : this(new Uri(uri, UriKind.RelativeOrAbsolute))
+        /// <param name="value">The URI.</param>
+        public IriRef(string value)
         {
+            Value = value;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IriRef"/> struct.
         /// </summary>
         /// <param name="uri">The identifier.</param>
-        public IriRef(Uri uri)
+        public IriRef(Uri uri) : this(uri.ToString())
         {
-            Value = uri;
         }
 
         /// <summary>
         /// Gets the URI.
         /// </summary>
         [JsonProperty(JsonLdKeywords.Id)]
-        public Uri Value { [return: AllowNull] get; }
+        public string Value { [return: AllowNull] get; }
 
         public static bool operator ==(IriRef left, IriRef right)
         {
