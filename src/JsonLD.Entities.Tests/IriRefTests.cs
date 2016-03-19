@@ -70,5 +70,31 @@ namespace JsonLD.Entities.Tests
             // then
             Assert.AreEqual(expected, iriRef);
         }
+
+        [Test]
+        public void Should_be_explicitly_castable_from_null_string()
+        {
+            // given
+            var expected = default(IriRef);
+
+            // when
+            var iriRef = (IriRef)(string)null;
+
+            // then
+            Assert.AreEqual(expected, iriRef);
+        }
+
+        [Test]
+        public void Should_be_explicitly_castable_from_null_Uri()
+        {
+            // given
+            var expected = default(IriRef);
+
+            // when
+            var iriRef = (IriRef)(Uri)null;
+
+            // then
+            Assert.AreEqual(expected, iriRef);
+        }
     }
 }

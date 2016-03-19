@@ -47,13 +47,23 @@ namespace JsonLD.Entities
             return !left.Equals(right);
         }
 
-        public static implicit operator IriRef(Uri uri)
+        public static implicit operator IriRef([AllowNull] Uri uri)
         {
+            if (uri == null)
+            {
+                return default(IriRef);
+            }
+
             return new IriRef(uri);
         }
 
-        public static explicit operator IriRef(string uriString)
+        public static explicit operator IriRef([AllowNull] string uriString)
         {
+            if (uriString == null)
+            {
+                return default(IriRef);
+            }
+
             return new IriRef(uriString);
         }
 
