@@ -46,13 +46,13 @@ namespace JsonLD.Entities.Tests
         }
 
         [Test]
-        public void Should_be_castable_from_Uri()
+        public void Should_be_explicitly_castable_from_Uri()
         {
             // given
             var expected = new IriRef(TestUri);
 
             // when
-            IriRef iriRef = new Uri(TestUri);
+            IriRef iriRef = (IriRef)new Uri(TestUri);
 
             // then
             Assert.AreEqual(expected, iriRef);
