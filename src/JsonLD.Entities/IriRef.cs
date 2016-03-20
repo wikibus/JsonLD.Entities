@@ -47,7 +47,7 @@ namespace JsonLD.Entities
             return !left.Equals(right);
         }
 
-        public static implicit operator IriRef([AllowNull] Uri uri)
+        public static explicit operator IriRef([AllowNull] Uri uri)
         {
             if (uri == null)
             {
@@ -57,7 +57,7 @@ namespace JsonLD.Entities
             return new IriRef(uri);
         }
 
-        public static implicit operator IriRef([AllowNull] string uriString)
+        public static explicit operator IriRef([AllowNull] string uriString)
         {
             if (uriString == null)
             {
