@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using ImpromptuInterface;
 using ImpromptuInterface.InvokeExt;
 using Microsoft.CSharp.RuntimeBinder;
@@ -71,6 +72,14 @@ namespace JsonLD.Entities
         {
             try
             {
+                const string propertyName = "get_Context";
+                InvokeMemberName invokeArgs = propertyName;
+                if (type.IsGenericTypeDefinition)
+                {
+                    var typeArgs = Enumerable.Repeat(typeof(object), type.GetGenericArguments().Length);
+                    type = type.MakeGenericType(typeArgs.ToArray());
+                }
+
                 return Impromptu.InvokeGet(type.WithStaticContext(), "Context");
             }
             catch (RuntimeBinderException)
