@@ -71,7 +71,7 @@ namespace JsonLD.Entities
         {
             if (Value != null)
             {
-                return Value.ToString();
+                return Value;
             }
 
             return string.Empty;
