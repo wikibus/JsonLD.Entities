@@ -82,7 +82,7 @@ namespace JsonLD.Entities
 
                 return Impromptu.InvokeGet(type.WithStaticContext(), "Context");
             }
-            catch (RuntimeBinderException)
+            catch (RuntimeBinderException ex)
             {
                 return null;
             }

@@ -83,6 +83,7 @@ namespace JsonLD.Entities.Tests
             Assert.That(serialized["@context"], Is.Not.Null);
         }
 
+        [Test]
         [TestCase("{ 'property': 'http://example.com/absolute/id' }", Description = "Absolute IriRef")]
         [TestCase("{ 'property': '/relative/id' }", Description = "Relative IriRef")]
         public void Should_deserialize_compacted_IriRef(string json)
@@ -98,6 +99,7 @@ namespace JsonLD.Entities.Tests
             Assert.That(deserialized.Property, Is.EqualTo(iriRef));
         }
 
+        [Test]
         [TestCase("{ 'property': { '@id': 'http://example.com/absolute/id' } }", Description = "Absolute IriRef")]
         [TestCase("{ 'property': { '@id': '/relative/id' } }", Description = "Relative IriRef")]
         public void Should_deserialize_expanded_IriRef(string json)
