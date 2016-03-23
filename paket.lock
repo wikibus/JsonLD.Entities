@@ -27,6 +27,7 @@ NUGET
     NullGuard.Fody (1.4.6)
       Fody (>= 1.29.2)
     NUnit (2.6.4)
+    OpenCover (4.6.519)
     Rdf.Vocabularies (1.1.0)
     SpecFlow (2.0.0)
     StyleCop.MSBuild (4.7.50)

@@ -6,10 +6,22 @@ before_build:
   - .paket\paket.exe restore
   - ps: gitversion /l console /output buildserver
 
+build:
+  project: JsonLd.Entities.sln
+  
 configuration: Release
 
 after_build:
   - .paket\paket.exe pack output nugets include-referenced-projects version %GitVersion_NuGetVersion%
   
+after_test:
+  - .\packages\OpenCover\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"src\JsonLD.Entities.Tests\bin\Release\JsonLD.Entities.Tests.dll -noshadow -appveyor" -returntargetcode -filter:"+[JsonLD.Entities]*" -hideskipped:All -output:.\JsonLD.Entities_coverage.xml
+  - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
+  - pip install codecov
+  - codecov -f "JsonLD.Entities_coverage.xml"
+  
 artifacts:
   - path: 'nugets\*.nupkg'
+
+cache:
+  - packages -> paket.lock

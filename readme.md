@@ -1,6 +1,6 @@
 ![icon](https://raw.githubusercontent.com/wikibus/JsonLD.Entities/master/assets/icon.png)
  
-# JsonLD.Entities [![Build status](https://ci.appveyor.com/api/projects/status/u4riv8ftspthkvgh/branch/master?svg=true)](https://ci.appveyor.com/project/tpluscode78631/jsonld-entities/branch/master) [![NuGet version](https://badge.fury.io/nu/jsonld.entities.svg)](https://badge.fury.io/nu/jsonld.entities)
+# JsonLD.Entities [![Build status](https://ci.appveyor.com/api/projects/status/u4riv8ftspthkvgh/branch/master?svg=true)](https://ci.appveyor.com/project/tpluscode78631/jsonld-entities/branch/master) [![NuGet version](https://badge.fury.io/nu/jsonld.entities.svg)](https://badge.fury.io/nu/jsonld.entities)  [![codecov.io][cov-badge]][cov-link]
  
 JsonLD.Entities is a small library for serializing and deserializing POCOs in JSON-LD.
  
@@ -57,3 +57,5 @@ Graph image from [W3C](http://www.w3.org/RDF/) originally desgined by [Bill Schw
 [jsonld-context]: http://www.w3.org/TR/json-ld/#the-context
 [docs]: https://github.com/wikibus/JsonLD.Entities/tree/master/src/Documentation
 [lp]: https://en.wikipedia.org/wiki/Literate_programming
+[cov-badge]: https://codecov.io/github/wikibus/JsonLD.Entities/coverage.svg?branch=master
+[cov-link]: https://codecov.io/github/wikibus/JsonLD.Entities?branch=master
