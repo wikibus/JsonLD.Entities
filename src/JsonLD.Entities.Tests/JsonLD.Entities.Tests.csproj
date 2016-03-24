@@ -56,6 +56,7 @@
     <Compile Include="ContextResolverTests.cs" />
     <Compile Include="ContextTestEntities\BaseClass.cs" />
     <Compile Include="ContextTestEntities\DerivedClass.cs" />
+    <Compile Include="ContextTests\ContextExtensionsTests.cs" />
     <Compile Include="DeserializingJsonLD.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

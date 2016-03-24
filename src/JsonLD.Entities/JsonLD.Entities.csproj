@@ -49,6 +49,7 @@
     <Compile Include="Context\Base.cs" />
     <Compile Include="Context\CoercionBuilder.cs" />
     <Compile Include="Context\ContainerBuilder.cs" />
+    <Compile Include="Context\ContextExtensions.cs" />
     <Compile Include="Context\PropertyBuilder.cs" />
     <Compile Include="Context\PropertyExtensions.cs" />
     <Compile Include="Context\StringExtensions.cs" />
