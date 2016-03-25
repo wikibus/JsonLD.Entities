@@ -86,7 +86,7 @@ namespace JsonLD.Entities.Tests.ContextTests
             var context2 = JToken.Parse("[ { 'xsd': 'http://xsd.ns' }, { 'bibo': 'http://bibo.ns' } ]");
             var context3 = JToken.Parse("[ { 'dc': 'http://dc.terms' }, { 'owl': 'http://owl.ns' } ]");
             var expected = JToken.Parse(@"
-[ 
+[
     { 'sch': 'http://schema.org' },
     { 'foaf': 'http://foaf.ns' },
     { 'xsd': 'http://xsd.ns' },
@@ -110,7 +110,7 @@ namespace JsonLD.Entities.Tests.ContextTests
             var context2 = JToken.Parse("'http://external.ctx'");
             var context3 = JToken.Parse("[ { 'dc': 'http://dc.terms' }, { 'owl': 'http://owl.ns' } ]");
             var expected = JToken.Parse(@"
-[ 
+[
     { 'sch': 'http://schema.org' },
     { 'foaf': 'http://foaf.ns' },
     'http://external.ctx',
