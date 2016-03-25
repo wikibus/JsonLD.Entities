@@ -1,4 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NullGuard;
 
 namespace JsonLD.Entities.Context
@@ -7,8 +12,44 @@ namespace JsonLD.Entities.Context
     /// JSON-LD extensions to <see cref="JProperty" />
     /// </summary>
     [NullGuard(ValidationFlags.All)]
-    internal static class PropertyExtensions
+    public static class PropertyExtensions
     {
+        private static readonly JsonLdContractResolver ContractResolver = new JsonLdContractResolver();
+
+        /// <summary>
+        /// Gets the property from LINQ expression.
+        /// </summary>
+        /// <typeparam name="T">target type</typeparam>
+        /// <typeparam name="TReturn">The property return type.</typeparam>
+        /// <param name="propertyExpression">The property expression.</param>
+        /// <exception cref="System.ArgumentException">Parameter must be a property access expression</exception>
+        public static PropertyInfo GetProperty<T, TReturn>(this Expression<Func<T, TReturn>> propertyExpression)
+        {
+             if (!(propertyExpression.Body is MemberExpression))
+            {
+                throw new ArgumentException("Parameter must be a property access expression", nameof(propertyExpression));
+            }
+
+            var memberExpression = (MemberExpression)propertyExpression.Body;
+            return (PropertyInfo)memberExpression.Member;
+        }
+
+        /// <summary>
+        /// Gets the name of the JSON key the <paramref name="property"/>
+        /// will be serialized to.
+        /// </summary>
+        public static string GetJsonPropertyName(this PropertyInfo property)
+        {
+            var jsonProperty = property.GetCustomAttributes(typeof(JsonPropertyAttribute), true)
+                                       .Cast<JsonPropertyAttribute>().SingleOrDefault();
+            if (jsonProperty != null && jsonProperty.PropertyName != null)
+            {
+                return jsonProperty.PropertyName;
+            }
+
+            return ContractResolver.GetResolvedPropertyName(property.Name);
+        }
+
         /// <summary>
         /// Ensures the property is an expanded definition.
         /// </summary>

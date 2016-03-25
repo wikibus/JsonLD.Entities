@@ -45,7 +45,9 @@
   <ItemGroup>
     <Compile Include="ContextNotFoundException.cs" />
     <Compile Include="ContextResolver.cs" />
+    <Compile Include="Context\AutoContext.cs" />
     <Compile Include="Context\Base.cs" />
+    <Compile Include="Context\AutoContextBase.cs" />
     <Compile Include="Context\CoercionBuilder.cs" />
     <Compile Include="Context\ContainerBuilder.cs" />
     <Compile Include="Context\ContextExtensions.cs" />
@@ -53,6 +55,7 @@
     <Compile Include="Context\PropertyExtensions.cs" />
     <Compile Include="Context\StringExtensions.cs" />
     <Compile Include="Context\Vocab.cs" />
+    <Compile Include="Context\VocabContext.cs" />
     <Compile Include="Converters\IriRefConverter.cs" />
     <Compile Include="Converters\JsonLdCollectionConverter.cs" />
     <Compile Include="Converters\JsonLdLiteralConverter.cs" />

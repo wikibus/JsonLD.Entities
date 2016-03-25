@@ -70,6 +70,22 @@ namespace JsonLD.Entities
         }
 
         /// <summary>
+        /// Determines whether the specified value is a JSON-LD keyword.
+        /// </summary>
+        public static bool IsKeyword(string value)
+        {
+            return value == Id ||
+                   value == Type ||
+                   value == Base ||
+                   value == Vocab ||
+                   value == Context ||
+                   value == Container ||
+                   value == List ||
+                   value == Set ||
+                   value == Index;
+        }
+
+        /// <summary>
         /// Gets the keyword for a C# property.
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
