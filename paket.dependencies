@@ -23,5 +23,6 @@ nuget eto.parse
 nuget StyleCopPlus.MSBuild
 nuget Rdf.Vocabularies
 nuget OpenCover
+nuget Newtonsoft.Json ~> 6
 
 http http://www.w3.org/2013/N-QuadsTests/TESTS.zip TESTS.zip

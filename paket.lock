@@ -23,7 +23,7 @@ NUGET
       Newtonsoft.Json (>= 4.0.1)
     MethodTimer.Fody (1.15.10)
       Fody (>= 1.29.2)
-    Newtonsoft.Json (8.0.2)
+    Newtonsoft.Json (6.0.8)
     NullGuard.Fody (1.4.6)
       Fody (>= 1.29.2)
     NUnit (2.6.4)

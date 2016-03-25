@@ -4,6 +4,7 @@ using JsonLD.Entities.Tests.ContextTestEntities;
 using JsonLD.Entities.Tests.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using NUnit.Framework;
 
 namespace JsonLD.Entities.Tests
@@ -139,6 +140,20 @@ namespace JsonLD.Entities.Tests
 
             // then
             Assert.That(deserialized.UriProperty, Is.Null);
+        }
+
+        [Test]
+        public void Should_serialize_boolean_correctly()
+        {
+            // given
+            var obj = new { Value = true };
+
+            // when
+            dynamic ld = _serializer.Serialize(obj);
+
+            // then
+            object value = ld.value;
+            Assert.That(value.ToString(), Is.EqualTo("true"));
         }
     }
 }

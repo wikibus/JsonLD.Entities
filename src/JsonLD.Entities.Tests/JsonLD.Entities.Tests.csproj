@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\Common\Common.props" />
-  <Import Project="..\..\packages\StyleCopPlus.MSBuild\build\$(__paket__StyleCopPlus_MSBuild_props).props" Condition="Exists('..\..\packages\StyleCopPlus.MSBuild\build\$(__paket__StyleCopPlus_MSBuild_props).props')" Label="Paket" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -285,6 +284,7 @@
       </ItemGroup>
     </When>
   </Choose>
+  <Import Project="..\..\packages\StyleCopPlus.MSBuild\build\$(__paket__StyleCopPlus_MSBuild_props).props" Condition="Exists('..\..\packages\StyleCopPlus.MSBuild\build\$(__paket__StyleCopPlus_MSBuild_props).props')" Label="Paket" />
   <Import Project="..\..\packages\Fody\build\$(__paket__Fody_targets).targets" Condition="Exists('..\..\packages\Fody\build\$(__paket__Fody_targets).targets')" Label="Paket" />
   <Import Project="..\..\packages\StyleCop.MSBuild\build\$(__paket__StyleCop_MSBuild_Targets).targets" Condition="Exists('..\..\packages\StyleCop.MSBuild\build\$(__paket__StyleCop_MSBuild_Targets).targets')" Label="Paket" />
 </Project>
