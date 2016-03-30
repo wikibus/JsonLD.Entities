@@ -25,3 +25,10 @@ artifacts:
 
 cache:
   - packages -> paket.lock
+  
+deploy:
+  - provider: Environment
+    name: NuGet
+    on:
+      branch: master
+      appveyor_repo_tag: true
