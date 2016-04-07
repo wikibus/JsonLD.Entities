@@ -18,7 +18,7 @@ namespace JsonLD.Entities
         /// <summary>
         /// Initializes a new instance of the <see cref="EntitySerializer"/> class.
         /// </summary>
-        public EntitySerializer() : this(new ContextResolver(new NullContextProvider()))
+        public EntitySerializer() : this(new NullContextProvider(), new NullFrameProvider())
         {
         }
 

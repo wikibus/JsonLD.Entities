@@ -141,5 +141,18 @@ namespace JsonLD.Entities.Tests
             // then
             Assert.That(deserialized.UriProperty, Is.Null);
         }
+
+        [Test]
+        public void Should_deserialize_when_entity_serializer_was_created_with_paremterless_constructor()
+        {
+            // given
+            dynamic raw = JsonConvert.DeserializeObject("{ 'uriProperty': null }");
+
+            // when
+            var deserialized = new EntitySerializer().Deserialize<ClassWithSomeUris>((JToken)raw);
+
+            // then
+            Assert.That(deserialized.UriProperty, Is.Null);
+        }
     }
 }
