@@ -4,7 +4,6 @@ using JsonLD.Entities.Tests.ContextTestEntities;
 using JsonLD.Entities.Tests.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 using NUnit.Framework;
 
 namespace JsonLD.Entities.Tests
