@@ -62,26 +62,7 @@
     <Compile Include="IriRef.cs" />
     <Compile Include="JsonLdKeywords.cs" />
     <Compile Include="JsonLdSerializer.cs" />
-    <Compile Include="NQuadsParser.cs" />
-    <Compile Include="Parsing\BlankNode.cs" />
-    <Compile Include="Parsing\LineStartState.cs" />
-    <Compile Include="Parsing\IriNode.cs" />
-    <Compile Include="Parsing\Literal.cs" />
-    <Compile Include="Parsing\Node.cs" />
     <Compile Include="NullContextProvider.cs" />
-    <Compile Include="Parsing\NQuadsParser.grammar.cs" />
-    <Compile Include="Parsing\NQuadsParser.cs" />
-    <Compile Include="Parsing\NQuadsParserState.cs" />
-    <Compile Include="Parsing\MatchExtensions.cs" />
-    <Compile Include="Parsing\ParsingException.cs" />
-    <Compile Include="Parsing\PredicateMatchedState.cs" />
-    <Compile Include="Parsing\Quad.cs" />
-    <Compile Include="Parsing\QuadMatchedState.cs" />
-    <Compile Include="Parsing\QuadParsedEventArgs.cs" />
-    <Compile Include="Parsing\SubjectMatchedState.cs" />
-    <Compile Include="Parsing\Triple.cs" />
-    <Compile Include="Parsing\TripleMatchedState.cs" />
-    <Compile Include="Parsing\TripleParsedEventArgs.cs" />
     <Compile Include="SerializationOptions.cs" />
     <Compile Include="SerializeCompactedAttribute.cs" />
     <Compile Include="StaticFrameProvider.cs" />
@@ -143,17 +124,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.5')">
-      <ItemGroup>
-        <Reference Include="Eto.Parse">
-          <HintPath>..\..\packages\Eto.Parse\lib\net40\Eto.Parse.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.5')">
       <ItemGroup>

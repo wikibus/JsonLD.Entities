@@ -37,9 +37,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
-    <Content Include="ParsingTests\NQuads\rdf11blanknodes.nq">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -84,7 +81,6 @@
     <Compile Include="EntitySerializerTests.cs" />
     <Compile Include="IriRefConverterTests.cs" />
     <Compile Include="IriRefTests.cs" />
-    <Compile Include="ParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializing.feature.cs">
       <AutoGen>True</AutoGen>
@@ -107,12 +103,6 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Serializing.feature.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\paket-files\www.w3.org\*">
-      <Link>ParsingTests\NQuads\%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JsonLD.Entities\JsonLD.Entities.csproj">
