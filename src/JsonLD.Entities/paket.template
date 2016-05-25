@@ -3,7 +3,6 @@ include-pdbs true
 excludeddependencies
   GitVersionTask
   Costura.Fody
-  Eto.Parse
   ImpromptuInterface
 iconUrl
   https://raw.githubusercontent.com/wikibus/JsonLD.Entities/master/assets/icon.png
@@ -16,3 +15,5 @@ licenseUrl
   https://raw.githubusercontent.com/wikibus/JsonLD.Entities/master/LICENSE
 projectUrl
   http://github.org/wikibus/JsonLd.Entities
+releaseNotes
+  update json-ld.net dependency
