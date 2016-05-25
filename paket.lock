@@ -18,6 +18,8 @@ NUGET
     ImpromptuInterface (6.2.2)
     InfoOf.Fody (1.0.4)
       Fody (>= 1.29.2)
+    json-ld.net (1.0.5)
+      Newtonsoft.Json (>= 6.0.4)
     MethodTimer.Fody (1.15.10)
       Fody (>= 1.29.2)
     Newtonsoft.Json (6.0.8)
@@ -31,7 +33,3 @@ NUGET
     StyleCopPlus.MSBuild (4.7.49.5)
       StyleCop.MSBuild (>= 4.7.49)
     VDS.Common (1.6)
-  remote: https://www.myget.org/F/jsonld/api/v2
-  specs:
-    JsonLD (1.0.5)
-      Newtonsoft.Json (>= 6.0.4)

@@ -1,11 +1,10 @@
 source https://nuget.org/api/v2
-source https://www.myget.org/F/jsonld/api/v2
 
 framework: net40, net45
 content: none
 redirects: on
 
-nuget jsonld
+nuget json-ld.net
 nuget GitLink
 nuget StyleCopPlus.MSBuild
 nuget GitVersionTask

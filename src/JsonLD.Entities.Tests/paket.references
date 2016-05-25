@@ -4,6 +4,6 @@ InfoOf.Fody
 dotNetRDF
 ImpromptuInterface
 FakeItEasy
-jsonld
+json-ld.net
 StyleCopPlus.MSBuild
 Rdf.Vocabularies
