@@ -1,5 +1,7 @@
 type project
 include-pdbs true
+dependencies
+  json-ld.net >= 1.0.5
 excludeddependencies
   GitVersionTask
   Costura.Fody
