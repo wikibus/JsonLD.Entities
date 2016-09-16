@@ -19,7 +19,7 @@ nuget InfoOf.Fody
 nuget FakeItEasy
 nuget ImpromptuInterface
 nuget Costura.Fody
-nuget StyleCopPlus.MSBuild
+nuget StyleCop.MSBuild = 4.7.50
 nuget Rdf.Vocabularies
 nuget OpenCover
 nuget Newtonsoft.Json ~> 9
