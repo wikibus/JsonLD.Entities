@@ -27,6 +27,9 @@ namespace JsonLD.Entities
             ListTypes.Add(typeof(IList<>));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonLdContractResolver"/> class.
+        /// </summary>
         public JsonLdContractResolver()
         {
             NamingStrategy = JsonLdNamingStrategy;

@@ -5,6 +5,7 @@ namespace JsonLD.Entities
     /// <summary>
     /// Represents errors which occur if JSON-LD @context cannot be found for a given type
     /// </summary>
+    [Serializable]
     public class ContextNotFoundException : Exception
     {
         private readonly Type _entityType;
