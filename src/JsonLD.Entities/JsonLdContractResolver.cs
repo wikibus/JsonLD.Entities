@@ -16,6 +16,7 @@ namespace JsonLD.Entities
     {
         private static readonly ICollection<Type> SetTypes = new HashSet<Type>();
         private static readonly ICollection<Type> ListTypes = new HashSet<Type>();
+        private static readonly JsonLdNamingStrategy JsonLdNamingStrategy = new JsonLdNamingStrategy();
 
         static JsonLdContractResolver()
         {
@@ -24,6 +25,11 @@ namespace JsonLD.Entities
             SetTypes.Add(typeof(ISet<>));
             ListTypes.Add(typeof(IList));
             ListTypes.Add(typeof(IList<>));
+        }
+
+        public JsonLdContractResolver()
+        {
+            NamingStrategy = JsonLdNamingStrategy;
         }
 
         /// <summary>
@@ -73,20 +79,6 @@ namespace JsonLD.Entities
             }
 
             return base.ResolveContractConverter(type);
-        }
-
-        /// <summary>
-        /// Resolves the name of the property.
-        /// </summary>
-        protected override string ResolvePropertyName(string propertyName)
-        {
-            var keyword = JsonLdKeywords.GetKeywordForProperty(propertyName);
-            if (keyword != null)
-            {
-                return keyword;
-            }
-
-            return base.ResolvePropertyName(propertyName);
         }
 
         /// <summary>

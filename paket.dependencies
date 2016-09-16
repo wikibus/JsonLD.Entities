@@ -22,4 +22,4 @@ nuget Costura.Fody
 nuget StyleCopPlus.MSBuild
 nuget Rdf.Vocabularies
 nuget OpenCover
-nuget Newtonsoft.Json ~> 6
+nuget Newtonsoft.Json ~> 9
