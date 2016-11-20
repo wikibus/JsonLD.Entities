@@ -8,7 +8,7 @@ namespace JsonLD.Entities.Tests.Entities
     {
         public WithConverter(string id)
         {
-            Id = id;
+            this.Id = id;
         }
 
         public string Id { get; private set; }

@@ -13,7 +13,7 @@ namespace JsonLD.Entities
     /// </summary>
     public sealed class ContextResolver
     {
-        private readonly IContextProvider _contextProvider;
+        private readonly IContextProvider contextProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContextResolver"/> class.
@@ -21,7 +21,7 @@ namespace JsonLD.Entities
         /// <param name="contextProvider">The context provider.</param>
         public ContextResolver(IContextProvider contextProvider)
         {
-            _contextProvider = contextProvider;
+            this.contextProvider = contextProvider;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace JsonLD.Entities
         [return: AllowNull]
         public JToken GetContext(Type type)
         {
-            var context = GetContextFromProvider(type) ?? GetContextFromProperty(type);
+            var context = this.GetContextFromProvider(type) ?? GetContextFromProperty(type);
 
             return EnsureContextType(context);
         }
@@ -41,7 +41,7 @@ namespace JsonLD.Entities
         [return: AllowNull]
         public JToken GetContext(object entity)
         {
-            var context = GetContextFromProvider(entity.GetType())
+            var context = this.GetContextFromProvider(entity.GetType())
                           ?? GetContextFromMethod(entity)
                           ?? GetContextFromProperty(entity.GetType());
 
@@ -82,7 +82,7 @@ namespace JsonLD.Entities
 
                 return Impromptu.InvokeGet(type.WithStaticContext(), "Context");
             }
-            catch (RuntimeBinderException ex)
+            catch (RuntimeBinderException)
             {
                 return null;
             }
@@ -102,7 +102,7 @@ namespace JsonLD.Entities
 
         private JToken GetContextFromProvider(Type type)
         {
-            var context = _contextProvider.GetContext(type);
+            var context = this.contextProvider.GetContext(type);
 
             if (context != null)
             {

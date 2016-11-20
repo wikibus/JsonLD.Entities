@@ -11,14 +11,15 @@ namespace JsonLD.Entities
     /// </summary>
     public class EntitySerializer : IEntitySerializer
     {
-        private readonly ContextResolver _contextResolver;
-        private readonly IFrameProvider _frameProvider;
-        private readonly JsonSerializer _jsonSerializer;
+        private readonly ContextResolver contextResolver;
+        private readonly IFrameProvider frameProvider;
+        private readonly JsonSerializer jsonSerializer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntitySerializer"/> class.
         /// </summary>
-        public EntitySerializer() : this(new NullContextProvider(), new NullFrameProvider())
+        public EntitySerializer()
+            : this(new NullContextProvider(), new NullFrameProvider())
         {
         }
 
@@ -39,13 +40,13 @@ namespace JsonLD.Entities
         public EntitySerializer(IContextProvider contextProvider, IFrameProvider frameProvider)
             : this(new ContextResolver(contextProvider))
         {
-            _frameProvider = frameProvider;
+            this.frameProvider = frameProvider;
         }
 
         private EntitySerializer(ContextResolver contextResolver)
         {
-            _contextResolver = contextResolver;
-            _jsonSerializer = new JsonLdSerializer();
+            this.contextResolver = contextResolver;
+            this.jsonSerializer = new JsonLdSerializer();
         }
 
         /// <summary>
@@ -56,14 +57,14 @@ namespace JsonLD.Entities
         public T Deserialize<T>(string nQuads)
         {
             var jsonLd = JsonLdProcessor.FromRDF(nQuads);
-            var context = _contextResolver.GetContext(typeof(T));
-            var frame = _frameProvider.GetFrame(typeof(T));
+            var context = this.contextResolver.GetContext(typeof(T));
+            var frame = this.frameProvider.GetFrame(typeof(T));
             if (context == null)
             {
                 throw new ContextNotFoundException(typeof(T));
             }
 
-            return Deserialize<T>(jsonLd, context, frame);
+            return this.Deserialize<T>(jsonLd, context, frame);
         }
 
         /// <summary>
@@ -73,10 +74,10 @@ namespace JsonLD.Entities
         /// <param name="jsonLd">a JSON-LD object</param>
         public T Deserialize<T>(JToken jsonLd)
         {
-            var jsonLdContext = _contextResolver.GetContext(typeof(T));
-            var frame = _frameProvider.GetFrame(typeof(T));
+            var jsonLdContext = this.contextResolver.GetContext(typeof(T));
+            var frame = this.frameProvider.GetFrame(typeof(T));
 
-            return Deserialize<T>(jsonLd, jsonLdContext, frame);
+            return this.Deserialize<T>(jsonLd, jsonLdContext, frame);
         }
 
         /// <summary>
@@ -88,9 +89,9 @@ namespace JsonLD.Entities
         public JObject Serialize(object entity, [AllowNull] SerializationOptions options = null)
         {
             options = options ?? new SerializationOptions();
-            var jsonLd = JObject.FromObject(entity, _jsonSerializer);
+            var jsonLd = JObject.FromObject(entity, this.jsonSerializer);
 
-            var context = _contextResolver.GetContext(entity);
+            var context = this.contextResolver.GetContext(entity);
             if (context != null && IsNotEmpty(context))
             {
                 jsonLd.AddFirst(new JProperty("@context", context));
@@ -124,17 +125,17 @@ namespace JsonLD.Entities
         {
             if (context == null)
             {
-                return jsonLd.ToObject<T>(_jsonSerializer);
+                return jsonLd.ToObject<T>(this.jsonSerializer);
             }
 
             if (frame == null)
             {
-                return JsonLdProcessor.Compact(jsonLd, context, new JsonLdOptions()).ToObject<T>(_jsonSerializer);
+                return JsonLdProcessor.Compact(jsonLd, context, new JsonLdOptions()).ToObject<T>(this.jsonSerializer);
             }
 
             frame["@context"] = context;
             var framed = JsonLdProcessor.Frame(jsonLd, frame, new JsonLdOptions());
-            return framed["@graph"].Single().ToObject<T>(_jsonSerializer);
+            return framed["@graph"].Single().ToObject<T>(this.jsonSerializer);
         }
     }
 }

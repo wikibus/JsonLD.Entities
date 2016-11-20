@@ -5,5 +5,5 @@ dotNetRDF
 ImpromptuInterface
 FakeItEasy
 json-ld.net
-StyleCopPlus.MSBuild
+StyleCop.Analyzers
 Rdf.Vocabularies

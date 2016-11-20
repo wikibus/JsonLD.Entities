@@ -8,7 +8,7 @@ namespace JsonLD.Entities
     [Serializable]
     public class ContextNotFoundException : Exception
     {
-        private readonly Type _entityType;
+        private readonly Type entityType;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContextNotFoundException"/> class.
@@ -16,7 +16,7 @@ namespace JsonLD.Entities
         /// <param name="entityType">Type of the entity.</param>
         public ContextNotFoundException(Type entityType)
         {
-            _entityType = entityType;
+            this.entityType = entityType;
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace JsonLD.Entities
         /// </summary>
         public override string Message
         {
-            get { return string.Format("JSON-LD context not found for type {0}", _entityType.FullName); }
+            get { return string.Format("JSON-LD context not found for type {0}", this.entityType.FullName); }
         }
     }
 }

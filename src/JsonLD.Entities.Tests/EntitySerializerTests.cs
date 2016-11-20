@@ -11,14 +11,14 @@ namespace JsonLD.Entities.Tests
     [TestFixture]
     public class EntitySerializerTests
     {
-        private IContextProvider _provider;
-        private EntitySerializer _serializer;
+        private IContextProvider provider;
+        private EntitySerializer serializer;
 
         [SetUp]
         public void Setup()
         {
-            _provider = A.Fake<IContextProvider>();
-            _serializer = new EntitySerializer(_provider);
+            this.provider = A.Fake<IContextProvider>();
+            this.serializer = new EntitySerializer(this.provider);
         }
 
         [Test]
@@ -26,17 +26,17 @@ namespace JsonLD.Entities.Tests
         public void Deserializing_quads_should_throw_when_context_isnt_found()
         {
             // given
-            A.CallTo(() => _provider.GetContext(typeof(Person))).Returns(null);
+            A.CallTo(() => this.provider.GetContext(typeof(Person))).Returns(null);
 
             // when
-            _serializer.Deserialize<Person>(string.Empty);
+            this.serializer.Deserialize<Person>(string.Empty);
         }
 
         [Test]
         public void Should_serialize_id_as_string()
         {
             // given
-            A.CallTo(() => _provider.GetContext(typeof(Person))).Returns(JObject.Parse(@"{
+            A.CallTo(() => this.provider.GetContext(typeof(Person))).Returns(JObject.Parse(@"{
                 'foaf': 'http://xmlns.com/foaf/0.1/',
                 'name': 'foaf:givenName',
                 'surname': 'foaf:familyName',
@@ -45,7 +45,7 @@ namespace JsonLD.Entities.Tests
             var id = new Uri("http://example.org/Some/Person");
 
             // when
-            var person = _serializer.Serialize(new Person { Id = id });
+            var person = this.serializer.Serialize(new Person { Id = id });
 
             // then
             Assert.That(person["@id"], Is.InstanceOf<JValue>());
@@ -59,7 +59,7 @@ namespace JsonLD.Entities.Tests
             var obj = new DerivedClass { Name = "Tomasz" };
 
             // when
-            var serialized = _serializer.Serialize(obj);
+            var serialized = this.serializer.Serialize(obj);
 
             // then
             Assert.That(serialized["@context"], Is.Not.Null);
@@ -69,7 +69,7 @@ namespace JsonLD.Entities.Tests
         public void Should_compact_when_one_of_contexts_is_empty()
         {
             // given
-            A.CallTo(() => _provider.GetContext(typeof(DerivedClass))).Returns(new JArray
+            A.CallTo(() => this.provider.GetContext(typeof(DerivedClass))).Returns(new JArray
             {
                 new JObject { { "foaf", "http://not.foaf" } },
                 new JObject()
@@ -77,7 +77,7 @@ namespace JsonLD.Entities.Tests
             var obj = new DerivedClass { Name = "Tomasz" };
 
             // when
-            var serialized = _serializer.Serialize(obj, new SerializationOptions { SerializeCompacted = true });
+            var serialized = this.serializer.Serialize(obj, new SerializationOptions { SerializeCompacted = true });
 
             // then
             Assert.That(serialized["@context"], Is.Not.Null);
@@ -93,7 +93,7 @@ namespace JsonLD.Entities.Tests
             var iriRef = new IriRef(raw.property.ToString());
 
             // when
-            var deserialized = _serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
+            var deserialized = this.serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
 
             // then
             Assert.That(deserialized.Property, Is.EqualTo(iriRef));
@@ -109,7 +109,7 @@ namespace JsonLD.Entities.Tests
             var iriRef = new IriRef(raw.property["@id"].ToString());
 
             // when
-            var deserialized = _serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
+            var deserialized = this.serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
 
             // then
             Assert.That(deserialized.Property, Is.EqualTo(iriRef));
@@ -122,7 +122,7 @@ namespace JsonLD.Entities.Tests
             dynamic raw = JsonConvert.DeserializeObject("{ 'property': { '@id': null } }");
 
             // when
-            var deserialized = _serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
+            var deserialized = this.serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
 
             // then
             Assert.That(deserialized.Property, Is.EqualTo(default(IriRef)));
@@ -135,7 +135,7 @@ namespace JsonLD.Entities.Tests
             dynamic raw = JsonConvert.DeserializeObject("{ 'uriProperty': null }");
 
             // when
-            var deserialized = _serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
+            var deserialized = this.serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
 
             // then
             Assert.That(deserialized.UriProperty, Is.Null);

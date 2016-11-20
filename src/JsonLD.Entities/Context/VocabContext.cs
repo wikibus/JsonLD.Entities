@@ -1,4 +1,4 @@
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
 namespace JsonLD.Entities.Context
 {
@@ -13,7 +13,8 @@ namespace JsonLD.Entities.Context
         /// Initializes a new instance of the <see cref="VocabContext{T}"/> class.
         /// </summary>
         /// <param name="baseUri">The base URI.</param>
-        public VocabContext(string baseUri) : base(new VocabularyStrategy(baseUri))
+        public VocabContext(string baseUri)
+            : base(new VocabularyStrategy(baseUri))
         {
         }
 
@@ -29,16 +30,16 @@ namespace JsonLD.Entities.Context
 
         private class VocabularyStrategy : AutoContextStrategy
         {
-            private readonly string _baseUri;
+            private readonly string baseUri;
 
             public VocabularyStrategy(string baseUri)
             {
-                _baseUri = baseUri;
+                this.baseUri = baseUri;
             }
 
             protected override string GetPropertyId(string propertyName)
             {
-                return _baseUri + propertyName;
+                return this.baseUri + propertyName;
             }
         }
     }

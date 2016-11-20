@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace JsonLD.Entities.Tests.Entities
 {
@@ -6,14 +6,14 @@ namespace JsonLD.Entities.Tests.Entities
     {
         public HasInterestsSet()
         {
-            Interests = new HashSet<string>();
+            this.Interests = new HashSet<string>();
         }
 
         public ISet<string> Interests { get; set; }
 
         public void AddInterest(string interst)
         {
-            Interests.Add(interst);
+            this.Interests.Add(interst);
         }
     }
 }

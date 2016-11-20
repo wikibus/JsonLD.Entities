@@ -5,22 +5,22 @@ namespace JsonLD.Entities.Tests.Entities
 {
     public class HasInterestsArray
     {
-        private IList<string> _interests;
+        private IList<string> interests;
 
         public HasInterestsArray()
         {
-            _interests = new List<string>();
+            this.interests = new List<string>();
         }
 
         public string[] Interests
         {
-            get { return _interests.ToArray(); }
-            set { _interests = value; }
+            get { return this.interests.ToArray(); }
+            set { this.interests = value; }
         }
 
         public void AddInterest(string interst)
         {
-            _interests.Add(interst);
+            this.interests.Add(interst);
         }
     }
 }

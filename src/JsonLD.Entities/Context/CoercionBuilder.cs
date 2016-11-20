@@ -10,14 +10,14 @@ namespace JsonLD.Entities.Context
     [NullGuard(ValidationFlags.All)]
     public class CoercionBuilder
     {
-        private readonly JProperty _property;
+        private readonly JProperty property;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CoercionBuilder"/> class.
         /// </summary>
         internal CoercionBuilder(JProperty property)
         {
-            _property = property.EnsureExpandedDefinition();
+            this.property = property.EnsureExpandedDefinition();
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace JsonLD.Entities.Context
         /// </summary>
         public PropertyBuilder Id()
         {
-            return new PropertyBuilder(_property.With(JsonLdKeywords.Type, JsonLdKeywords.Id));
+            return new PropertyBuilder(this.property.With(JsonLdKeywords.Type, JsonLdKeywords.Id));
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace JsonLD.Entities.Context
         /// </summary>
         public PropertyBuilder Vocab()
         {
-            return new PropertyBuilder(_property.With(JsonLdKeywords.Type, JsonLdKeywords.Vocab));
+            return new PropertyBuilder(this.property.With(JsonLdKeywords.Type, JsonLdKeywords.Vocab));
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace JsonLD.Entities.Context
         /// </summary>
         public PropertyBuilder Is(string dataType)
         {
-            return new PropertyBuilder(_property.With(JsonLdKeywords.Type, dataType));
+            return new PropertyBuilder(this.property.With(JsonLdKeywords.Type, dataType));
         }
     }
 }

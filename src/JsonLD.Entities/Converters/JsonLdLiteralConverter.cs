@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using NullGuard;
@@ -42,7 +42,7 @@ namespace JsonLD.Entities.Converters
         {
             if (reader.TokenType != JsonToken.StartObject)
             {
-                return DeserializeLiteral(reader, objectType, serializer);
+                return this.DeserializeLiteral(reader, objectType, serializer);
             }
 
             object value = null;
@@ -53,7 +53,7 @@ namespace JsonLD.Entities.Converters
                 if (reader.TokenType == JsonToken.PropertyName && Equals(reader.Value, "@value"))
                 {
                     reader.Read();
-                    value = DeserializeLiteral(reader, objectType, serializer);
+                    value = this.DeserializeLiteral(reader, objectType, serializer);
                 }
                 else
                 {

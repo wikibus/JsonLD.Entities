@@ -23,6 +23,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\..\paket-files\tpluscode\a285267d2543466fc35c3a168c846f9f\Library.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\JsonLD.Entities.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -57,8 +60,11 @@
     <Compile Include="Context\Vocab.cs" />
     <Compile Include="Context\VocabContext.cs" />
     <Compile Include="Converters\IriRefConverter.cs" />
+    <Compile Include="Converters\JsonLdArrayConverter.cs" />
     <Compile Include="Converters\JsonLdCollectionConverter.cs" />
+    <Compile Include="Converters\JsonLdListConverter.cs" />
     <Compile Include="Converters\JsonLdLiteralConverter.cs" />
+    <Compile Include="Converters\JsonLdSetConverter.cs" />
     <Compile Include="IriRef.cs" />
     <Compile Include="JsonLdKeywords.cs" />
     <Compile Include="JsonLdNamingStrategy.cs" />
@@ -70,10 +76,7 @@
     <Compile Include="EntitySerializer.cs" />
     <Compile Include="IContextProvider.cs" />
     <Compile Include="IEntitySerializer.cs" />
-    <Compile Include="Converters\JsonLdArrayConverter.cs" />
-    <Compile Include="Converters\JsonLdListConverter.cs" />
     <Compile Include="JsonLdContractResolver.cs" />
-    <Compile Include="Converters\JsonLdSetConverter.cs" />
     <Compile Include="IFrameProvider.cs" />
     <Compile Include="NullFrameProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,21 +92,6 @@
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.5')">
-      <PropertyGroup>
-        <__paket__StyleCopPlus_MSBuild_props>StyleCopPlus.MSBuild</__paket__StyleCopPlus_MSBuild_props>
-      </PropertyGroup>
-    </When>
-  </Choose>
-  <Import Project="..\..\packages\StyleCopPlus.MSBuild\build\$(__paket__StyleCopPlus_MSBuild_props).props" Condition="Exists('..\..\packages\StyleCopPlus.MSBuild\build\$(__paket__StyleCopPlus_MSBuild_props).props')" Label="Paket" />
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.5')">
-      <PropertyGroup>
-        <__paket__StyleCop_MSBuild_Targets>StyleCop.MSBuild</__paket__StyleCop_MSBuild_Targets>
-      </PropertyGroup>
-    </When>
-  </Choose>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.5')">
       <PropertyGroup>
@@ -191,5 +179,15 @@
   </Choose>
   <Import Project="..\..\packages\Fody\build\$(__paket__Fody_targets).targets" Condition="Exists('..\..\packages\Fody\build\$(__paket__Fody_targets).targets')" Label="Paket" />
   <Import Project="..\..\packages\GitVersionTask\build\$(__paket__GitVersionTask_targets).targets" Condition="Exists('..\..\packages\GitVersionTask\build\$(__paket__GitVersionTask_targets).targets')" Label="Paket" />
-  <Import Project="..\..\packages\StyleCop.MSBuild\build\$(__paket__StyleCop_MSBuild_Targets).targets" Condition="Exists('..\..\packages\StyleCop.MSBuild\build\$(__paket__StyleCop_MSBuild_Targets).targets')" Label="Paket" />
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers\analyzers\dotnet\cs\Newtonsoft.Json.dll">
+      <Paket>True</Paket>
+    </Analyzer>
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll">
+      <Paket>True</Paket>
+    </Analyzer>
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers\analyzers\dotnet\cs\StyleCop.Analyzers.dll">
+      <Paket>True</Paket>
+    </Analyzer>
+  </ItemGroup>
 </Project>

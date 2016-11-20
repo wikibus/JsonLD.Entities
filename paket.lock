@@ -28,7 +28,8 @@ NUGET
     OpenCover (4.6.519)
     Rdf.Vocabularies (1.1.1)
     SpecFlow (2.1)
-    StyleCop.MSBuild (4.7.50)
-    StyleCopPlus.MSBuild (4.7.49.5)
-      StyleCop.MSBuild (>= 4.7.49)
+    StyleCop.Analyzers (1.0)
     VDS.Common (1.6.4)
+GIST
+  remote: tpluscode/a285267d2543466fc35c3a168c846f9f
+    FULLPROJECT (eac8af5adfdcfc43b63a5d5edf88c082e83761e0)

@@ -6,7 +6,7 @@ redirects: on
 
 nuget json-ld.net
 nuget GitLink
-nuget StyleCopPlus.MSBuild
+nuget StyleCop.Analyzers
 nuget GitVersionTask
 nuget SpecFlow
 nuget NullGuard.Fody
@@ -14,12 +14,12 @@ nuget NUnit < 3
 nuget MethodTimer.Fody
 nuget dotNetRDF
 nuget HtmlAgilityPack
-nuget ImpromptuInterface
 nuget InfoOf.Fody
 nuget FakeItEasy
 nuget ImpromptuInterface
 nuget Costura.Fody
-nuget StyleCop.MSBuild = 4.7.50
 nuget Rdf.Vocabularies
 nuget OpenCover
 nuget Newtonsoft.Json ~> 9
+
+gist tpluscode/a285267d2543466fc35c3a168c846f9f

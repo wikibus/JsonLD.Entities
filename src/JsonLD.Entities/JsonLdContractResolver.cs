@@ -32,7 +32,7 @@ namespace JsonLD.Entities
         /// </summary>
         public JsonLdContractResolver()
         {
-            NamingStrategy = JsonLdNamingStrategy;
+            this.NamingStrategy = JsonLdNamingStrategy;
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ namespace JsonLD.Entities.Tests
     public class ContextResolverTests
     {
         private static readonly JToken TestContextJson;
-        private ContextResolver _resolver;
+        private ContextResolver resolver;
 
         static ContextResolverTests()
         {
@@ -19,14 +19,14 @@ namespace JsonLD.Entities.Tests
         [SetUp]
         public void Setup()
         {
-            _resolver = new ContextResolver(A.Fake<IContextProvider>());
+            this.resolver = new ContextResolver(A.Fake<IContextProvider>());
         }
 
         [Test]
         public void Should_get_context_using_property_from_generic_type()
         {
             // when
-            JToken context = _resolver.GetContext(typeof(GenericType<>));
+            JToken context = this.resolver.GetContext(typeof(GenericType<>));
 
             // thne
             Assert.That(JToken.DeepEquals(context, TestContextJson));
@@ -36,7 +36,7 @@ namespace JsonLD.Entities.Tests
         public void Should_get_context_using_property_from_closed_generic_type()
         {
             // when
-            JToken context = _resolver.GetContext(typeof(GenericType<int>));
+            JToken context = this.resolver.GetContext(typeof(GenericType<int>));
 
             // thne
             Assert.That(JToken.DeepEquals(context, TestContextJson));

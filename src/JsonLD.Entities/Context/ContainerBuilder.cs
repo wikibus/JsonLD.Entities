@@ -9,14 +9,14 @@ namespace JsonLD.Entities.Context
     [NullGuard(ValidationFlags.All)]
     public class ContainerBuilder
     {
-        private readonly JProperty _property;
+        private readonly JProperty property;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContainerBuilder"/> class.
         /// </summary>
         internal ContainerBuilder(JProperty property)
         {
-            _property = property.EnsureExpandedDefinition();
+            this.property = property.EnsureExpandedDefinition();
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace JsonLD.Entities.Context
         /// </summary>
         public PropertyBuilder Set()
         {
-            return new PropertyBuilder(_property.With(JsonLdKeywords.Container, JsonLdKeywords.Set));
+            return new PropertyBuilder(this.property.With(JsonLdKeywords.Container, JsonLdKeywords.Set));
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace JsonLD.Entities.Context
         /// </summary>
         public PropertyBuilder List()
         {
-            return new PropertyBuilder(_property.With(JsonLdKeywords.Container, JsonLdKeywords.List));
+            return new PropertyBuilder(this.property.With(JsonLdKeywords.Container, JsonLdKeywords.List));
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace JsonLD.Entities.Context
         /// </summary>
         public PropertyBuilder Index()
         {
-            return new PropertyBuilder(_property.With(JsonLdKeywords.Container, JsonLdKeywords.Index));
+            return new PropertyBuilder(this.property.With(JsonLdKeywords.Container, JsonLdKeywords.Index));
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace JsonLD.Entities.Context
         /// </summary>
         public PropertyBuilder Language()
         {
-            return new PropertyBuilder(_property.With(JsonLdKeywords.Container, JsonLdKeywords.Language));
+            return new PropertyBuilder(this.property.With(JsonLdKeywords.Container, JsonLdKeywords.Language));
         }
     }
 }

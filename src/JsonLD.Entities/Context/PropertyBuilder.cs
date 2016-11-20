@@ -20,7 +20,8 @@ namespace JsonLD.Entities.Context
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyBuilder"/> class.
         /// </summary>
-        internal PropertyBuilder(JProperty property) : base(property)
+        internal PropertyBuilder(JProperty property)
+            : base(property)
         {
         }
 

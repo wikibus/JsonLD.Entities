@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Newtonsoft.Json.Linq;
 
 namespace JsonLD.Entities.Context
@@ -34,23 +34,23 @@ namespace JsonLD.Entities.Context
         {
             private const string SlashClassIdAppendFormat = "{0}#{1}";
             private const string HashClassIdAppendFormat = "{0}/{1}";
-            private readonly Uri _classId;
+            private readonly Uri classId;
 
             public ClassNameStrategy(Uri classId)
             {
-                _classId = classId;
+                this.classId = classId;
             }
 
             protected override string GetPropertyId(string propertyName)
             {
                 var format = HashClassIdAppendFormat;
 
-                if (string.IsNullOrWhiteSpace(_classId.Fragment))
+                if (string.IsNullOrWhiteSpace(this.classId.Fragment))
                 {
                     format = SlashClassIdAppendFormat;
                 }
 
-                return string.Format(format, _classId, propertyName);
+                return string.Format(format, this.classId, propertyName);
             }
         }
     }

@@ -1,0 +1,1 @@
+﻿[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Interoperability", "CA1405:ComVisibleTypeBaseTypesShouldBeComVisible", Scope = "type", Target = "JsonLD.Entities.Tests.Entities.WithConverter+DummyConverter", Justification = "tests only")]

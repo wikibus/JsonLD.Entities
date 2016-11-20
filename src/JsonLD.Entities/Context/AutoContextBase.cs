@@ -21,7 +21,8 @@ namespace JsonLD.Entities.Context
         /// <summary>
         /// Initializes a new instance of the <see cref="AutoContextBase{T}"/> class.
         /// </summary>
-        protected AutoContextBase(JObject context, AutoContextStrategy strategy) : base(context)
+        protected AutoContextBase(JObject context, AutoContextStrategy strategy)
+            : base(context)
         {
             strategy.InitializeProperties(this);
         }
@@ -96,7 +97,7 @@ namespace JsonLD.Entities.Context
 
                     if (context[contextKey] == null)
                     {
-                        context.Add(contextKey, GetPropertyId(contextKey));
+                        context.Add(contextKey, this.GetPropertyId(contextKey));
                     }
                 }
             }

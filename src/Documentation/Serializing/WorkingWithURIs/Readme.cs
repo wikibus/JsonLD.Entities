@@ -69,7 +69,7 @@ public class SerializingUriProperties
     private const string PropertyUri = "http://example.com/property";
     private const string UriValue = "http://example.com/value";
 
-    readonly IEntitySerializer _serializer = new EntitySerializer();
+    readonly IEntitySerializer serializer = new EntitySerializer();
 
 /**
 
@@ -91,7 +91,7 @@ private class UriPropertyMappedToAbsoluteUri
 public void Should_serialize_URI_values_as_strings()
 {
     // given       
-    var serialized = _serializer.Serialize(new UriPropertyMappedToAbsoluteUri { Property = new Uri(UriValue) });
+    var serialized = this.serializer.Serialize(new UriPropertyMappedToAbsoluteUri { Property = new Uri(UriValue) });
 
     // when 
     // to remove @context, an empty JObject can be passed
@@ -134,7 +134,7 @@ private class UriPropertyWithContext
 public void Should_serialize_URI_values_as_strings_with_context()
 {
     // given       
-    var serialized = _serializer.Serialize(new UriPropertyWithContext { Property = new Uri(UriValue) });
+    var serialized = this.serializer.Serialize(new UriPropertyWithContext { Property = new Uri(UriValue) });
 
     // when 
     // to remove @context, an empty JObject can be passed
@@ -173,7 +173,7 @@ private class UriPropertyForcedToExpand
 public void Should_serialize_URI_values_as_expanded_object()
 {
     // given       
-    var serialized = _serializer.Serialize(new UriPropertyForcedToExpand { Property = new IriRef(UriValue) });
+    var serialized = this.serializer.Serialize(new UriPropertyForcedToExpand { Property = new IriRef(UriValue) });
 
     // when 
     // to remove @context, an empty JObject can be passed

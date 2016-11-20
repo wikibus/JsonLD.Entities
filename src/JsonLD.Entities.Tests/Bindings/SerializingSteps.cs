@@ -11,18 +11,18 @@ namespace JsonLD.Entities.Tests.Bindings
     [Binding]
     public class SerializingSteps
     {
-        private readonly SerializerTestContext _context;
+        private readonly SerializerTestContext context;
 
         public SerializingSteps(SerializerTestContext context)
         {
-            _context = context;
-            A.CallTo(() => _context.ContextProvider.GetContext(A<Type>.Ignored)).Returns(null);
+            this.context = context;
+            A.CallTo(() => context.ContextProvider.GetContext(A<Type>.Ignored)).Returns(null);
         }
 
         [Given(@"a person without id")]
         public void GivenAPersonWithoutId()
         {
-            _context.Object = new Person
+            this.context.Object = new Person
                 {
                     Name = "Tomasz",
                     Surname = "Pluskiewicz",
@@ -34,26 +34,26 @@ namespace JsonLD.Entities.Tests.Bindings
         public void GivenModelOfType(string typeName)
         {
             var model = Type.GetType(typeName, true);
-            _context.Object = Activator.CreateInstance(model);
+            this.context.Object = Activator.CreateInstance(model);
         }
 
         [Given(@"model has interest '(.*)'")]
         public void GivenModelInterestsRDF(string value)
         {
-            Impromptu.InvokeMemberAction(_context.Object, "AddInterest", value);
+            Impromptu.InvokeMemberAction(this.context.Object, "AddInterest", value);
         }
 
         [When(@"the object is serialized")]
         public void WhenTheObjectIsSerialized()
         {
-            _context.JsonLdObject = _context.Serializer.Serialize(_context.Object);
+            this.context.JsonLdObject = this.context.Serializer.Serialize(this.context.Object);
         }
 
         [Then(@"the resulting JSON-LD should be:")]
         public void ThenTheResultingJsonLdShouldBe(string jObject)
         {
             var expected = JObject.Parse(jObject);
-            Assert.That(JToken.DeepEquals(_context.JsonLdObject, expected), "Actual object was: {0}", _context.JsonLdObject);
+            Assert.That(JToken.DeepEquals(this.context.JsonLdObject, expected), "Actual object was: {0}", this.context.JsonLdObject);
         }
     }
 }

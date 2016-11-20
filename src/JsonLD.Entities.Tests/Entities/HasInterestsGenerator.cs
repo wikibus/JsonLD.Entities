@@ -4,18 +4,18 @@ namespace JsonLD.Entities.Tests.Entities
 {
     public class HasInterestsGenerator
     {
-        private readonly IList<string> _interests;
+        private readonly IList<string> interests;
 
         public HasInterestsGenerator()
         {
-            _interests = new List<string>();
+            this.interests = new List<string>();
         }
 
         public IEnumerable<string> Interests
         {
             get
             {
-                foreach (var interest in _interests)
+                foreach (var interest in this.interests)
                 {
                     yield return interest;
                 }
@@ -24,7 +24,7 @@ namespace JsonLD.Entities.Tests.Entities
 
         public void AddInterest(string interst)
         {
-            _interests.Add(interst);
+            this.interests.Add(interst);
         }
     }
 }

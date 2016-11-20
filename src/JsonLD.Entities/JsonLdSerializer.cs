@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace JsonLD.Entities
 {
@@ -12,9 +12,9 @@ namespace JsonLD.Entities
         /// </summary>
         public JsonLdSerializer()
         {
-            DateFormatHandling = DateFormatHandling.IsoDateFormat;
-            ContractResolver = new JsonLdContractResolver();
-            NullValueHandling = NullValueHandling.Ignore;
+            this.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+            this.ContractResolver = new JsonLdContractResolver();
+            this.NullValueHandling = NullValueHandling.Ignore;
         }
     }
 }

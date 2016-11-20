@@ -10,14 +10,14 @@ namespace JsonLD.Entities
     /// </summary>
     public class StaticFrameProvider : IFrameProvider
     {
-        private readonly IDictionary<Type, JObject> _frames;
+        private readonly IDictionary<Type, JObject> frames;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StaticFrameProvider"/> class.
         /// </summary>
         public StaticFrameProvider()
         {
-            _frames = new Dictionary<Type, JObject>();
+            this.frames = new Dictionary<Type, JObject>();
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace JsonLD.Entities
         public JObject GetFrame(Type modelType)
         {
             JObject context;
-            _frames.TryGetValue(modelType, out context);
+            this.frames.TryGetValue(modelType, out context);
             return context;
         }
 
@@ -41,7 +41,7 @@ namespace JsonLD.Entities
         /// </summary>
         public void SetFrame(Type type, JObject context)
         {
-            _frames[type] = context;
+            this.frames[type] = context;
         }
     }
 }

@@ -5,25 +5,25 @@ namespace JsonLD.Entities.Tests.Bindings
 {
     public class SerializerTestContext
     {
-        private readonly IContextProvider _contextProvider;
-        private readonly EntitySerializer _serializer;
-        private readonly IFrameProvider _frameProvider;
+        private readonly IContextProvider contextProvider;
+        private readonly EntitySerializer serializer;
+        private readonly IFrameProvider frameProvider;
 
         public SerializerTestContext()
         {
-            _contextProvider = A.Fake<IContextProvider>();
-            _frameProvider = A.Fake<IFrameProvider>();
-            _serializer = new EntitySerializer(_contextProvider, _frameProvider);
+            this.contextProvider = A.Fake<IContextProvider>();
+            this.frameProvider = A.Fake<IFrameProvider>();
+            this.serializer = new EntitySerializer(this.contextProvider, this.frameProvider);
         }
 
         public IContextProvider ContextProvider
         {
-            get { return _contextProvider; }
+            get { return this.contextProvider; }
         }
 
         public EntitySerializer Serializer
         {
-            get { return _serializer; }
+            get { return this.serializer; }
         }
 
         public string NQuads { get; set; }
@@ -34,7 +34,7 @@ namespace JsonLD.Entities.Tests.Bindings
 
         public IFrameProvider FrameProvider
         {
-            get { return _frameProvider; }
+            get { return this.frameProvider; }
         }
     }
 }

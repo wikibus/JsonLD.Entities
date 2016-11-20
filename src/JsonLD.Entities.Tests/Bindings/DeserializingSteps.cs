@@ -9,21 +9,21 @@ namespace JsonLD.Entities.Tests.Bindings
     [Binding]
     public class DeserializingSteps
     {
-        private static readonly MethodInfo DeserializeQuadsMethod = Info.OfMethod("JsonLD.Entities",
-                                                                                  "JsonLD.Entities.IEntitySerializer",
-                                                                                  "Deserialize",
-                                                                                  "System.String");
+        private static readonly MethodInfo DeserializeQuadsMethod;
 
-        private static readonly MethodInfo DeserializeJsonMethod = Info.OfMethod("JsonLD.Entities",
-                                                                                 "JsonLD.Entities.IEntitySerializer",
-                                                                                 "Deserialize",
-                                                                                 "Newtonsoft.Json.Linq.JToken");
+        private static readonly MethodInfo DeserializeJsonMethod;
 
-        private readonly SerializerTestContext _context;
+        private readonly SerializerTestContext testContext;
+
+        static DeserializingSteps()
+        {
+            DeserializeQuadsMethod = typeof(IEntitySerializer).GetMethod("Deserialize", new[] { typeof(string) });
+            DeserializeJsonMethod = typeof(IEntitySerializer).GetMethod("Deserialize", new[] { typeof(JToken) });
+        }
 
         public DeserializingSteps(SerializerTestContext context)
         {
-            _context = context;
+            this.testContext = context;
         }
 
         [Given(@"@context is:")]
@@ -41,13 +41,13 @@ namespace JsonLD.Entities.Tests.Bindings
         [Given(@"NQuads:")]
         public void GivenRDFData(string nQuads)
         {
-            _context.NQuads = nQuads;
+            this.testContext.NQuads = nQuads;
         }
 
         [Given(@"JSON-LD:")]
         public void GivenJsonLd(string jsonLd)
         {
-            _context.JsonLdObject = JToken.Parse(jsonLd);
+            this.testContext.JsonLdObject = JToken.Parse(jsonLd);
         }
 
         [Scope(Tag = "NQuads")]
@@ -56,10 +56,10 @@ namespace JsonLD.Entities.Tests.Bindings
         {
             var entityType = Type.GetType(typeName, true);
 
-            SetupProviders(entityType);
+            this.SetupProviders(entityType);
             var typedDeserialize = DeserializeQuadsMethod.MakeGenericMethod(entityType);
 
-            var entity = typedDeserialize.Invoke(_context.Serializer, new object[] { _context.NQuads });
+            var entity = typedDeserialize.Invoke(this.testContext.Serializer, new object[] { this.testContext.NQuads });
 
             ScenarioContext.Current.Set(entity, "Entity");
         }
@@ -70,10 +70,10 @@ namespace JsonLD.Entities.Tests.Bindings
         {
             var entityType = Type.GetType(typeName, true);
 
-            SetupProviders(entityType);
+            this.SetupProviders(entityType);
             var typedDeserialize = DeserializeJsonMethod.MakeGenericMethod(entityType);
 
-            var entity = typedDeserialize.Invoke(_context.Serializer, new object[] { _context.JsonLdObject });
+            var entity = typedDeserialize.Invoke(this.testContext.Serializer, new object[] { this.testContext.JsonLdObject });
 
             ScenarioContext.Current.Set(entity, "Entity");
         }
@@ -86,12 +86,12 @@ namespace JsonLD.Entities.Tests.Bindings
 
         private void SetupProviders(Type entityType)
         {
-            JObject @context = null;
+            JObject context = null;
             JObject frame = null;
 
             if (ScenarioContext.Current.ContainsKey("@context"))
             {
-                @context = ScenarioContext.Current.Get<JObject>("@context");
+                context = ScenarioContext.Current.Get<JObject>("@context");
             }
 
             if (ScenarioContext.Current.ContainsKey("frame"))
@@ -99,8 +99,8 @@ namespace JsonLD.Entities.Tests.Bindings
                 frame = ScenarioContext.Current.Get<JObject>("frame");
             }
 
-            A.CallTo(() => _context.ContextProvider.GetContext(entityType)).Returns(@context);
-            A.CallTo(() => _context.FrameProvider.GetFrame(entityType)).Returns(frame);
+            A.CallTo(() => this.testContext.ContextProvider.GetContext(entityType)).Returns(context);
+            A.CallTo(() => this.testContext.FrameProvider.GetFrame(entityType)).Returns(frame);
         }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using NullGuard;
@@ -32,11 +32,11 @@ namespace JsonLD.Entities.Converters
         {
             if (reader.TokenType == JsonToken.StartArray)
             {
-                return CreateReturnedContainer(GetElementsFromArray(reader, serializer));
+                return this.CreateReturnedContainer(GetElementsFromArray(reader, serializer));
             }
 
             var resultObject = serializer.Deserialize<T>(reader);
-            return CreateReturnedContainer(new[] { resultObject });
+            return this.CreateReturnedContainer(new[] { resultObject });
         }
 
         /// <summary>
