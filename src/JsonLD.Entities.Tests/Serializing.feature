@@ -70,3 +70,48 @@ Scenario: Serialize model with prefixed name in ClassAttribute
             "@type": "ex:Person"
         }
         """
+		
+Scenario: Serializing primitive values should produce short literals for Boolean, Double and String
+	Given model of type 'JsonLD.Entities.Tests.Entities.AllPrimitives'
+	| Property | Value |
+	| string   | Hello |
+	| double   | 3.14  |
+	| bool     | true  |
+	When the object is serialized
+	Then the resulting JSON-LD should be:
+         """
+         {
+			"string": "Hello",
+			"double": 3.14,
+			"bool": true
+		 }
+         """
+
+Scenario Outline: Serializing primitive values should produce typed literals
+	Given model of type 'JsonLD.Entities.Tests.Entities.AllPrimitives'
+	| Property   | Value   |
+	| <Property> | <Value> |
+	When the object is serialized
+	Then the resulting JSON-LD should be:
+         """
+         {
+			"<Property>": {
+				"@value": "<JsonValue>",
+				"@type": "http://www.w3.org/2001/XMLSchema#<Property>"
+			}
+		 }
+         """
+	Examples: 
+	| Property | Value      | JsonValue           | XsdType       |
+	| date     | 2016-01-03 | 2016-01-03T00:00:00 | dateTime      |
+	| decimal  | 3.4        | 3.4                 | decimal       |
+	| long     | 100        | 100                 | long          |
+	| ulong    | 100        | 100                 | unsignedLong  |
+	| int      | 1567       | 1567                | int           |
+	| uint     | 15         | 15                  | unsignedInt   |
+	| short    | 17         | 17                  | short         |
+	| ushort   | 3          | 3                   | unsignedShort |
+	| byte     | 20         | 20                  | unsignedByte  |
+	| sbyte    | -3         | -3                  | byte          |
+	| float    | 2.3456     | 2.3456              | float         |
+	| timeSpan | 100        | 100                 | duration      |

@@ -2,9 +2,11 @@
 using FakeItEasy;
 using ImpromptuInterface;
 using JsonLD.Entities.Tests.Entities;
+using JsonLD.Entities.Tests.SpecflowHelpers;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace JsonLD.Entities.Tests.Bindings
 {
@@ -35,6 +37,13 @@ namespace JsonLD.Entities.Tests.Bindings
         {
             var model = Type.GetType(typeName, true);
             this.context.Object = Activator.CreateInstance(model);
+        }
+
+        [Given(@"model of type '(.*)'")]
+        public void GivenModelOfType(string typeName, Table table)
+        {
+            var modelType = Type.GetType(typeName, true);
+            this.context.Object = table.CreateInstance(modelType);
         }
 
         [Given(@"model has interest '(.*)'")]

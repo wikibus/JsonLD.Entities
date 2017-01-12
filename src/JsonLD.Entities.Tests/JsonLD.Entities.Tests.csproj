@@ -68,6 +68,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeserializingRDF.feature</DependentUpon>
     </Compile>
+    <Compile Include="Entities\AllPrimitives.cs" />
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\ClassWithSomeUris.cs" />
     <Compile Include="Entities\HasInterestsArray.cs" />
@@ -91,6 +92,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Serializing.feature</DependentUpon>
     </Compile>
+    <Compile Include="SpecflowHelpers\TableExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
