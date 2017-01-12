@@ -76,8 +76,7 @@ this.ScenarioSetup(scenarioInfo);
     testRunner.When("the object is serialized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
-    testRunner.Then("the resulting JSON-LD should be:", "{\r\n    \"name\": \"Tomasz\",\r\n    \"surname\": \"Pluskiewicz\",\r\n    \"birthDate\": \"1972-0" +
-                    "9-04T00:00:00\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("the resulting JSON-LD should be:", "{\r\n    \"name\": \"Tomasz\",\r\n    \"surname\": \"Pluskiewicz\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -92,16 +91,16 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void SerializeModelWithSingleElementInSet(string type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Serialize model with single element in set", exampleTags);
-#line 16
+#line 15
 this.ScenarioSetup(scenarioInfo);
-#line 17
+#line 16
     testRunner.Given(string.Format("model of type \'{0}\'", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 18
+#line 17
       testRunner.And("model has interest \'RDF\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 19
+#line 18
      testRunner.When("the object is serialized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 20
+#line 19
      testRunner.Then("the resulting JSON-LD should be:", "{\r\n    \"interests\": [ \"RDF\" ]\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -112,16 +111,16 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void SerializeModelWithSingleElementInList()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Serialize model with single element in list", ((string[])(null)));
-#line 34
+#line 33
 this.ScenarioSetup(scenarioInfo);
-#line 35
+#line 34
     testRunner.Given("model of type \'JsonLD.Entities.Tests.Entities.HasInterestsList\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 36
+#line 35
       testRunner.And("model has interest \'RDF\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 37
+#line 36
      testRunner.When("the object is serialized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 38
+#line 37
      testRunner.Then("the resulting JSON-LD should be:", "{\r\n    \"interests\": [ \"RDF\" ]\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -134,14 +133,14 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void SerializeModelWithEmptyCollection(string type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Serialize model with empty collection", exampleTags);
-#line 45
+#line 44
 this.ScenarioSetup(scenarioInfo);
-#line 46
+#line 45
     testRunner.Given(string.Format("model of type \'{0}\'", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 47
+#line 46
      testRunner.When("the object is serialized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 48
+#line 47
      testRunner.Then("the resulting JSON-LD should be:", "{\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -152,17 +151,17 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void SerializeModelWithPrefixedNameInClassAttribute()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Serialize model with prefixed name in ClassAttribute", ((string[])(null)));
-#line 58
+#line 57
 this.ScenarioSetup(scenarioInfo);
-#line 59
+#line 58
     testRunner.Given("model of type \'JsonLD.Entities.Tests.Entities.PersonWithPrefixedClass\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 60
+#line 59
     testRunner.And("@context is:", "{\r\n   \"ex\": \"http://example.com/ontology#\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 66
+#line 65
     testRunner.When("the object is serialized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 67
+#line 66
     testRunner.Then("the resulting JSON-LD should be:", "{\r\n    \"@type\": \"ex:Person\"\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -175,7 +174,7 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Serializing primitive values should produce short literals for Boolean, Double an" +
                     "d String", ((string[])(null)));
-#line 74
+#line 73
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -190,12 +189,12 @@ this.ScenarioSetup(scenarioInfo);
             table1.AddRow(new string[] {
                         "bool",
                         "true"});
-#line 75
+#line 74
  testRunner.Given("model of type \'JsonLD.Entities.Tests.Entities.AllPrimitives\'", ((string)(null)), table1, "Given ");
-#line 80
+#line 79
  testRunner.When("the object is serialized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 81
+#line 80
  testRunner.Then("the resulting JSON-LD should be:", "{\r\n\"string\": \"Hello\",\r\n\"double\": 3.14,\r\n\"bool\": true\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -214,11 +213,11 @@ this.ScenarioSetup(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("byte", "20", "20", "unsignedByte", new string[0])]
         [NUnit.Framework.TestCaseAttribute("sbyte", "-3", "-3", "byte", new string[0])]
         [NUnit.Framework.TestCaseAttribute("float", "2.3456", "2.3456", "float", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("timeSpan", "100", "100", "duration", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("timeSpan", "50.08:20:17", "P50DT8H20M17S", "duration", new string[0])]
         public virtual void SerializingPrimitiveValuesShouldProduceTypedLiterals(string property, string value, string jsonValue, string xsdType, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Serializing primitive values should produce typed literals", exampleTags);
-#line 90
+#line 89
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -227,14 +226,14 @@ this.ScenarioSetup(scenarioInfo);
             table2.AddRow(new string[] {
                         string.Format("{0}", property),
                         string.Format("{0}", value)});
-#line 91
+#line 90
  testRunner.Given("model of type \'JsonLD.Entities.Tests.Entities.AllPrimitives\'", ((string)(null)), table2, "Given ");
-#line 94
+#line 93
  testRunner.When("the object is serialized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 95
- testRunner.Then("the resulting JSON-LD should be:", string.Format("{{\r\n\"{0}\": {{\r\n\"@value\": \"{1}\",\r\n\"@type\": \"http://www.w3.org/2001/XMLSchema#{0}\"\r" +
-                        "\n}}\r\n}}", property, jsonValue), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 94
+ testRunner.Then("the resulting JSON-LD should be:", string.Format("{{\r\n\"{0}\": {{\r\n\"@value\": \"{1}\",\r\n\"@type\": \"http://www.w3.org/2001/XMLSchema#{2}\"\r" +
+                        "\n}}\r\n}}", property, jsonValue, xsdType), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

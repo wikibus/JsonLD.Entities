@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using NullGuard;
@@ -28,7 +29,28 @@ namespace JsonLD.Entities.Converters
         /// </summary>
         public override void WriteJson(JsonWriter writer, [AllowNull] object value, JsonSerializer serializer)
         {
-            writer.WriteValue(value);
+            var type = value?.GetType();
+            if (type?.HasImplicitlyTypedJsonType() == true)
+            {
+                writer.WriteValue(value);
+                return;
+            }
+
+            writer.WriteStartObject();
+            writer.WritePropertyName(JsonLdKeywords.Value);
+
+            if (value is TimeSpan)
+            {
+                writer.WriteValue(XmlConvert.ToString((TimeSpan)value));
+            }
+            else
+            {
+                var valueString = JsonConvert.ToString(value);
+                writer.WriteValue(valueString.Trim('"')); // for the weirdest of reasons, DateTime is double-quoted
+            }
+
+            writer.WritePropertyName(JsonLdKeywords.Type);
+            writer.WriteValue(type.GetXsdType());
         }
 
         /// <summary>
@@ -50,7 +72,7 @@ namespace JsonLD.Entities.Converters
             {
                 reader.Read();
 
-                if (reader.TokenType == JsonToken.PropertyName && Equals(reader.Value, "@value"))
+                if (reader.TokenType == JsonToken.PropertyName && Equals(reader.Value, JsonLdKeywords.Value))
                 {
                     reader.Read();
                     value = this.DeserializeLiteral(reader, objectType, serializer);

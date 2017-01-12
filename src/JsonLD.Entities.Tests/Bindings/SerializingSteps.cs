@@ -1,12 +1,12 @@
 ﻿using System;
 using FakeItEasy;
 using ImpromptuInterface;
+using JsonDiffPatchDotNet;
 using JsonLD.Entities.Tests.Entities;
 using JsonLD.Entities.Tests.SpecflowHelpers;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
-using TechTalk.SpecFlow.Assist;
 
 namespace JsonLD.Entities.Tests.Bindings
 {
@@ -25,11 +25,10 @@ namespace JsonLD.Entities.Tests.Bindings
         public void GivenAPersonWithoutId()
         {
             this.context.Object = new Person
-                {
-                    Name = "Tomasz",
-                    Surname = "Pluskiewicz",
-                    BirthDate = new DateTime(1972, 9, 4)
-                };
+            {
+                Name = "Tomasz",
+                Surname = "Pluskiewicz"
+            };
         }
 
         [Given(@"model of type '(.*)'")]
@@ -62,7 +61,7 @@ namespace JsonLD.Entities.Tests.Bindings
         public void ThenTheResultingJsonLdShouldBe(string jObject)
         {
             var expected = JObject.Parse(jObject);
-            Assert.That(JToken.DeepEquals(this.context.JsonLdObject, expected), "Actual object was: {0}", this.context.JsonLdObject);
+            Assert.That(JToken.DeepEquals(this.context.JsonLdObject, expected), "Diff: {0}", new JsonDiffPatch().Diff(expected, this.context.JsonLdObject));
         }
     }
 }

@@ -59,6 +59,11 @@ namespace JsonLD.Entities
         /// </summary>
         public const string Index = "@index";
 
+        /// <summary>
+        /// @value keyword
+        /// </summary>
+        public const string Value = "@value";
+
         private static readonly IDictionary<string, string> KnownPropertyNames = new Dictionary<string, string>();
 
         static JsonLdKeywords()

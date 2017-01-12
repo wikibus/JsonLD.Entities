@@ -7,3 +7,4 @@ FakeItEasy
 json-ld.net
 StyleCop.Analyzers
 Rdf.Vocabularies
+JsonDiffPatch.Net

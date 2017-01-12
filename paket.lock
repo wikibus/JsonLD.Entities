@@ -17,6 +17,8 @@ NUGET
     ImpromptuInterface (6.2.2)
     InfoOf.Fody (1.0.4)
       Fody (>= 1.29.2)
+    JsonDiffPatch.Net (1.0.5)
+      Newtonsoft.Json (>= 8.0.2)
     json-ld.net (1.0.5)
       Newtonsoft.Json (>= 6.0.4)
     MethodTimer.Fody (1.16)
@@ -32,4 +34,4 @@ NUGET
     VDS.Common (1.6.4)
 GIST
   remote: tpluscode/a285267d2543466fc35c3a168c846f9f
-    FULLPROJECT (eac8af5adfdcfc43b63a5d5edf88c082e83761e0)
+    FULLPROJECT (c9b7a831e53e929f2ecce09b14a61e28007b669f)

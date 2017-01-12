@@ -8,8 +8,7 @@ Scenario: Serialize simple model with blank id
         """
         {
             "name": "Tomasz",
-            "surname": "Pluskiewicz",
-            "birthDate": "1972-09-04T00:00:00"
+            "surname": "Pluskiewicz"
         }
         """
 
@@ -97,7 +96,7 @@ Scenario Outline: Serializing primitive values should produce typed literals
          {
 			"<Property>": {
 				"@value": "<JsonValue>",
-				"@type": "http://www.w3.org/2001/XMLSchema#<Property>"
+				"@type": "http://www.w3.org/2001/XMLSchema#<XsdType>"
 			}
 		 }
          """
@@ -114,4 +113,4 @@ Scenario Outline: Serializing primitive values should produce typed literals
 	| byte     | 20         | 20                  | unsignedByte  |
 	| sbyte    | -3         | -3                  | byte          |
 	| float    | 2.3456     | 2.3456              | float         |
-	| timeSpan | 100        | 100                 | duration      |
+	| timeSpan | 50.08:20:17 | P50DT8H20M17S      | duration      |
