@@ -60,8 +60,10 @@ namespace JsonLD.Entities.Tests.Bindings
         [Then(@"the resulting JSON-LD should be:")]
         public void ThenTheResultingJsonLdShouldBe(string jObject)
         {
+            // round-trip serialize/parse to remove typed JTokens
+            var jsonLdObject = JObject.Parse(this.context.JsonLdObject.ToString());
             var expected = JObject.Parse(jObject);
-            Assert.That(JToken.DeepEquals(this.context.JsonLdObject, expected), "Diff: {0}", new JsonDiffPatch().Diff(expected, this.context.JsonLdObject));
+            Assert.That(JToken.DeepEquals(jsonLdObject, expected), "Diff: {0}", new JsonDiffPatch().Diff(expected, jsonLdObject));
         }
     }
 }
