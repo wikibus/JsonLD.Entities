@@ -101,16 +101,30 @@ Scenario Outline: Serializing primitive values should produce typed literals
 		 }
          """
 	Examples: 
-	| Property | Value      | JsonValue           | XsdType       |
-	| date     | 2016-01-03 | 2016-01-03T00:00:00 | dateTime      |
-	| decimal  | 3.4        | 3.4                 | decimal       |
-	| long     | 100        | 100                 | long          |
-	| ulong    | 100        | 100                 | unsignedLong  |
-	| int      | 1567       | 1567                | int           |
-	| uint     | 15         | 15                  | unsignedInt   |
-	| short    | 17         | 17                  | short         |
-	| ushort   | 3          | 3                   | unsignedShort |
-	| byte     | 20         | 20                  | unsignedByte  |
-	| sbyte    | -3         | -3                  | byte          |
-	| float    | 2.3456     | 2.3456              | float         |
-	| timeSpan | 50.08:20:17 | P50DT8H20M17S      | duration      |
+	| Property | Value               | JsonValue           | XsdType       |
+	| date     | 2016-01-03 10:40 AM | 2016-01-03T10:40:00 | dateTime      |
+	| decimal  | 3.4                 | 3.4                 | decimal       |
+	| long     | 100                 | 100                 | long          |
+	| ulong    | 100                 | 100                 | unsignedLong  |
+	| int      | 1567                | 1567                | int           |
+	| uint     | 15                  | 15                  | unsignedInt   |
+	| short    | 17                  | 17                  | short         |
+	| ushort   | 3                   | 3                   | unsignedShort |
+	| byte     | 20                  | 20                  | unsignedByte  |
+	| sbyte    | -3                  | -3                  | byte          |
+	| float    | 2.3456              | 2.3456              | float         |
+	| timeSpan | 50.08:20:17         | P50DT8H20M17S       | duration      |
+
+Scenario: Serializing DateTimeOffset value should produce typed literal
+	Given model of type 'JsonLD.Entities.Tests.Entities.AllPrimitives'
+	  And model has dateOff property equal to '2009-06-15T13:45:30.0000000-07:00'
+	When the object is serialized
+	Then the resulting JSON-LD should be:
+         """
+         {
+			"dateOff": {
+				"@value": "2009-06-15T13:45:30-07:00",
+				"@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+			}
+		 }
+         """

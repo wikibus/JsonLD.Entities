@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using FakeItEasy;
 using ImpromptuInterface;
 using JsonDiffPatchDotNet;
@@ -43,6 +44,14 @@ namespace JsonLD.Entities.Tests.Bindings
         {
             var modelType = Type.GetType(typeName, true);
             this.context.Object = table.CreateInstance(modelType);
+        }
+
+        [Scope(Scenario = "Serializing DateTimeOffset value should produce typed literal")]
+        [Given(@"model has dateOff property equal to '(.*)'")]
+        public void GivenModelHasDateOff(string dateTimeOffset)
+        {
+            var allPrimitives = (AllPrimitives)this.context.Object;
+            allPrimitives.dateOff = DateTimeOffset.ParseExact(dateTimeOffset, "O", CultureInfo.InvariantCulture);
         }
 
         [Given(@"model has interest '(.*)'")]

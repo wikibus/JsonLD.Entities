@@ -14,6 +14,8 @@ namespace JsonLD.Entities.Tests.Entities
 
         public DateTime? date { get; set; }
 
+        public DateTimeOffset? dateOff { get; set; }
+
         public decimal? @decimal { get; set; }
 
         public long? @long { get; set; }

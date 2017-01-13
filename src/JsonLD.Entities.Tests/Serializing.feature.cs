@@ -202,7 +202,7 @@ this.ScenarioSetup(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Serializing primitive values should produce typed literals")]
-        [NUnit.Framework.TestCaseAttribute("date", "2016-01-03", "2016-01-03T00:00:00", "dateTime", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("date", "2016-01-03 10:40 AM", "2016-01-03T10:40:00", "dateTime", new string[0])]
         [NUnit.Framework.TestCaseAttribute("decimal", "3.4", "3.4", "decimal", new string[0])]
         [NUnit.Framework.TestCaseAttribute("long", "100", "100", "long", new string[0])]
         [NUnit.Framework.TestCaseAttribute("ulong", "100", "100", "unsignedLong", new string[0])]
@@ -234,6 +234,27 @@ this.ScenarioSetup(scenarioInfo);
 #line 94
  testRunner.Then("the resulting JSON-LD should be:", string.Format("{{\r\n\"{0}\": {{\r\n\"@value\": \"{1}\",\r\n\"@type\": \"http://www.w3.org/2001/XMLSchema#{2}\"\r" +
                         "\n}}\r\n}}", property, jsonValue, xsdType), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Serializing DateTimeOffset value should produce typed literal")]
+        public virtual void SerializingDateTimeOffsetValueShouldProduceTypedLiteral()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Serializing DateTimeOffset value should produce typed literal", ((string[])(null)));
+#line 118
+this.ScenarioSetup(scenarioInfo);
+#line 119
+ testRunner.Given("model of type \'JsonLD.Entities.Tests.Entities.AllPrimitives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 120
+   testRunner.And("model has dateOff property equal to \'2009-06-15T13:45:30.0000000-07:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 121
+ testRunner.When("the object is serialized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 122
+ testRunner.Then("the resulting JSON-LD should be:", "{\r\n\"dateOff\": {\r\n\"@value\": \"2009-06-15T13:45:30-07:00\",\r\n\"@type\": \"http://www.w3." +
+                    "org/2001/XMLSchema#dateTime\"\r\n}\r\n}", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

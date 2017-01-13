@@ -26,6 +26,7 @@ namespace JsonLD.Entities
                 [typeof(sbyte)] = Xsd.@byte,
                 [typeof(byte)] = Xsd.unsignedByte,
                 [typeof(DateTime)] = Xsd.dateTime,
+                [typeof(DateTimeOffset)] = Xsd.dateTime,
                 [typeof(TimeSpan)] = Xsd.duration,
                 [typeof(float)] = Xsd.@float,
                 [typeof(decimal)] = Xsd.@decimal,
