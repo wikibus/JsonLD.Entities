@@ -32,13 +32,13 @@ shown above.
 
 **/
 
-public class TrainSchedule
-{
-    public System.DateTime ArrivalDate => new System.DateTime(2017, 1, 14, 14, 50, 0);
-}
-
 public class SerializingFrameworkTypes
 {
+    private class TrainSchedule
+    {
+        public System.DateTime ArrivalDate => new System.DateTime(2017, 1, 14, 14, 50, 0);
+    }
+
     [Test]
     public void Serializes_builtin_types_as_expanded_literal()
     {
@@ -81,27 +81,27 @@ for more examples.
 
 **/
 
-public class JsonLdNodaInstantConverter : JsonLdLiteralConverter
-{
-    protected override void WriteJsonLdValue(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-        NodaConverters.InstantConverter.WriteJson(writer, value, serializer);
-    }
-
-    protected override string GetJsonLdType(object value)
-    {
-        return Vocab.Xsd.dateTime;
-    }
-}
-
-public class NodaTimeTrainSchedule
-{
-    [JsonConverter(typeof(JsonLdNodaInstantConverter))]
-    public NodaTime.Instant ArrivalDate => NodaTime.Instant.FromUtc(2017, 1, 14, 14, 50);
-}
-
 public class SerializingCustomTypesAsLiterals
 {
+    public class JsonLdNodaInstantConverter : JsonLdLiteralConverter
+    {
+        protected override void WriteJsonLdValue(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            NodaConverters.InstantConverter.WriteJson(writer, value, serializer);
+        }
+
+        protected override string GetJsonLdType(object value)
+        {
+            return Vocab.Xsd.dateTime;
+        }
+    }
+
+    public class NodaTimeTrainSchedule
+    {
+        [JsonConverter(typeof(JsonLdNodaInstantConverter))]
+        public NodaTime.Instant ArrivalDate => NodaTime.Instant.FromUtc(2017, 1, 14, 14, 50);
+    }
+
     [Test]
     public void Serializes_NodaTime_as_expanded_literal()
     {
