@@ -52,7 +52,7 @@ would be interpreted as simple string and [upon removing the context](http://tin
 }
 ```
 
-Let's see hot handle this in JsonLd.Entities:
+Let's see how to handle this in JsonLd.Entities:
 **/
 
 using System;
