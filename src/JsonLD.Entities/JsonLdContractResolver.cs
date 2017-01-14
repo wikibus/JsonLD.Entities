@@ -10,7 +10,7 @@ using Newtonsoft.Json.Serialization;
 namespace JsonLD.Entities
 {
     /// <summary>
-    /// Camel-case contract resolver with overrides for JSON-LD keywords
+    /// Camel-case contract resolver with overrides for JSON-LD features
     /// </summary>
     public sealed class JsonLdContractResolver : CamelCasePropertyNamesContractResolver
     {

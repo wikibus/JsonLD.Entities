@@ -42,8 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreatingContext\AutoContext\Readme.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Helpers\BuildingContext\Readme.cs" />
+    <Compile Include="CreatingContext\FluentContext\Readme.cs" />
     <Compile Include="Serializing\EnsuringCompactedResource\Readme.cs" />
     <Compile Include="Serializing\EntityTypes\Readme.cs" />
     <Compile Include="Deserializing\LiteralValues\Readme.cs" />
