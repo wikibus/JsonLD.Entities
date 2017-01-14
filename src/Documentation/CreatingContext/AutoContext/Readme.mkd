@@ -58,13 +58,45 @@ public class AutomaticContextBuilding
 ```
 
 Note that is if the class type doesn't have a statically resolvable Type identifier
-(that is, using a static property or annotation), the it will be necessary to create
+(that is, using a static property or annotation), then it will be necessary to create
 `AutoContext` with a constructor which takes URL as one of its parameter.
  
 
 
 
 ### Vocabulary IRI as base
+
+Another way is to use a common vocabulary base URI to construct identifiers for class'
+properties. It is done similarly as above, with a VocabContext&lt;T&gt; type. Property names
+will simply be concatenated with it.
+
+``` c#
+[TestFixture]
+public class VocabularyBasedContextBuilding
+{
+    private class Person
+    {
+        public string Name { get; set; }
+
+        // also works with custom property names
+        [JsonProperty("lastName")]
+        public string Surname { get; set; }
+
+        public static JObject Context => new VocabContext<Person>("http://vocab.example.com/terms#");
+    }
+
+    [Test]
+    public void Context_can_be_built_with_vocabulary_base()
+    {
+        // given
+        dynamic context = Person.Context;
+
+        // then
+        Assert.That((string)context.name, Is.EqualTo("http://vocab.example.com/terms#name"));
+        Assert.That((string)context.lastName, Is.EqualTo("http://vocab.example.com/terms#lastName"));
+    }
+}
+```
 
 ### Combining with existing context
 
