@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using NullGuard;
@@ -9,7 +8,7 @@ namespace JsonLD.Entities.Converters
     /// <summary>
     /// pending doc
     /// </summary>
-    public class JsonLdLiteralConverter : JsonConverter
+    public abstract class JsonLdLiteralConverter : JsonConverter
     {
         private static readonly JsonLdSerializer LiteralSerializer;
 
@@ -29,28 +28,19 @@ namespace JsonLD.Entities.Converters
         /// </summary>
         public override void WriteJson(JsonWriter writer, [AllowNull] object value, JsonSerializer serializer)
         {
-            var type = value?.GetType();
-            if (type?.HasImplicitlyTypedJsonType() == true)
+            if (this.ShouldSerializeAsCompactLiteral(value))
             {
-                writer.WriteValue(value);
+                this.WriteJsonLdValue(writer, value, serializer);
                 return;
             }
 
             writer.WriteStartObject();
             writer.WritePropertyName(JsonLdKeywords.Value);
 
-            if (value is TimeSpan)
-            {
-                writer.WriteValue(XmlConvert.ToString((TimeSpan)value));
-            }
-            else
-            {
-                var valueString = JsonConvert.ToString(value);
-                writer.WriteValue(valueString.Trim('"')); // for the weirdest of reasons, DateTime is double-quoted
-            }
+            this.WriteJsonLdValue(writer, value, serializer);
 
             writer.WritePropertyName(JsonLdKeywords.Type);
-            writer.WriteValue(type.GetXsdType());
+            writer.WriteValue(this.GetJsonLdType(value));
         }
 
         /// <summary>
@@ -64,7 +54,7 @@ namespace JsonLD.Entities.Converters
         {
             if (reader.TokenType != JsonToken.StartObject)
             {
-                return this.DeserializeLiteral(reader, objectType, serializer);
+                return this.ReadJsonLdLiteral(reader, objectType, serializer);
             }
 
             object value = null;
@@ -75,7 +65,7 @@ namespace JsonLD.Entities.Converters
                 if (reader.TokenType == JsonToken.PropertyName && Equals(reader.Value, JsonLdKeywords.Value))
                 {
                     reader.Read();
-                    value = this.DeserializeLiteral(reader, objectType, serializer);
+                    value = this.ReadJsonLdLiteral(reader, objectType, serializer);
                 }
                 else
                 {
@@ -95,11 +85,38 @@ namespace JsonLD.Entities.Converters
         }
 
         /// <summary>
+        /// When overriden in derived classes, it returns a value to determine
+        /// whether a compacted or expanded JSON-LD should be produced
+        /// </summary>
+        protected virtual bool ShouldSerializeAsCompactLiteral(object value)
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// When implemented in derived class, returns an RDF data type name for the value
+        /// </summary>
+        protected virtual string GetJsonLdType(object value)
+        {
+            throw new NotImplementedException("To serialize as expanded literals it is necessary to override the JsonLdLiteralConverter#GetJsonLdType method");
+        }
+
+        /// <summary>
         /// When implemented in derived classes can be used to customize deserialization logic for literal value
         /// </summary>
-        protected virtual object DeserializeLiteral(JsonReader reader, Type objectType, JsonSerializer serializer)
+        protected virtual object ReadJsonLdLiteral(JsonReader reader, Type objectType, JsonSerializer serializer)
         {
             return LiteralSerializer.Deserialize(reader, objectType);
         }
+
+        /// <summary>
+        /// When implemented in derived class writes the RDF string representation
+        /// of <paramref name="value" />
+        /// </summary>
+        /// <remarks>
+        /// should only use the <see cref="JsonWriter.WriteValue(string)" />
+        /// method for writing the RDF value
+        /// </remarks>
+        protected abstract void WriteJsonLdValue(JsonWriter writer, object value, JsonSerializer serializer);
     }
 }

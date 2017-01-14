@@ -65,7 +65,7 @@ namespace JsonLD.Entities
             }
             else if (contract is JsonPrimitiveContract && contract.Converter == null)
             {
-                contract.Converter = new JsonLdLiteralConverter();
+                contract.Converter = new BuiltInTypesLiteralConverter();
             }
 
             return contract;

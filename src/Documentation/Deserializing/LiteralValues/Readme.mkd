@@ -1,6 +1,6 @@
 # Documentation
 
-## Working with literal values
+## Deserializing literal values
 
 As always, here are the required namespace imports.
 
@@ -113,12 +113,17 @@ derived from the deafult `JsonConverter` it would fail to deserialize such liter
 ``` c#
 public class IPAddressConverter : JsonLdLiteralConverter
 {
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    protected override bool ShouldSerializeAsCompactLiteral(object value)
+    {
+        return true;
+    }
+
+    protected override void WriteJsonLdValue(JsonWriter writer, object value, JsonSerializer serializer)
     {
         writer.WriteValue(value.ToString());
     }
 
-    protected override object DeserializeLiteral(JsonReader reader, Type objectType, JsonSerializer serializer)
+    protected override object ReadJsonLdLiteral(JsonReader reader, Type objectType, JsonSerializer serializer)
     {
         return IPAddress.Parse((string)reader.Value);
     }
@@ -178,8 +183,9 @@ public void Can_deserialize_class_from_expanded_literal()
 }
 ```
 
-And lastly it is possible to serialize such an object to literal. Note that compacted value will always be produced, so it's important to
-create a fitting `@context` so that the JSON-LD document is valid and correct.
+And lastly it is possible to serialize such an object to literal. Note that the converter implementation
+always produces compacted value, so it's important to create a fitting `@context` so that the JSON-LD
+document is valid and correct.
 
 ``` c#
 [Test]

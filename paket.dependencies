@@ -22,5 +22,6 @@ nuget Rdf.Vocabularies
 nuget OpenCover
 nuget Newtonsoft.Json ~> 9
 nuget JsonDiffPatch.Net
+nuget NodaTime.Serialization.JsonNet
 
 gist tpluscode/a285267d2543466fc35c3a168c846f9f

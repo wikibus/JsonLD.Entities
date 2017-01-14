@@ -2,3 +2,5 @@ Newtonsoft.Json
 NUnit
 json-ld.net
 GitVersionTask
+NodaTime.Serialization.JsonNet
+Rdf.Vocabularies

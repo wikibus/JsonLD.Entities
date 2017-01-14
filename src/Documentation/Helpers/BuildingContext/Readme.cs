@@ -64,7 +64,7 @@ public void BuildComplexContextSimply()
     // when
     var context = new JObject(
         Base.Is("http://example.com/"),
-        Vocab.Is(new Uri("http://schema.org/")),
+        JsonLD.Entities.Context.Vocab.Is(new Uri("http://schema.org/")),
         "dcterms".IsPrefixOf("http://purl.org/dc/terms/"),
         "xsd".IsPrefixOf(new Uri("http://www.w3.org/2001/XMLSchema#")),
         "title".IsProperty("dcterms:title"),

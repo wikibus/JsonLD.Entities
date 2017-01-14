@@ -59,6 +59,7 @@
     <Compile Include="Context\StringExtensions.cs" />
     <Compile Include="Context\Vocab.cs" />
     <Compile Include="Context\VocabContext.cs" />
+    <Compile Include="Converters\BuiltInTypesLiteralConverter.cs" />
     <Compile Include="Converters\IriRefConverter.cs" />
     <Compile Include="Converters\JsonLdArrayConverter.cs" />
     <Compile Include="Converters\JsonLdCollectionConverter.cs" />
