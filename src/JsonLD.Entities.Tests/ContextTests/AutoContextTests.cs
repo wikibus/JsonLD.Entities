@@ -117,6 +117,17 @@ namespace JsonLD.Entities.Tests.ContextTests
             Assert.That(context["with_attribute"].ToString(), Is.EqualTo("http://example.org/ontolgy/User#with_attribute"));
         }
 
+        [Test]
+        public void Should_preserve_existing_context_when_using_declared_class_type()
+        {
+            // given
+            var existing = JObject.Parse("{ 'titel': 'dcterms:title' }");
+            var context = new AutoContext<Issue>(existing);
+
+            // then
+            Assert.That(context["titel"].ToString(), Is.EqualTo("dcterms:title"));
+        }
+
         private class Issue
         {
             private const string IssueType = "http://example.api/o#Issue";
@@ -139,7 +150,7 @@ namespace JsonLD.Entities.Tests.ContextTests
             private static JToken Context { get; set; }
 
             [JsonProperty]
-            private string Type
+            private static string Type
             {
                 get { return IssueType; }
             }

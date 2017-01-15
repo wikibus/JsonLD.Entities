@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ImpromptuInterface;
@@ -10,23 +12,15 @@ namespace JsonLD.Entities
     /// <summary>
     /// Useful extensions of <see cref="Type"/>
     /// </summary>
-    internal static class TypeExtension
+    public static class TypeExtension
     {
-        /// <summary>
-        /// Determines whether the <paramref name="type"/> should be compacted after serialization.
-        /// </summary>
-        internal static bool IsMarkedForCompaction(this Type type)
-        {
-            return type.GetCustomAttributes(typeof(SerializeCompactedAttribute), true).Any();
-        }
-
         /// <summary>
         /// Gets the class identifier for an entity type.
         /// </summary>
-        internal static Uri GetTypeIdentifier(this Type type)
+        public static Uri GetTypeIdentifier(this Type type)
         {
-            var typesProperty = type.GetProperty("Type", BindingFlags.Static | BindingFlags.NonPublic) ??
-                                type.GetProperty("Types", BindingFlags.Static | BindingFlags.NonPublic) ??
+            var typesProperty = type.GetProperty("Type", BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public) ??
+                                type.GetProperty("Types", BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public) ??
                                 type.GetAnnotatedTypeProperty();
 
             if (typesProperty == null)
@@ -36,6 +30,11 @@ namespace JsonLD.Entities
 
             var getter = typesProperty.GetGetMethod(true);
             dynamic typeValue = getter.Invoke(null, null);
+
+            if (typeValue is IEnumerable && Enumerable.Count(typeValue) == 1)
+            {
+                typeValue = Enumerable.Single(typeValue);
+            }
 
             if (typeValue is Uri)
             {
@@ -50,9 +49,17 @@ namespace JsonLD.Entities
             throw new InvalidOperationException("Cannot convert value to Uri");
         }
 
+        /// <summary>
+        /// Determines whether the <paramref name="type"/> should be compacted after serialization.
+        /// </summary>
+        internal static bool IsMarkedForCompaction(this Type type)
+        {
+            return type.GetCustomAttributes(typeof(SerializeCompactedAttribute), true).Any();
+        }
+
         private static PropertyInfo GetAnnotatedTypeProperty(this Type type)
         {
-            return (from prop in type.GetProperties(BindingFlags.Static)
+            return (from prop in type.GetProperties(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public)
                     let jsonProperty = prop.GetCustomAttributes(typeof(JsonPropertyAttribute), false).SingleOrDefault() as JsonPropertyAttribute
                     where jsonProperty != null
                     where jsonProperty.PropertyName == JsonLdKeywords.Type
