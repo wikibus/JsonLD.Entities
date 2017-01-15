@@ -96,12 +96,18 @@ namespace JsonLD.Entities.Tests.Helpers
 
         private class TypesAsUri
         {
-            public static Uri[] Types => new[] { new Uri("http://example.com/vocab/TypesAsUri") };
+            public static Uri[] Types => new[]
+            {
+                new Uri("http://example.com/vocab/TypesAsUri")
+            };
         }
 
         private class TypesAsString
         {
-            public static IList<string> Types => new List<string> { "http://example.com/vocab/TypesAsString" };
+            public static IList<string> Types => new List<string>
+            {
+                "http://example.com/vocab/TypesAsString"
+            };
         }
 
         private class MultipleTypesAsUri
