@@ -1,15 +1,20 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using ImpromptuInterface;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using NullGuard;
 using Vocab;
 
 namespace JsonLD.Entities
 {
     /// <summary>
-    /// Useful extension of <see cref="Type"/>
+    /// Useful extensions of <see cref="Type"/>
     /// </summary>
-    internal static class TypeExtension
+    public static class TypeExtension
     {
         private static readonly IDictionary<Type, string> XsdDatatypeMappings;
 
@@ -31,6 +36,41 @@ namespace JsonLD.Entities
                 [typeof(float)] = Xsd.@float,
                 [typeof(decimal)] = Xsd.@decimal,
             };
+        }
+
+        /// <summary>
+        /// Gets the class identifier for an entity type.
+        /// </summary>
+        public static Uri GetTypeIdentifier(this Type type)
+        {
+            var typesProperty = type.GetProperty("Type", BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public) ??
+                                type.GetProperty("Types", BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public) ??
+                                type.GetAnnotatedTypeProperty();
+
+            if (typesProperty == null)
+            {
+                throw new InvalidOperationException($"Type {type} does not statically declare @type");
+            }
+
+            var getter = typesProperty.GetGetMethod(true);
+            dynamic typeValue = getter.Invoke(null, null);
+
+            if (typeValue is IEnumerable && Enumerable.Count(typeValue) == 1)
+            {
+                typeValue = Enumerable.Single(typeValue);
+            }
+
+            if (typeValue is Uri)
+            {
+                return typeValue;
+            }
+
+            if (typeValue is string)
+            {
+                return new Uri(typeValue);
+            }
+
+            throw new InvalidOperationException("Cannot convert value to Uri");
         }
 
         /// <summary>
@@ -64,6 +104,15 @@ namespace JsonLD.Entities
             }
 
             return xsdTypeName;
+        }
+
+        private static PropertyInfo GetAnnotatedTypeProperty(this Type type)
+        {
+            return (from prop in type.GetProperties(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public)
+                    let jsonProperty = prop.GetCustomAttributes(typeof(JsonPropertyAttribute), false).SingleOrDefault() as JsonPropertyAttribute
+                    where jsonProperty != null
+                    where jsonProperty.PropertyName == JsonLdKeywords.Type
+                    select prop).FirstOrDefault();
         }
     }
 }

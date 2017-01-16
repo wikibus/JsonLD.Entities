@@ -26,10 +26,10 @@ namespace JsonLD.Entities.Tests.Bindings
         public void GivenAPersonWithoutId()
         {
             this.context.Object = new Person
-            {
-                Name = "Tomasz",
-                Surname = "Pluskiewicz"
-            };
+                {
+                    Name = "Tomasz",
+                    Surname = "Pluskiewicz"
+                };
         }
 
         [Given(@"model of type '(.*)'")]

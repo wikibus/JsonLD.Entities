@@ -86,6 +86,7 @@
     <Compile Include="Entities\WithConverter.cs" />
     <Compile Include="EntitySerializerTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\TypeExtensionTests.cs" />
     <Compile Include="IriRefConverterTests.cs" />
     <Compile Include="IriRefTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

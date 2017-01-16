@@ -23,19 +23,28 @@ public class SerializingTypedEntities
 /**
 ### Declaring types explicitly
 
-Easiest way to define an instance's `@type`s is to declare a `Types` or `Type` property. It can also be private or protected, but then 
+Easiest way to define an instance's `@type`s is to declare a `Types` or `Type` property. It can also be private, protected or static, but then 
 `[JsonProperty]` attribue must be used so that it's serialized. Similarily to the `Id` property, the JSON property will be prefixed by the 
 `@` character by convention. 
     
 The property can return any type or collection thereof, provided that the serialized value is a string. Thus any custom converter could also
 be used.
 
-It is also be possible to use any other property and give it a proper name by setting the attribute like `[JsonProperty("@type")]`
+It is also be possible to use any other property and give it a proper name by setting the attribute like `[JsonProperty(JsonLdKeywords.Type)]`
 **/
 
 public class TypesAsSingleUri
 {
     public Uri Type
+    {
+        get { return new Uri("http://schema.org/Person"); }
+    }
+}
+
+public class TypesPropertyStatic
+{
+    [JsonProperty(JsonLdKeywords.Type)]
+    public static Uri Type
     {
         get { return new Uri("http://schema.org/Person"); }
     }
@@ -51,7 +60,7 @@ public class TypesAsStringCollection
 
 public class TypesAsPrivatePropertyWithCustomName
 {
-    [JsonProperty("@type")]
+    [JsonProperty(JsonLdKeywords.Type)]
     private IEnumerable<Uri> Classes
     {
         get { yield return new Uri("http://schema.org/Person"); }
@@ -59,6 +68,7 @@ public class TypesAsPrivatePropertyWithCustomName
 }
 
 [TestCase(typeof(TypesAsSingleUri), "{ '@type': 'http://schema.org/Person' }")]
+[TestCase(typeof(TypesPropertyStatic), "{ '@type': 'http://schema.org/Person' }")]
 [TestCase(typeof(TypesAsStringCollection), "{ '@type': [ 'http://schema.org/Person' ] }")]
 [TestCase(typeof(TypesAsPrivatePropertyWithCustomName), "{ '@type': [ 'http://schema.org/Person' ] }")]
 public void SerializesTypesPropertyAsAtTypes(Type type, string expectedJson)

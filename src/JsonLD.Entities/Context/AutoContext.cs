@@ -13,6 +13,23 @@ namespace JsonLD.Entities.Context
         /// <summary>
         /// Initializes a new instance of the <see cref="AutoContext{T}"/> class.
         /// </summary>
+        public AutoContext()
+            : this(typeof(T).GetTypeIdentifier())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AutoContext{T}"/> class.
+        /// </summary>
+        /// <param name="context">The current @context.</param>
+        public AutoContext(JObject context)
+            : this(context, typeof(T).GetTypeIdentifier())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AutoContext{T}"/> class.
+        /// </summary>
         /// <param name="classId">The class identifier.</param>
         public AutoContext(Uri classId)
             : base(new ClassNameStrategy(classId))
