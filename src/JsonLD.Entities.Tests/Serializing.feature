@@ -9,7 +9,8 @@ Scenario: Serialize simple model with blank id
         {
             "name": "Tomasz",
             "surname": "Pluskiewicz",
-            "birthDate": "1972-09-04T00:00:00"
+            "birthDate": "1972-09-04T00:00:00",
+            "age": 30
         }
         """
 

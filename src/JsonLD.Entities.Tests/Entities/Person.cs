@@ -10,6 +10,8 @@ namespace JsonLD.Entities.Tests.Entities
 
         public string Surname { get; set; }
 
+        public int Age { get; set; }
+
         public DateTime BirthDate { get; set; }
     }
 }

@@ -26,7 +26,8 @@ namespace JsonLD.Entities.Tests.Bindings
                 {
                     Name = "Tomasz",
                     Surname = "Pluskiewicz",
-                    BirthDate = new DateTime(1972, 9, 4)
+                    BirthDate = new DateTime(1972, 9, 4),
+                    Age = 30
                 };
         }
 
