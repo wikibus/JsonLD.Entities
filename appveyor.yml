@@ -15,7 +15,7 @@ after_build:
   - .paket\paket.exe pack output nugets include-referenced-projects version %GitVersion_NuGetVersion%
   
 after_test:
-  - .\packages\OpenCover\tools\OpenCover.Console.exe -register:user -target:nunit3-console.exe -targetargs:"/nologo /noshadow src\JsonLD.Entities.Tests\bin\Release\JsonLD.Entities.Tests.dll src\Documentation\bin\Release\JsonLD.Docu.dll" -returntargetcode -filter:"+[JsonLD.Entities]*" -hideskipped:All -output:.\JsonLD.Entities_coverage.xml
+  - .\packages\OpenCover\tools\OpenCover.Console.exe -register:user -target:nunit3-console.exe -targetargs:"src\JsonLD.Entities.Tests\bin\Release\JsonLD.Entities.Tests.dll src\Documentation\bin\Release\JsonLD.Docu.dll" -returntargetcode -filter:"+[JsonLD.Entities]*" -hideskipped:All -output:.\JsonLD.Entities_coverage.xml
   - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
   - pip install codecov
   - codecov -f "JsonLD.Entities_coverage.xml"
