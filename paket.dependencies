@@ -10,7 +10,7 @@ nuget StyleCop.Analyzers
 nuget GitVersionTask
 nuget SpecFlow
 nuget NullGuard.Fody
-nuget NUnit < 3 
+nuget NUnit
 nuget MethodTimer.Fody
 nuget dotNetRDF
 nuget HtmlAgilityPack

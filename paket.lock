@@ -1,6 +1,6 @@
 REDIRECTS: ON
 CONTENT: NONE
-FRAMEWORK: NET40, NET45
+RESTRICTION: || (== net40) (== net45)
 NUGET
   remote: https://www.nuget.org/api/v2
     Costura.Fody (1.3.3)
@@ -21,15 +21,24 @@ NUGET
       Newtonsoft.Json (>= 6.0.4)
     MethodTimer.Fody (1.16)
       Fody (>= 1.29.2)
+    Microsoft.NETCore.Platforms (2.0.2) - restriction: || (&& (== net40) (>= net45)) (&& (== net40) (>= net46)) (&& (== net40) (>= net461)) (&& (== net40) (>= netcoreapp2.0)) (&& (== net40) (>= netstandard1.0)) (&& (== net40) (>= netstandard1.1)) (&& (== net40) (>= netstandard1.2)) (&& (== net40) (>= netstandard1.3)) (&& (== net40) (>= netstandard1.4)) (&& (== net40) (>= netstandard1.5)) (&& (== net40) (>= netstandard1.6)) (&& (== net40) (>= netstandard2.0)) (&& (== net40) (>= uap10.0)) (&& (== net40) (>= uap10.1)) (&& (== net40) (>= wp8)) (&& (== net40) (>= wpa81)) (== net45)
+    NETStandard.Library (2.0.2) - restriction: || (&& (== net40) (>= netstandard1.0)) (== net45)
+      Microsoft.NETCore.Platforms (>= 1.1) - restriction: || (&& (== net40) (>= net45)) (&& (== net40) (>= net46)) (&& (== net40) (>= net461)) (&& (== net40) (>= netcoreapp2.0)) (&& (== net40) (>= netstandard1.0)) (&& (== net40) (>= netstandard1.1)) (&& (== net40) (>= netstandard1.2)) (&& (== net40) (>= netstandard1.3)) (&& (== net40) (>= netstandard1.4)) (&& (== net40) (>= netstandard1.5)) (&& (== net40) (>= netstandard1.6)) (&& (== net40) (>= netstandard2.0)) (&& (== net40) (>= portable-net45+win8)) (&& (== net40) (>= portable-net45+win8+wp8+wpa81)) (&& (== net40) (>= portable-net45+win8+wpa81)) (&& (== net40) (>= uap10.0)) (&& (== net40) (>= uap10.1)) (&& (== net40) (>= win8)) (&& (== net40) (>= wp8)) (&& (== net40) (>= wpa81)) (== net45)
+      System.Runtime.InteropServices.RuntimeInformation (>= 4.3) - restriction: || (&& (== net40) (>= net45)) (&& (== net40) (>= net46)) (&& (== net40) (>= netstandard1.1)) (&& (== net40) (>= netstandard1.2)) (&& (== net40) (>= netstandard1.3)) (&& (== net40) (>= netstandard1.4)) (&& (== net40) (>= netstandard1.5)) (&& (== net40) (>= netstandard1.6)) (&& (== net40) (>= portable-net45+win8)) (&& (== net40) (>= portable-net45+win8+wpa81)) (&& (== net40) (>= uap10.0)) (&& (== net40) (>= win8)) (&& (== net40) (>= wpa81)) (== net45)
     Newtonsoft.Json (9.0.1)
     NullGuard.Fody (1.4.6)
       Fody (>= 1.29.2)
-    NUnit (2.6.4)
+    NUnit (3.10.1)
     OpenCover (4.6.519)
     Rdf.Vocabularies (1.1.1)
-    SpecFlow (2.1)
+    SpecFlow (2.3.2)
+      Newtonsoft.Json (>= 9.0.1)
+      System.ValueTuple (>= 4.3)
     StyleCop.Analyzers (1.0)
+    System.Runtime.InteropServices.RuntimeInformation (4.3) - restriction: || (&& (== net40) (>= net45)) (&& (== net40) (>= net46)) (&& (== net40) (>= netstandard1.0) (>= portable-net45+win8)) (&& (== net40) (>= netstandard1.0) (>= portable-net45+win8+wpa81)) (&& (== net40) (>= netstandard1.0) (>= win8)) (&& (== net40) (>= netstandard1.1)) (&& (== net40) (>= netstandard1.2)) (&& (== net40) (>= netstandard1.3)) (&& (== net40) (>= netstandard1.4)) (&& (== net40) (>= netstandard1.5)) (&& (== net40) (>= netstandard1.6)) (&& (== net40) (>= uap10.0)) (&& (== net40) (>= wpa81)) (== net45)
+    System.ValueTuple (4.4)
+      NETStandard.Library (>= 1.6.1) - restriction: || (&& (== net40) (>= netstandard1.0)) (== net45)
     VDS.Common (1.6.4)
 GIST
   remote: tpluscode/a285267d2543466fc35c3a168c846f9f
-    FULLPROJECT (eac8af5adfdcfc43b63a5d5edf88c082e83761e0)
+    FULLPROJECT (c9b7a831e53e929f2ecce09b14a61e28007b669f)
