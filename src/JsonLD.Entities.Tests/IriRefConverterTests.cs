@@ -1,16 +1,15 @@
 ﻿using System.IO;
 using JsonLD.Entities.Converters;
 using Newtonsoft.Json;
-using NUnit.Framework;
+using Xunit;
 
 namespace JsonLD.Entities.Tests
 {
-    [TestFixture]
     public class IriRefConverterTests
     {
         private readonly IriRefConverter converter = new IriRefConverter();
 
-        [Test]
+        [Fact]
         public void Should_serialize_empty_iriref_as_null()
         {
             // given
@@ -20,7 +19,7 @@ namespace JsonLD.Entities.Tests
             this.converter.WriteJson(new JsonTextWriter(stringWriter), default(IriRef), new JsonLdSerializer());
 
             // then
-            Assert.That(stringWriter.ToString(), Is.EqualTo("null"));
+            Assert.Equal("null", stringWriter.ToString());
         }
     }
 }

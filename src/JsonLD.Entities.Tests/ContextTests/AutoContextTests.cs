@@ -2,46 +2,45 @@
 using JsonLD.Entities.Context;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
-using Vocab;
+using Xunit;
 
 namespace JsonLD.Entities.Tests.ContextTests
 {
     public class AutoContextTests
     {
-        [Test]
+        [Fact]
         public void When_created_should_include_all_properties()
         {
             // given
             var context = new AutoContext<Issue>(new Uri("http://example.api/o#Issue"));
 
             // then
-            Assert.That(context, Has.Count.EqualTo(6));
+            Assert.Equal(6, context.Count);
         }
 
-        [Test]
+        [Fact]
         public void When_created_should_not_include_reserved_keywords()
         {
             // given
             var context = new AutoContext<Issue>(new Uri("http://example.api/o#Issue"));
 
             // then
-            Assert.That(context[JsonLdKeywords.Id], Is.Null);
-            Assert.That(context[JsonLdKeywords.Type], Is.Null);
-            Assert.That(context[JsonLdKeywords.Context], Is.Null);
+            Assert.Null(context[JsonLdKeywords.Id]);
+            Assert.Null(context[JsonLdKeywords.Type]);
+            Assert.Null(context[JsonLdKeywords.Context]);
         }
 
-        [Test]
+        [Fact]
         public void When_created_should_respect_Newtonsoft_property_attribute()
         {
             // given
             var context = new AutoContext<Issue>(new Uri("http://example.api/o#Issue"));
 
             // then
-            Assert.That(context["titel"], Is.Not.Null);
+            Assert.NotNull(context["titel"]);
         }
 
-        [Test]
+        [Fact]
         public void When_created_should_extend_given_context_object()
         {
             // given
@@ -51,10 +50,10 @@ namespace JsonLD.Entities.Tests.ContextTests
             var context = new AutoContext<Issue>(manualContext, new Uri("http://example.api/o#Issue"));
 
             // then
-            Assert.That(context["titel"].ToString(), Is.EqualTo("dcterms:title"));
+            Assert.Equal("dcterms:title", context["titel"].ToString());
         }
 
-        [Test]
+        [Fact]
         public void When_modified_should_allow_changing_property_definition()
         {
             // given
@@ -71,7 +70,7 @@ namespace JsonLD.Entities.Tests.ContextTests
             Assert.True(JToken.DeepEquals(context["projectId"], expectedMapping));
         }
 
-        [Test]
+        [Fact]
         public void When_modified_should_allow_remapping_expanded_property_definition()
         {
             // given
@@ -95,29 +94,29 @@ namespace JsonLD.Entities.Tests.ContextTests
             Assert.True(JToken.DeepEquals(context["projectId"], contextAfter));
         }
 
-        [Test]
-        [TestCase("http://example.org/o#Issue", "http://example.org/o#Issue/projectId")]
-        [TestCase("http://example.org/o/Issue", "http://example.org/o/Issue#projectId")]
+        [Theory]
+        [InlineData("http://example.org/o#Issue", "http://example.org/o#Issue/projectId")]
+        [InlineData("http://example.org/o/Issue", "http://example.org/o/Issue#projectId")]
         public void Should_concatenate_with_separator_depending_on_class_id(string issueClassStr, string expectedPropertyId)
         {
             // when
             var context = new AutoContext<Issue>(new Uri(issueClassStr));
 
             // then
-            Assert.That(context["projectId"].ToString(), Is.EqualTo(expectedPropertyId));
+            Assert.Equal(expectedPropertyId, context["projectId"].ToString());
         }
 
-        [Test]
+        [Fact]
         public void Should_use_value_set_to_JsonProperty_attribute_for_concatentation()
         {
             // given
             var context = new AutoContext<User>(new Uri("http://example.org/ontolgy/User"));
 
             // then
-            Assert.That(context["with_attribute"].ToString(), Is.EqualTo("http://example.org/ontolgy/User#with_attribute"));
+            Assert.Equal("http://example.org/ontolgy/User#with_attribute", context["with_attribute"].ToString());
         }
 
-        [Test]
+        [Fact]
         public void Should_preserve_existing_context_when_using_declared_class_type()
         {
             // given
@@ -125,7 +124,7 @@ namespace JsonLD.Entities.Tests.ContextTests
             var context = new AutoContext<Issue>(existing);
 
             // then
-            Assert.That(context["titel"].ToString(), Is.EqualTo("dcterms:title"));
+            Assert.Equal("dcterms:title", context["titel"].ToString());
         }
 
         private class Issue

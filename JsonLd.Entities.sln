@@ -1,24 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonLD.Entities", "src\JsonLD.Entities\JsonLD.Entities.csproj", "{CCB7B927-5AD6-4B98-ABA3-92EA18351B7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonLD.Entities", "src\JsonLD.Entities\JsonLD.Entities.csproj", "{CCB7B927-5AD6-4B98-ABA3-92EA18351B7D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EAFC3ABA-17B5-4557-86A7-545A17506D30}"
 	ProjectSection(SolutionItems) = preProject
-		after.JsonLd.Entities.sln.targets = after.JsonLd.Entities.sln.targets
+		.gitignore = .gitignore
 		appveyor.yml = appveyor.yml
-		src\Common\Common.props = src\Common\Common.props
+		build.cake = build.cake
+		build.ps1 = build.ps1
 		GitVersionConfig.yaml = GitVersionConfig.yaml
 		paket.dependencies = paket.dependencies
 		paket.lock = paket.lock
 		Settings.StyleCop = Settings.StyleCop
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonLD.Entities.Tests", "src\JsonLD.Entities.Tests\JsonLD.Entities.Tests.csproj", "{AE56D865-7892-4A1B-B09D-D697E7F6F894}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonLD.Entities.Tests", "src\JsonLD.Entities.Tests\JsonLD.Entities.Tests.csproj", "{AE56D865-7892-4A1B-B09D-D697E7F6F894}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documentation", "src\Documentation\Documentation.csproj", "{AF6A37F7-16E9-4DC9-B56C-1667BD88F2AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Documentation", "src\Documentation\Documentation.csproj", "{AF6A37F7-16E9-4DC9-B56C-1667BD88F2AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,5 +42,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A94662AA-C848-451B-808C-9519B2558FB5}
 	EndGlobalSection
 EndGlobal

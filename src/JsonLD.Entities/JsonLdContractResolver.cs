@@ -48,7 +48,7 @@ namespace JsonLD.Entities
                 Type converterType;
                 Type elementType = ((JsonArrayContract)contract).CollectionItemType;
 
-                if (type.BaseType == typeof(Array))
+                if (type.GetTypeInfo().BaseType == typeof(Array))
                 {
                     converterType = typeof(JsonLdArrayConverter<>);
                 }
@@ -106,7 +106,7 @@ namespace JsonLD.Entities
         private static bool IsListType(Type type)
         {
             return typeof(IList).IsAssignableFrom(type)
-                || (type.IsGenericType && typeof(IList<>).IsAssignableFrom(type.GetGenericTypeDefinition()));
+                || (type.GetTypeInfo().IsGenericType && typeof(IList<>).IsAssignableFrom(type.GetGenericTypeDefinition()));
         }
     }
 }

@@ -1,7 +1,6 @@
 json-ld.net
-GitVersionTask
 NullGuard.Fody
 InfoOf.Fody
-ImpromptuInterface
+Dynamitey
 Costura.Fody
-StyleCop.Analyzers
+tpluscode.Library.Ruleset

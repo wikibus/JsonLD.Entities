@@ -61,9 +61,8 @@ using JsonLD.Entities;
 using JsonLD.Entities.Context;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
+using Xunit;
 
-[TestFixture]
 public class SerializingUriProperties
 {
     private const string PropertyUri = "http://example.com/property";
@@ -87,7 +86,7 @@ private class UriPropertyMappedToAbsoluteUri
     public Uri Property { get; set; }
 }
 
-[Test]
+[Fact]
 public void Should_serialize_URI_values_as_strings()
 {
     // given       
@@ -98,7 +97,7 @@ public void Should_serialize_URI_values_as_strings()
     var noContext = JsonLdProcessor.Compact(serialized, new JObject(), new JsonLdOptions());
 
     // then
-    Assert.That(noContext[PropertyUri].ToString(), Is.EqualTo(UriValue));
+    Assert.Equal(UriValue, noContext[PropertyUri].ToString());
 }
 
 /**
@@ -130,7 +129,7 @@ private class UriPropertyWithContext
     }
 }
 
-[Test]
+[Fact]
 public void Should_serialize_URI_values_as_strings_with_context()
 {
     // given       
@@ -141,7 +140,7 @@ public void Should_serialize_URI_values_as_strings_with_context()
     var noContext = JsonLdProcessor.Compact(serialized, new JObject(), new JsonLdOptions());
 
     // then
-    Assert.That(noContext[PropertyUri]["@id"].ToString(), Is.EqualTo(UriValue));
+    Assert.Equal(UriValue, noContext[PropertyUri]["@id"].ToString());
 }
 
 /**
@@ -169,7 +168,7 @@ private class UriPropertyForcedToExpand
     }
 }
 
-[Test]
+[Fact]
 public void Should_serialize_URI_values_as_expanded_object()
 {
     // given       
@@ -180,7 +179,7 @@ public void Should_serialize_URI_values_as_expanded_object()
     var noContext = JsonLdProcessor.Compact(serialized, new JObject(), new JsonLdOptions());
 
     // then
-    Assert.That(noContext[PropertyUri]["@id"].ToString(), Is.EqualTo(UriValue));
+    Assert.Equal(UriValue, noContext[PropertyUri]["@id"].ToString());
 }
 }
 

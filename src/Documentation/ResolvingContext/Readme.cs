@@ -13,23 +13,21 @@ First let's import the required namespaces.
 using System;
 using JsonLD.Entities;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
+using Xunit;
 
 /**
 ### Define `@context` inline with class definition
 **/
 
-[TestFixture]
 public class DefiningContextInline
 {
 
 private const string TestContext = "{ '@base': 'http://example.com/' }";
 
 /**
-The simples way is to define a `Context` property. It must be static and return a string or `JToken`. It can also be private. Another way
-is to declare a `GetContext` method, which takes an object as parameter. This way a @context can be built dynamically.
+The simples way is to define a `Context` property. It must be static and return a string or `JToken`. It can also be private.
     
-Below are example entity types with various ways of defining the `@context` inline.
+Below are example entity types with various ways of defining the `@context` as property.
 **/
 
 public class ContextInlineProperty
@@ -56,24 +54,15 @@ public class ContextInlineStaticStringProperty
     }
 }
 
-public class ContextInlineMethod
-{
-    private static JObject GetContext(ContextInlineMethod instance)
-    {
-        return JObject.Parse(TestContext);
-    }
-}
-
 /**
 When each of the above will be serailized, the inline context will be used.
 **/
 
-[TestCase(typeof(ContextInlineProperty))]
-[TestCase(typeof(ContextInlineProperty))]
-[TestCase(typeof(ContextInlinePrivateProperty))]
-[TestCase(typeof(ContextInlineStaticStringProperty))]
-[TestCase(typeof(ContextInlineMethod))]
-public void UsesInlineContextWhenSerializing(Type entityType)
+[Theory]
+[InlineData(typeof(ContextInlineProperty))]
+[InlineData(typeof(ContextInlinePrivateProperty))]
+[InlineData(typeof(ContextInlineStaticStringProperty))]
+public void UsesInlineContextPropertyWhenSerializing(Type entityType)
 {
     // given
     const string expected = "{ '@context': { '@base': 'http://example.com/' } }";
@@ -84,6 +73,45 @@ public void UsesInlineContextWhenSerializing(Type entityType)
     var json = serializer.Serialize(entity);
 
     // then
-    Assert.That(JToken.DeepEquals(json, JObject.Parse(expected)), "Actual object is {0}", json);
+    Assert.True(JToken.DeepEquals(json, JObject.Parse(expected)), $"Actual object is {json}");
+}
+
+/**
+Finally, the type can declare a static `GetContext` method, which takes an object of said type as parameter.
+This way a `@context` can be built dynamically.
+
+Note that when both property and method is present, the mthod will be preferred.
+ **/
+
+public class ContextInlineMethod
+{
+    private readonly string _base;
+
+    public ContextInlineMethod(string @base)
+    {
+        _base = @base;
+    }
+
+    private static JObject GetContext(ContextInlineMethod instance)
+    {
+        return JObject.Parse($@"{{
+            '@base': 'http://example.com/{instance._base}/'
+        }}");
+    }
+    }
+
+[Fact]
+public void UsesGetContextMethodSerializing()
+{
+    // given
+    const string expected = "{ '@context': { '@base': 'http://example.com/test/' } }";
+    var entity = new ContextInlineMethod("test");
+    var serializer = new EntitySerializer();
+
+    // when
+    var json = serializer.Serialize(entity);
+
+    // then
+    Assert.True(JToken.DeepEquals(json, JObject.Parse(expected)), $"Actual object is {json}");
 }
 }

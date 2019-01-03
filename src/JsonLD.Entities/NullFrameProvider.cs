@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
+using NullGuard;
 
 namespace JsonLD.Entities
 {
@@ -11,6 +12,7 @@ namespace JsonLD.Entities
         /// <summary>
         /// Always return null
         /// </summary>
+        [return: AllowNull]
         public JObject GetFrame(Type modelType)
         {
             return null;

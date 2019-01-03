@@ -1,12 +1,17 @@
-type project
+type file
+id JsonLD.Entities
 include-pdbs true
+authors tpluscode
+description
+  Simple POCO object seriallization for JSON-LD 
 dependencies
   json-ld.net >= 1.0.5
   Newtonsoft.Json >= 9
+  Dynamitey >= 2
 excludeddependencies
-  GitVersionTask
+  NullGuard.Fody
   Costura.Fody
-  ImpromptuInterface
+  InfoOf.Fody
 iconUrl
   https://raw.githubusercontent.com/wikibus/JsonLD.Entities/master/assets/icon.png
 tags
@@ -20,3 +25,10 @@ projectUrl
   http://github.org/wikibus/JsonLd.Entities
 releaseNotes
   update json-ld.net dependency
+files
+  bin/Release/net452/JsonLd.Entities.dll ==> lib/net452
+  bin/Release/net452/JsonLd.Entities.pdb ==> lib/net452
+  bin/Release/net452/JsonLd.Entities.xml ==> lib/net452
+  bin/Release/netstandard1.5/JsonLd.Entities.dll ==> lib/netstandard1.5
+  bin/Release/netstandard1.5/JsonLd.Entities.pdb ==> lib/netstandard1.5
+  bin/Release/netstandard1.5/JsonLd.Entities.xml ==> lib/netstandard1.5

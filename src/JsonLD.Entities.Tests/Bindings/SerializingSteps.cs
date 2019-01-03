@@ -1,10 +1,10 @@
 ﻿using System;
+using Dynamitey;
 using FakeItEasy;
-using ImpromptuInterface;
 using JsonLD.Entities.Tests.Entities;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
 using TechTalk.SpecFlow;
+using Xunit;
 
 namespace JsonLD.Entities.Tests.Bindings
 {
@@ -41,7 +41,7 @@ namespace JsonLD.Entities.Tests.Bindings
         [Given(@"model has interest '(.*)'")]
         public void GivenModelInterestsRDF(string value)
         {
-            Impromptu.InvokeMemberAction(this.context.Object, "AddInterest", value);
+            Dynamic.InvokeMemberAction(this.context.Object, "AddInterest", value);
         }
 
         [When(@"the object is serialized")]
@@ -54,7 +54,7 @@ namespace JsonLD.Entities.Tests.Bindings
         public void ThenTheResultingJsonLdShouldBe(string jObject)
         {
             var expected = JObject.Parse(jObject);
-            Assert.That(JToken.DeepEquals(this.context.JsonLdObject, expected), "Actual object was: {0}", this.context.JsonLdObject);
+            Assert.True(JToken.DeepEquals(this.context.JsonLdObject, expected), $"Actual object was: {this.context.JsonLdObject}");
         }
     }
 }

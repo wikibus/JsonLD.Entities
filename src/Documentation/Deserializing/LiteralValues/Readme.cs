@@ -12,7 +12,7 @@ using JsonLD.Entities;
 using JsonLD.Entities.Converters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
+using Xunit;
 
 /**
 ### Deserialize expanded form of literals
@@ -53,7 +53,6 @@ The two examples above may be equivalent but the second one, which you will prob
 problem for default Newtonsoft.Json serializer, because JSON object is not expected for primitive type such as `int` or `bool`.
 **/
 
-[TestFixture]
 public class DeserializationOfLiterals
 {
 
@@ -69,7 +68,7 @@ public class PersonWithAge
     public long Age { get; set; }
 }
 
-[Test]
+[Fact]
 public void Can_deserialize_expanded_literal()
 {
     // given
@@ -91,7 +90,7 @@ public void Can_deserialize_expanded_literal()
     var person = serializer.Deserialize<PersonWithAge>(jsonLd);
 
     // then
-    Assert.That(person.Age, Is.EqualTo(28));
+    Assert.Equal(28, person.Age);
 }
 
 /**
@@ -130,7 +129,7 @@ public class IPAddressConverter : JsonLdLiteralConverter
     }
 }
 
-[Test]
+[Fact]
 public void Can_deserialize_class_from_literal()
 {
     // given
@@ -149,14 +148,14 @@ public void Can_deserialize_class_from_literal()
     var person = serializer.Deserialize<RequestLogItem>(jsonLd);
 
     // then
-    Assert.That(person.Ip, Is.EqualTo(IPAddress.Parse("148.9.20.34")));
+    Assert.Equal(IPAddress.Parse("148.9.20.34"), person.Ip);
 }
 
 /**
 And it would also work if the literal was given in it's expanded form.
 **/
 
-[Test]
+[Fact]
 public void Can_deserialize_class_from_expanded_literal()
 {
     // given
@@ -175,7 +174,7 @@ public void Can_deserialize_class_from_expanded_literal()
     var person = serializer.Deserialize<RequestLogItem>(jsonLd);
 
     // then
-    Assert.That(person.Ip, Is.EqualTo(IPAddress.Parse("148.9.20.34")));
+    Assert.Equal(IPAddress.Parse("148.9.20.34"), person.Ip);
 }
 
 /**
@@ -183,7 +182,7 @@ And lastly it is possible to serialize such an object to literal. Note that comp
 create a fitting `@context` so that the JSON-LD document is valid and correct.
 **/
 
-[Test]
+[Fact]
 public void Can_serialize_class_instance_to_literal()
 {
     // given
@@ -202,6 +201,6 @@ public void Can_serialize_class_instance_to_literal()
     dynamic jsonLd = serializer.Serialize(entity);
 
     // then
-    Assert.That((string)jsonLd.ip, Is.EqualTo("148.9.20.34"));
+    Assert.Equal("148.9.20.34", (string)jsonLd.ip);
 }
 }

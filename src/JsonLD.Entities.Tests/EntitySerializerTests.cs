@@ -4,24 +4,22 @@ using JsonLD.Entities.Tests.ContextTestEntities;
 using JsonLD.Entities.Tests.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
+using Xunit;
 
 namespace JsonLD.Entities.Tests
 {
-    [TestFixture]
     public class EntitySerializerTests
     {
-        private IContextProvider provider;
-        private EntitySerializer serializer;
+        private readonly IContextProvider provider;
+        private readonly EntitySerializer serializer;
 
-        [SetUp]
-        public void Setup()
+        public EntitySerializerTests()
         {
             this.provider = A.Fake<IContextProvider>();
             this.serializer = new EntitySerializer(this.provider);
         }
 
-        [Test]
+        [Fact]
         public void Deserializing_quads_should_throw_when_context_isnt_found()
         {
             // given
@@ -31,7 +29,7 @@ namespace JsonLD.Entities.Tests
             Assert.Throws<ContextNotFoundException>(() => this.serializer.Deserialize<Person>(string.Empty));
         }
 
-        [Test]
+        [Fact]
         public void Should_serialize_id_as_string()
         {
             // given
@@ -47,11 +45,11 @@ namespace JsonLD.Entities.Tests
             var person = this.serializer.Serialize(new Person { Id = id });
 
             // then
-            Assert.That(person["@id"], Is.InstanceOf<JValue>());
-            Assert.That(person["@id"], Has.Property("Value").EqualTo("http://example.org/Some/Person"));
+            var jId = Assert.IsType<JValue>(person["@id"]);
+            Assert.Equal("http://example.org/Some/Person", jId.Value);
         }
 
-        [Test]
+        [Fact]
         public void Should_use_GetContext_method_from_base_class()
         {
             // given
@@ -61,10 +59,10 @@ namespace JsonLD.Entities.Tests
             var serialized = this.serializer.Serialize(obj);
 
             // then
-            Assert.That(serialized["@context"], Is.Not.Null);
+            Assert.NotNull(serialized["@context"]);
         }
 
-        [Test]
+        [Fact]
         public void Should_compact_when_one_of_contexts_is_empty()
         {
             // given
@@ -79,12 +77,12 @@ namespace JsonLD.Entities.Tests
             var serialized = this.serializer.Serialize(obj, new SerializationOptions { SerializeCompacted = true });
 
             // then
-            Assert.That(serialized["@context"], Is.Not.Null);
+            Assert.NotNull(serialized["@context"]);
         }
 
-        [Test]
-        [TestCase("{ 'property': 'http://example.com/absolute/id' }", Description = "Absolute IriRef")]
-        [TestCase("{ 'property': '/relative/id' }", Description = "Relative IriRef")]
+        [Theory]
+        [InlineData("{ 'property': 'http://example.com/absolute/id' }")]
+        [InlineData("{ 'property': '/relative/id' }")]
         public void Should_deserialize_compacted_IriRef(string json)
         {
             // given
@@ -95,12 +93,12 @@ namespace JsonLD.Entities.Tests
             var deserialized = this.serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
 
             // then
-            Assert.That(deserialized.Property, Is.EqualTo(iriRef));
+            Assert.Equal(iriRef, deserialized.Property);
         }
 
-        [Test]
-        [TestCase("{ 'property': { '@id': 'http://example.com/absolute/id' } }", Description = "Absolute IriRef")]
-        [TestCase("{ 'property': { '@id': '/relative/id' } }", Description = "Relative IriRef")]
+        [Theory]
+        [InlineData("{ 'property': { '@id': 'http://example.com/absolute/id' } }")]
+        [InlineData("{ 'property': { '@id': '/relative/id' } }")]
         public void Should_deserialize_expanded_IriRef(string json)
         {
             // given
@@ -111,10 +109,10 @@ namespace JsonLD.Entities.Tests
             var deserialized = this.serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
 
             // then
-            Assert.That(deserialized.Property, Is.EqualTo(iriRef));
+            Assert.Equal(iriRef, deserialized.Property);
         }
 
-        [Test]
+        [Fact]
         public void Should_deserialize_null_IriRef()
         {
             // given
@@ -124,10 +122,10 @@ namespace JsonLD.Entities.Tests
             var deserialized = this.serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
 
             // then
-            Assert.That(deserialized.Property, Is.EqualTo(default(IriRef)));
+            Assert.Equal(default(IriRef), deserialized.Property);
         }
 
-        [Test]
+        [Fact]
         public void Should_deserialize_null_Uri()
         {
             // given
@@ -137,10 +135,10 @@ namespace JsonLD.Entities.Tests
             var deserialized = this.serializer.Deserialize<ClassWithSomeUris>((JToken)raw);
 
             // then
-            Assert.That(deserialized.UriProperty, Is.Null);
+            Assert.Null(deserialized.UriProperty);
         }
 
-        [Test]
+        [Fact]
         public void Should_deserialize_when_entity_serializer_was_created_with_paremterless_constructor()
         {
             // given
@@ -150,7 +148,7 @@ namespace JsonLD.Entities.Tests
             var deserialized = new EntitySerializer().Deserialize<ClassWithSomeUris>((JToken)raw);
 
             // then
-            Assert.That(deserialized.UriProperty, Is.Null);
+            Assert.Null(deserialized.UriProperty);
         }
     }
 }

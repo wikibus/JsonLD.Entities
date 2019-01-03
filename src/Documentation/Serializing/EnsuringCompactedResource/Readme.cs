@@ -9,7 +9,7 @@ First let's import the required namespaces.
 using JsonLD.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
+using Xunit;
 
 public class EnsuringCompactedJson
 {
@@ -64,7 +64,7 @@ private static readonly JObject Context = JObject.Parse(@"{
     'interest': 'foaf:interest'
   }");
 
-[Test]
+[Fact]
 public void ShouldForceCompactSerializedModelWhenRequested()
 {
     // given
@@ -81,8 +81,8 @@ public void ShouldForceCompactSerializedModelWhenRequested()
     dynamic serialized = serializer.Serialize(person, new SerializationOptions { SerializeCompacted = true });
 
     // then
-    Assert.That(serialized.name.ToString(), Is.EqualTo("Tomasz Pluskiewicz"));
-    Assert.That(serialized.interest.name.ToString(), Is.EqualTo("JSON-LD"));
+    Assert.Equal("Tomasz Pluskiewicz", serialized.name.ToString());
+    Assert.Equal("JSON-LD", serialized.interest.name.ToString());
 }
 
 /**
@@ -101,7 +101,7 @@ public class PersonWithInterest2
     public string Name { get; set; }
 }
 
-[Test]
+[Fact]
 public void ShouldForceCompactSerializedModelWhenSetByAttribute()
 {
     // given
@@ -118,8 +118,8 @@ public void ShouldForceCompactSerializedModelWhenSetByAttribute()
     dynamic serialized = serializer.Serialize(person);
 
     // then
-    Assert.That(serialized.name.ToString(), Is.EqualTo("Tomasz Pluskiewicz"));
-    Assert.That(serialized.interest.name.ToString(), Is.EqualTo("JSON-LD"));
+    Assert.Equal("Tomasz Pluskiewicz", serialized.name.ToString());
+    Assert.Equal("JSON-LD", serialized.interest.name.ToString());
 }
 
 /**
@@ -130,7 +130,7 @@ public class PersonWithInterest3: PersonWithInterest2
 {
 }
 
-[Test]
+[Fact]
 public void ShouldForceCompactSerializedModelWhenSetByAttribute_Inherited()
 {
     // given
@@ -147,7 +147,7 @@ public void ShouldForceCompactSerializedModelWhenSetByAttribute_Inherited()
     dynamic serialized = serializer.Serialize(person);
 
     // then
-    Assert.That(serialized.name.ToString(), Is.EqualTo("Tomasz Pluskiewicz"));
-    Assert.That(serialized.interest.name.ToString(), Is.EqualTo("JSON-LD"));
+    Assert.Equal("Tomasz Pluskiewicz", serialized.name.ToString());
+    Assert.Equal("JSON-LD", serialized.interest.name.ToString());
 }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Reflection;
 using Newtonsoft.Json.Linq;
 
 namespace JsonLD.Entities.Context

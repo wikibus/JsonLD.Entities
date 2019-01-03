@@ -1,4 +1,7 @@
 Newtonsoft.Json
-NUnit
+xUnit
+xunit.runner.visualstudio
+xunit.extensibility.execution
+dotnet-xunit
 json-ld.net
-GitVersionTask
+Microsoft.NET.Test.Sdk

@@ -14,9 +14,8 @@ using System.Collections.Generic;
 using JsonLD.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
+using Xunit;
 
-[TestFixture]
 public class SerializingTypedEntities
 {
 
@@ -67,10 +66,11 @@ public class TypesAsPrivatePropertyWithCustomName
     }
 }
 
-[TestCase(typeof(TypesAsSingleUri), "{ '@type': 'http://schema.org/Person' }")]
-[TestCase(typeof(TypesPropertyStatic), "{ '@type': 'http://schema.org/Person' }")]
-[TestCase(typeof(TypesAsStringCollection), "{ '@type': [ 'http://schema.org/Person' ] }")]
-[TestCase(typeof(TypesAsPrivatePropertyWithCustomName), "{ '@type': [ 'http://schema.org/Person' ] }")]
+[Theory]
+[InlineData(typeof(TypesAsSingleUri), "{ '@type': 'http://schema.org/Person' }")]
+[InlineData(typeof(TypesPropertyStatic), "{ '@type': 'http://schema.org/Person' }")]
+[InlineData(typeof(TypesAsStringCollection), "{ '@type': [ 'http://schema.org/Person' ] }")]
+[InlineData(typeof(TypesAsPrivatePropertyWithCustomName), "{ '@type': [ 'http://schema.org/Person' ] }")]
 public void SerializesTypesPropertyAsAtTypes(Type type, string expectedJson)
 {
     // given
@@ -82,6 +82,6 @@ public void SerializesTypesPropertyAsAtTypes(Type type, string expectedJson)
     var json = serializer.Serialize(entity);
 
     // then
-    Assert.That(JToken.DeepEquals(json, expected), "Actual object was {0}",  json);
+    Assert.True(JToken.DeepEquals(json, expected), $"Actual object was {json}");
 }
 }

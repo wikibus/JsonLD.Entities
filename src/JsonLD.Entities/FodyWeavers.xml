@@ -2,9 +2,4 @@
 <Weavers>
   <NullGuard IncludeDebugAssert="false" />
   <InfoOf />
-  <Costura>
-    <IncludeAssemblies>
-      ImpromptuInterface
-    </IncludeAssemblies>
-  </Costura>
 </Weavers>

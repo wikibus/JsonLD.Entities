@@ -1,9 +1,14 @@
 ﻿SpecFlow
-NUnit
+SpecFlow.xunit
+xUnit
+xunit.runner.visualstudio
+xunit.extensibility.execution
+dotnet-xunit
 InfoOf.Fody
 dotNetRDF
-ImpromptuInterface
+Dynamitey
 FakeItEasy
 json-ld.net
-StyleCop.Analyzers
 Rdf.Vocabularies
+tpluscode.UnitTests.Ruleset
+Microsoft.NET.Test.Sdk

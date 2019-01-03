@@ -1,13 +1,12 @@
 ﻿using JsonLD.Entities.Context;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
+using Xunit;
 
 namespace JsonLD.Entities.Tests.ContextTests
 {
-    [TestFixture]
     public class ContextExtensionsTests
     {
-        [Test]
+        [Fact]
         public void Should_combine_multiple_objects_into_an_array()
         {
             // given
@@ -19,10 +18,10 @@ namespace JsonLD.Entities.Tests.ContextTests
             var merged = context1.MergeWith(context2);
 
             // then
-            Assert.That(JToken.DeepEquals(merged, expected));
+            Assert.True(JToken.DeepEquals(merged, expected));
         }
 
-        [Test]
+        [Fact]
         public void Should_return_original_if_no_additional_contexts_passed()
         {
             // given
@@ -32,10 +31,10 @@ namespace JsonLD.Entities.Tests.ContextTests
             var merged = context.MergeWith();
 
             // then
-            Assert.That(merged, Is.SameAs(context));
+            Assert.Same(context, merged);
         }
 
-        [Test]
+        [Fact]
         public void Should_return_original_if_nulls_are_passed()
         {
             // given
@@ -45,10 +44,10 @@ namespace JsonLD.Entities.Tests.ContextTests
             var merged = context.MergeWith(null, null);
 
             // then
-            Assert.That(merged, Is.SameAs(context));
+            Assert.Same(context, merged);
         }
 
-        [Test]
+        [Fact]
         public void Should_flatten_additonal_array_contexts()
         {
             // given
@@ -60,10 +59,10 @@ namespace JsonLD.Entities.Tests.ContextTests
             var merged = context1.MergeWith(context2);
 
             // then
-            Assert.That(JToken.DeepEquals(merged, expected));
+            Assert.True(JToken.DeepEquals(merged, expected));
         }
 
-        [Test]
+        [Fact]
         public void Should_append_to_original_if_it_is_array()
         {
             // given
@@ -75,10 +74,10 @@ namespace JsonLD.Entities.Tests.ContextTests
             var merged = context1.MergeWith(context2);
 
             // then
-            Assert.That(JToken.DeepEquals(merged, expected));
+            Assert.True(JToken.DeepEquals(merged, expected));
         }
 
-        [Test]
+        [Fact]
         public void Should_merge_multiple_arrays()
         {
             // given
@@ -99,10 +98,10 @@ namespace JsonLD.Entities.Tests.ContextTests
             var merged = context1.MergeWith(context2, context3);
 
             // then
-            Assert.That(JToken.DeepEquals(merged, expected));
+            Assert.True(JToken.DeepEquals(merged, expected));
         }
 
-        [Test]
+        [Fact]
         public void Should_merge_external_contexts()
         {
             // given
@@ -122,7 +121,7 @@ namespace JsonLD.Entities.Tests.ContextTests
             var merged = context1.MergeWith(context2, context3);
 
             // then
-            Assert.That(JToken.DeepEquals(merged, expected));
+            Assert.True(JToken.DeepEquals(merged, expected));
         }
     }
 }

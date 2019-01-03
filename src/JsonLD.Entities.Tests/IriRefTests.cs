@@ -1,14 +1,13 @@
 ﻿using System;
-using NUnit.Framework;
+using Xunit;
 
 namespace JsonLD.Entities.Tests
 {
-    [TestFixture]
     public class IriRefTests
     {
         private const string TestUri = "http://example.com/relative/path";
 
-        [Test]
+        [Fact]
         public void Should_work_with_relative_Uri_string()
         {
             // given
@@ -18,10 +17,10 @@ namespace JsonLD.Entities.Tests
             var iriRef = new IriRef(path);
 
             // then
-            Assert.That(iriRef.Value, Is.EqualTo(new Uri(path, UriKind.Relative)));
+            Assert.Equal(new Uri(path, UriKind.Relative).ToString(), iriRef.Value);
         }
 
-        [Test]
+        [Fact]
         public void Should_work_with_absolute_Uri_string()
         {
             // given
@@ -31,10 +30,10 @@ namespace JsonLD.Entities.Tests
             var iriRef = new IriRef(path);
 
             // then
-            Assert.That(iriRef.Value, Is.EqualTo(new Uri(path, UriKind.Absolute)));
+            Assert.Equal(new Uri(path, UriKind.Absolute).ToString(), iriRef.Value);
         }
 
-        [Test]
+        [Fact]
         public void Two_instances_should_be_equal_when_Uri_is_equal()
         {
             // given
@@ -45,7 +44,7 @@ namespace JsonLD.Entities.Tests
             Assert.True(new IriRef(path).Equals(new IriRef(path)));
         }
 
-        [Test]
+        [Fact]
         public void Should_be_explicitly_castable_from_Uri()
         {
             // given
@@ -55,10 +54,10 @@ namespace JsonLD.Entities.Tests
             IriRef iriRef = (IriRef)new Uri(TestUri);
 
             // then
-            Assert.AreEqual(expected, iriRef);
+            Assert.Equal(expected, iriRef);
         }
 
-        [Test]
+        [Fact]
         public void Should_be_explicitly_castable_from_string()
         {
             // given
@@ -68,10 +67,10 @@ namespace JsonLD.Entities.Tests
             var iriRef = (IriRef)TestUri;
 
             // then
-            Assert.AreEqual(expected, iriRef);
+            Assert.Equal(expected, iriRef);
         }
 
-        [Test]
+        [Fact]
         public void Should_be_explicitly_castable_from_null_string()
         {
             // given
@@ -81,10 +80,10 @@ namespace JsonLD.Entities.Tests
             var iriRef = (IriRef)(string)null;
 
             // then
-            Assert.AreEqual(expected, iriRef);
+            Assert.Equal(expected, iriRef);
         }
 
-        [Test]
+        [Fact]
         public void Should_be_explicitly_castable_from_null_Uri()
         {
             // given
@@ -94,7 +93,7 @@ namespace JsonLD.Entities.Tests
             var iriRef = (IriRef)(Uri)null;
 
             // then
-            Assert.AreEqual(expected, iriRef);
+            Assert.Equal(expected, iriRef);
         }
     }
 }

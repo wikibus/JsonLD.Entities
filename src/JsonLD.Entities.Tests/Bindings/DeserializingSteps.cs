@@ -14,6 +14,7 @@ namespace JsonLD.Entities.Tests.Bindings
         private static readonly MethodInfo DeserializeJsonMethod;
 
         private readonly SerializerTestContext testContext;
+        private readonly ScenarioContext scenarioContext;
 
         static DeserializingSteps()
         {
@@ -21,21 +22,22 @@ namespace JsonLD.Entities.Tests.Bindings
             DeserializeJsonMethod = typeof(IEntitySerializer).GetMethod("Deserialize", new[] { typeof(JToken) });
         }
 
-        public DeserializingSteps(SerializerTestContext context)
+        public DeserializingSteps(SerializerTestContext context, ScenarioContext scenarioContext)
         {
             this.testContext = context;
+            this.scenarioContext = scenarioContext;
         }
 
         [Given(@"@context is:")]
         public void GivenContextIs(string jsonLdContext)
         {
-            ScenarioContext.Current.Set(JObject.Parse(jsonLdContext), "@context");
+            scenarioContext.Set(JObject.Parse(jsonLdContext), "@context");
         }
 
         [Given(@"frame is")]
         public void GivenFrameIs(string inputFrame)
         {
-            ScenarioContext.Current.Set(JObject.Parse(inputFrame), "frame");
+            scenarioContext.Set(JObject.Parse(inputFrame), "frame");
         }
 
         [Given(@"NQuads:")]
@@ -61,7 +63,7 @@ namespace JsonLD.Entities.Tests.Bindings
 
             var entity = typedDeserialize.Invoke(this.testContext.Serializer, new object[] { this.testContext.NQuads });
 
-            ScenarioContext.Current.Set(entity, "Entity");
+            scenarioContext.Set(entity, "Entity");
         }
 
         [Scope(Tag = "JsonLD")]
@@ -75,13 +77,7 @@ namespace JsonLD.Entities.Tests.Bindings
 
             var entity = typedDeserialize.Invoke(this.testContext.Serializer, new object[] { this.testContext.JsonLdObject });
 
-            ScenarioContext.Current.Set(entity, "Entity");
-        }
-
-        [Then(@"Should fail")]
-        public void ThenShouldFail()
-        {
-            ScenarioContext.Current.Pending();
+            scenarioContext.Set(entity, "Entity");
         }
 
         private void SetupProviders(Type entityType)
@@ -89,14 +85,14 @@ namespace JsonLD.Entities.Tests.Bindings
             JObject context = null;
             JObject frame = null;
 
-            if (ScenarioContext.Current.ContainsKey("@context"))
+            if (scenarioContext.ContainsKey("@context"))
             {
-                context = ScenarioContext.Current.Get<JObject>("@context");
+                context = scenarioContext.Get<JObject>("@context");
             }
 
-            if (ScenarioContext.Current.ContainsKey("frame"))
+            if (scenarioContext.ContainsKey("frame"))
             {
-                frame = ScenarioContext.Current.Get<JObject>("frame");
+                frame = scenarioContext.Get<JObject>("frame");
             }
 
             A.CallTo(() => this.testContext.ContextProvider.GetContext(entityType)).Returns(context);

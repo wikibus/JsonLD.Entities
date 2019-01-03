@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using NUnit.Framework;
+using Xunit;
 
 namespace JsonLD.Entities.Tests.Helpers
 {
     public class TypeExtensionTests
     {
-        [Test]
+        [Fact]
         public void Should_return_type_from_string_Type_property()
         {
             // given
@@ -17,10 +17,10 @@ namespace JsonLD.Entities.Tests.Helpers
             var typeIdentifier = typeof(TypeAsString).GetTypeIdentifier();
 
             // then
-            Assert.That(typeIdentifier, Is.EqualTo(expected));
+            Assert.Equal(expected, typeIdentifier);
         }
 
-        [Test]
+        [Fact]
         public void Should_return_type_from_Uri_Type_property()
         {
             // given
@@ -30,10 +30,10 @@ namespace JsonLD.Entities.Tests.Helpers
             var typeIdentifier = typeof(TypeAsUri).GetTypeIdentifier();
 
             // then
-            Assert.That(typeIdentifier, Is.EqualTo(expected));
+            Assert.Equal(expected, typeIdentifier);
         }
 
-        [Test]
+        [Fact]
         public void Should_return_type_from_Uri_Types_property()
         {
             // given
@@ -43,10 +43,10 @@ namespace JsonLD.Entities.Tests.Helpers
             var typeIdentifier = typeof(TypesAsUri).GetTypeIdentifier();
 
             // then
-            Assert.That(typeIdentifier, Is.EqualTo(expected));
+            Assert.Equal(expected, typeIdentifier);
         }
 
-        [Test]
+        [Fact]
         public void Should_return_type_from_string_Types_property()
         {
             // given
@@ -56,10 +56,10 @@ namespace JsonLD.Entities.Tests.Helpers
             var typeIdentifier = typeof(TypesAsString).GetTypeIdentifier();
 
             // then
-            Assert.That(typeIdentifier, Is.EqualTo(expected));
+            Assert.Equal(expected, typeIdentifier);
         }
 
-        [Test]
+        [Fact]
         public void Should_return_type_from_annotated_property()
         {
             // given
@@ -69,16 +69,16 @@ namespace JsonLD.Entities.Tests.Helpers
             var typeIdentifier = typeof(CustomProperty).GetTypeIdentifier();
 
             // then
-            Assert.That(typeIdentifier, Is.EqualTo(expected));
+            Assert.Equal(expected, typeIdentifier);
         }
 
-        [Test]
+        [Fact]
         public void Should_throw_when_Types_contains_multiple_elements()
         {
             Assert.Throws<InvalidOperationException>(() => typeof(MultipleTypesAsUri).GetTypeIdentifier());
         }
 
-        [Test]
+        [Fact]
         public void Should_throw_when_class_doesnt_have_a_static_types_property()
         {
             Assert.Throws<InvalidOperationException>(() => typeof(object).GetTypeIdentifier());

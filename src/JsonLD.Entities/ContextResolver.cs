@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
-using ImpromptuInterface;
-using ImpromptuInterface.InvokeExt;
+using System.Reflection;
+using Dynamitey;
 using Microsoft.CSharp.RuntimeBinder;
 using Newtonsoft.Json.Linq;
 using NullGuard;
@@ -74,17 +76,18 @@ namespace JsonLD.Entities
             {
                 const string propertyName = "get_Context";
                 InvokeMemberName invokeArgs = propertyName;
-                if (type.IsGenericTypeDefinition)
+                if (type.GetTypeInfo().IsGenericTypeDefinition)
                 {
                     var typeArgs = Enumerable.Repeat(typeof(object), type.GetGenericArguments().Length);
                     type = type.MakeGenericType(typeArgs.ToArray());
                 }
 
-                return Impromptu.InvokeGet(type.WithStaticContext(), "Context");
+                var staticContext = InvokeContext.CreateStatic;
+                return Dynamic.InvokeGet(staticContext(type), "Context");
             }
             catch (RuntimeBinderException)
             {
-                return null;
+                return FallbackResolver.GetContext(type, null);
             }
         }
 
@@ -92,11 +95,12 @@ namespace JsonLD.Entities
         {
             try
             {
-                return Impromptu.InvokeMember(entity.GetType().WithStaticContext(), "GetContext", entity);
+                var staticContext = InvokeContext.CreateStatic;
+                return Dynamic.InvokeMember(staticContext(entity.GetType()), "GetContext", entity);
             }
             catch (RuntimeBinderException)
             {
-                return null;
+                return FallbackResolver.GetContext(entity.GetType(), entity);
             }
         }
 
@@ -110,6 +114,42 @@ namespace JsonLD.Entities
             }
 
             return null;
+        }
+
+        private static class FallbackResolver
+        {
+            private static readonly IDictionary<Type, Func<object, object>> ContextCache
+                = new ConcurrentDictionary<Type, Func<object, object>>();
+
+            public static dynamic GetContext(Type type, [AllowNull] object instance)
+            {
+                if (!ContextCache.ContainsKey(type))
+                {
+                    var getContextMethod = type
+                        .GetMethod("GetContext", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+
+                    if (getContextMethod != null)
+                    {
+                        ContextCache.Add(type, e => getContextMethod.Invoke(null, new[] { e }));
+                    }
+                    else
+                    {
+                        var getContext = type
+                            .GetProperty("Context", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+
+                        if (getContext != null)
+                        {
+                            ContextCache.Add(type, _ => getContext.GetMethod.Invoke(null, null));
+                        }
+                        else
+                        {
+                            ContextCache.Add(type, _ => null);
+                        }
+                    }
+                }
+
+                return ContextCache[type].Invoke(instance);
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ First let's import the required namespaces.
 using System;
 using JsonLD.Entities;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
+using Xunit;
 
 /**
 The example below will deserialize to instances of a `PersonWithAddress` class, which contains a reference to an `Address`, which in turn references a `City`.
@@ -51,7 +51,6 @@ In this example, the JSON-LD object will use the [`@graph`][atGraph] keyword to 
 object tree. Such could be the result of converting data in another RDF format into JSON-LD.
 **/
 
-[TestFixture]
 public class FramedDeserialization
 {
 
@@ -119,7 +118,7 @@ private static readonly JObject Frame = JObject.Parse(@"
 And lastly, here's the complete example using the above frame and context.
 **/
 
-[Test]
+[Fact]
 public void Can_deserialize_framed_document()
 {
     // given
@@ -134,10 +133,10 @@ public void Can_deserialize_framed_document()
     var person = serializer.Deserialize<PersonWithAddress>(JsonLd);
 
     // then
-    Assert.That(person.Address.PostalCode, Is.EqualTo("90-210"));
-    Assert.That(person.Address.Street, Is.EqualTo("Programmer's Avenue 1337"));
-    Assert.That(person.Address.City.Id, Is.EqualTo(new Uri("http://sws.geonames.org/5328041/")));
-    Assert.That(person.Address.City.Name, Is.EqualTo("Beverly Hills"));
+    Assert.Equal("90-210", person.Address.PostalCode);
+    Assert.Equal("Programmer's Avenue 1337", person.Address.Street);
+    Assert.Equal(new Uri("http://sws.geonames.org/5328041/"), person.Address.City.Id);
+    Assert.Equal("Beverly Hills", person.Address.City.Name);
 }
 }
 

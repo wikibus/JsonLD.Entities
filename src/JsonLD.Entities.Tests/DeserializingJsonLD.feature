@@ -164,7 +164,7 @@ Scenario: Deserialize list into set
         }
         """
     When I deserialize into 'JsonLD.Entities.Tests.Entities.HasInterestsSet'
-    Then Should fail
+    Then object should have empty property 'Interests'
 
 @JsonLD
 Scenario: Deserialize a graph of objects

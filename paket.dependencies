@@ -1,25 +1,47 @@
 source https://nuget.org/api/v2
+source https://www.myget.org/F/tpluscode/api/v3/index.json
 
-framework: net40, net45
+framework: netstandard1.5, net452, net462, netcoreapp2.0
 content: none
-redirects: on
+redirects: off
 
 nuget json-ld.net
-nuget GitLink
-nuget StyleCop.Analyzers
-nuget GitVersionTask
-nuget SpecFlow
+nuget SpecFlow 2.4.0-preview20180814
+nuget SpecFlow.xUnit 2.4.0-preview20180814
 nuget NullGuard.Fody
-nuget NUnit
+nuget xUnit
+nuget xunit.runner.visualstudio
+nuget xunit.extensibility.execution
+clitool dotnet-xunit
 nuget MethodTimer.Fody
 nuget dotNetRDF
 nuget HtmlAgilityPack
 nuget InfoOf.Fody
 nuget FakeItEasy
-nuget ImpromptuInterface
+nuget Dynamitey
 nuget Costura.Fody
-nuget Rdf.Vocabularies
-nuget OpenCover
-nuget Newtonsoft.Json ~> 9
+nuget Rdf.Vocabularies prerelease
+nuget Newtonsoft.Json
+nuget tpluscode.NoDocumentation.Ruleset
+nuget tpluscode.Library.Ruleset
+nuget tpluscode.UnitTests.Ruleset
+nuget Microsoft.NET.Test.Sdk
 
 gist tpluscode/a285267d2543466fc35c3a168c846f9f
+
+group tools
+    source https://nuget.org/api/v2
+    nuget Cake
+    nuget opencover
+    nuget gitlink
+    nuget codecov
+    nuget gitversion.commandline prerelease
+
+group addins
+    source https://nuget.org/api/v2
+    nuget cake.paket
+    nuget cake.codecov
+
+group modules
+    source https://nuget.org/api/v2
+    nuget Cake.Paket.Module

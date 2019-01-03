@@ -16,7 +16,7 @@ using System;
 using System.Collections.Generic;
 using JsonLD.Entities;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
+using Xunit;
 
 /**
 ### Deserialization
@@ -49,11 +49,10 @@ first test, the IContextProvider object won't be set up in any way.
 Note how the JSON-LD `@id` is by convention deserialized to the `Person#Id` property.
 **/
 
-[TestFixture]
 public class Deserialization
 {
 
-[Test]
+[Fact]
 public void Can_deserialize_with_existing_structure()
 {
     // given
@@ -76,9 +75,9 @@ public void Can_deserialize_with_existing_structure()
     var person = serializer.Deserialize<Person>(json);
 
     // then
-    Assert.That(person.Name, Is.EqualTo("Tomasz"));
-    Assert.That(person.LastName, Is.EqualTo("Pluskiewicz"));
-    Assert.That(person.Id, Is.EqualTo(new Uri("http://t-code.pl/#tomasz")));
+    Assert.Equal("Tomasz", person.Name);
+    Assert.Equal("Pluskiewicz", person.LastName);
+    Assert.Equal(new Uri("http://t-code.pl/#tomasz"), person.Id);
 }
 
 /**
@@ -92,7 +91,7 @@ Below example shows how the default `IContextProvider` is used to adjust the doc
 would have probably noticed already that the `@context` must conform to model's properties. Pascal case in c#, camel case in JSON.
 **/
 
-[Test]
+[Fact]
 public void Can_deserialize_with_changed_context()
 {
     // given
@@ -120,9 +119,9 @@ public void Can_deserialize_with_changed_context()
     var person = serializer.Deserialize<Person>(expanded);
 
     // then
-    Assert.That(person.Name, Is.EqualTo("Tomasz"));
-    Assert.That(person.LastName, Is.EqualTo("Pluskiewicz"));
-    Assert.That(person.Id, Is.EqualTo(new Uri("http://t-code.pl/#tomasz")));
+    Assert.Equal("Tomasz", person.Name);
+    Assert.Equal("Pluskiewicz", person.LastName);
+    Assert.Equal(new Uri("http://t-code.pl/#tomasz"), person.Id);
 }
 }
 
@@ -132,11 +131,10 @@ public void Can_deserialize_with_changed_context()
 Of course it also possible to serialize POCO objects to JSON-LD objects.
 **/
 
-[TestFixture]
 public class Serialization
 {
 
-[Test]
+[Fact]
 public void Can_serialize_object_to_JSON_LD()
 {
     // given
@@ -152,10 +150,10 @@ public void Can_serialize_object_to_JSON_LD()
     dynamic json = serializer.Serialize(person);
 
     // then
-    Assert.That((string)json.name, Is.EqualTo("Tomasz"));
-    Assert.That((string)json.lastName, Is.EqualTo("Pluskiewicz"));
-    Assert.That((string)json["@id"], Is.EqualTo("http://t-code.pl/#tomasz"));
-    Assert.That((string)json["@type"][0], Is.EqualTo("http://xmlns.com/foaf/0.1/Person"));
+    Assert.Equal("Tomasz", (string)json.name);
+    Assert.Equal("Pluskiewicz", (string)json.lastName);
+    Assert.Equal("http://t-code.pl/#tomasz", (string)json["@id"]);
+    Assert.Equal("http://xmlns.com/foaf/0.1/Person", (string)json["@type"][0]);
 }
 }
 

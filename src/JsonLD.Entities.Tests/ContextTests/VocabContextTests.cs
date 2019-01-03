@@ -1,19 +1,18 @@
 ﻿using JsonLD.Entities.Context;
-using NUnit.Framework;
+using Xunit;
 
 namespace JsonLD.Entities.Tests.ContextTests
 {
-    [TestFixture]
     public class VocabContextTests
     {
-        [Test]
+        [Fact]
         public void When_created_should_map_property_using_namespace_prefix()
         {
             // given
             var context = new VocabContext<Issue>("http://example.api/o#");
 
             // then
-            Assert.That(context["title"].ToString(), Is.EqualTo("http://example.api/o#title"));
+            Assert.Equal("http://example.api/o#title", context["title"].ToString());
         }
 
         public class Issue

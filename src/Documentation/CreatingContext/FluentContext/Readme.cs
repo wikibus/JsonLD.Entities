@@ -15,9 +15,8 @@ First let's start with the usual preamble.
 using System;
 using JsonLD.Entities.Context;
 using Newtonsoft.Json.Linq;
-using NUnit.Framework;
+using Xunit;
 
-[TestFixture]
 public class FluentSyntaxForBuildingContext
 {
 
@@ -25,7 +24,7 @@ public class FluentSyntaxForBuildingContext
 ### Define `@context` inline with class definition
 **/
 
-[Test]
+[Fact]
 public void BuildComplexContextSimply()
 {
     // given
@@ -84,7 +83,7 @@ public void BuildComplexContextSimply()
 
     // then
     context = JObject.Parse(context.ToString()); // DeepEqual fails otherwise
-    Assert.That(JToken.DeepEquals(context, JObject.Parse(expected)), "Actual context was {0}", context);
+    Assert.True(JToken.DeepEquals(context, JObject.Parse(expected)), $"Actual context was {context}");
 }
 }
 

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using ImpromptuInterface;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -54,7 +53,7 @@ namespace JsonLD.Entities
         /// </summary>
         internal static bool IsMarkedForCompaction(this Type type)
         {
-            return type.GetCustomAttributes(typeof(SerializeCompactedAttribute), true).Any();
+            return type.GetTypeInfo().GetCustomAttributes(typeof(SerializeCompactedAttribute), true).Any();
         }
 
         private static PropertyInfo GetAnnotatedTypeProperty(this Type type)
