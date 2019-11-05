@@ -34,6 +34,7 @@ namespace JsonLD.Entities.Converters
         /// <summary>
         /// Reads the JSON representation of the object.
         /// </summary>
+        [return: AllowNull]
         public sealed override object ReadJson(
             JsonReader reader,
             Type objectType,
