@@ -61,3 +61,13 @@ Graph image from [W3C](http://www.w3.org/RDF/) originally desgined by [Bill Schw
 [cov-link]: https://codecov.io/github/wikibus/JsonLD.Entities?branch=master
 [codefactor-badge]: https://www.codefactor.io/repository/github/wikibus/JsonLD.Entities/badge/master
 [codefactor-link]: https://www.codefactor.io/repository/github/wikibus/JsonLD.Entities/overview/master
+
+## Releasing
+
+Use [`versionize`](https://github.com/saintedlama/versionize) totag the next release. 
+
+```
+dotnet tool install --global Versionize
+versionize
+git push --follow-tags origin master
+```

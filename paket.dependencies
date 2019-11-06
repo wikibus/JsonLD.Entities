@@ -35,7 +35,6 @@ group tools
     nuget opencover
     nuget gitlink
     nuget codecov
-    nuget gitversion.commandline prerelease
 
 group addins
     source https://nuget.org/api/v2
